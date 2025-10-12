@@ -1,4 +1,4 @@
-package io.maksym.web.Registration;
+package io.maksym.web.DTO.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
