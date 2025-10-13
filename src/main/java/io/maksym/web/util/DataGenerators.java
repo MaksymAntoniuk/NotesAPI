@@ -4,7 +4,7 @@ import com.github.javafaker.Faker;
 
 public class DataGenerators {
     String fakeName;
-    public String generateValidRandomName(int minLength, int maxLength) {
+    public String generateRandomName(int minLength, int maxLength) {
         do{
             if(minLength > 30){
                 fakeName = new Faker().name().lastName() + new Faker().name().name() + new Faker().name().name();
