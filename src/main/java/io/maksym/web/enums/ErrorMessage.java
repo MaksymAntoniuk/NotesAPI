@@ -1,6 +1,6 @@
-package io.maksym.web.Enums;
+package io.maksym.web.enums;
 
-public enum ErrorMessages {
+public enum ErrorMessage {
 
     LOGIN_SUCCESSFUL_MESSAGE("Login successful"),
     HEALTH_CHECK_MESSAGE("Notes API is Running"),
@@ -13,7 +13,7 @@ public enum ErrorMessages {
 
     public final String message;
 
-    ErrorMessages(String message) {
+    ErrorMessage(String message) {
         this.message = message;
     }
 
