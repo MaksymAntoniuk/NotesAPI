@@ -1,4 +1,4 @@
-package io.maksym.web.enums;
+package io.maksym.web.validation;
 
 public final class ValidationConstants {
     public static final int UUID_LENGTH = 24;
