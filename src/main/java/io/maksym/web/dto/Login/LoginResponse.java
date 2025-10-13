@@ -1,4 +1,4 @@
-package io.maksym.web.DTO.Login;
+package io.maksym.web.dto.Login;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
