@@ -1,4 +1,4 @@
-package io.maksym.web.Helpers;
+package io.maksym.web.util;
 
 import com.github.javafaker.Faker;
 
