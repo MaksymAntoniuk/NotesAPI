@@ -1,4 +1,4 @@
-package io.maksym.web.DTO.HealthCheck;
+package io.maksym.web.dto.HealthCheck;
 
 import lombok.Data;
 
