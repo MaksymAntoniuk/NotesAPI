@@ -1,4 +1,4 @@
-package io.maksym.web.validation;
+package io.maksym.web.util;
 
 public final class Constants {
     public static final int UUID_LENGTH = 24;
