@@ -1,8 +1,7 @@
 package io.maksym.web.config;
 
 public final class ApiEndpoints {
-    private ApiEndpoints() {
-    }
+    private ApiEndpoints() {}
 
     public static final String BASE_URL = "https://practice.expandtesting.com/notes/api/";
     public static final String ENDPOINT_CREATE_USER = "users/register";
