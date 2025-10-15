@@ -1,5 +1,8 @@
 package io.maksym.web.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum ErrorMessage {
 
     LOGIN_SUCCESSFUL_MESSAGE("Login successful"),
@@ -15,10 +18,6 @@ public enum ErrorMessage {
 
     ErrorMessage(String message) {
         this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
 
