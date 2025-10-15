@@ -5,7 +5,6 @@ import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.HealthCheck.HealthCheckResponse;
 import io.maksym.web.util.DataGenerators;
 import io.maksym.web.dto.User.User;
-import io.maksym.web.actions.SimpleAction;
 import io.restassured.RestAssured;
 
 import org.junit.jupiter.api.*;
@@ -17,14 +16,14 @@ import static io.maksym.web.enums.StatusCode.*;
 import static io.maksym.web.validation.ValidationConstants.*;
 
 
-class Main extends BaseTest {
+class LoginTests extends BaseTest {
     
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify Successfull Health Check")
     void VerifySuccessfullHealthCheck() {
          final boolean EXPECTED_SUCCESS = true;
 
-        HealthCheckResponse response = new SimpleAction().checkHealth();
+        HealthCheckResponse response = checkHealth();
         System.out.println(response);
 
         Assertions.assertAll("Health Check Response",
@@ -48,15 +47,23 @@ class Main extends BaseTest {
 
         User user = new User(fakeName, fakeEmail, fakePassword);
 
-        var response= new SimpleAction().createUser(user);
+        var response= createUser(user);
 
-        Assertions.assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct");
-        Assertions.assertEquals(user.getName(), response.getData().getName(), "User [Name] is not correct");
-        Assertions.assertEquals(user.getEmail().toLowerCase(), response.getData().getEmail().toLowerCase(),"User [Email] is not correct");
+        Assertions.assertAll("User Registration Response",
+                () -> Assertions.assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct"),
+                () -> Assertions.assertEquals(user.getName(), response.getData().getName(), "User [Name] is not correct"),
+                () -> Assertions.assertEquals(user.getEmail().toLowerCase(), response.getData().getEmail().toLowerCase(),"User [Email] is not correct"),
+                () -> Assertions.assertEquals(CREATED_STATUS.getStatus(), response.getStatus()),
+                () -> Assertions.assertEquals(REGISTRATION_SUCCESSFUL_MESSAGE.getMessage(), response.getMessage()),
+                () -> Assertions.assertEquals(EXPECTED_SUCCESS, response.isSuccess()));
 
-        Assertions.assertEquals(CREATED_STATUS.getStatus(), response.getStatus());
-        Assertions.assertEquals(REGISTRATION_SUCCESSFUL_MESSAGE.getMessage(), response.getMessage());
-        Assertions.assertEquals(EXPECTED_SUCCESS, response.isSuccess());
+//        Assertions.assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct");
+//        Assertions.assertEquals(user.getName(), response.getData().getName(), "User [Name] is not correct");
+//        Assertions.assertEquals(user.getEmail().toLowerCase(), response.getData().getEmail().toLowerCase(),"User [Email] is not correct");
+
+//        Assertions.assertEquals(CREATED_STATUS.getStatus(), response.getStatus());
+//        Assertions.assertEquals(REGISTRATION_SUCCESSFUL_MESSAGE.getMessage(), response.getMessage());
+//        Assertions.assertEquals(EXPECTED_SUCCESS, response.isSuccess());
         System.out.println(user);
     }
 
@@ -67,7 +74,7 @@ class Main extends BaseTest {
         final Boolean EXPECTED_SUCCESS = false;
 
         User user = new User(new Faker().name().firstName(), "", new Faker().internet().password());
-        var response= new SimpleAction().createUser(user);
+        var response= createUser(user);
         Assertions.assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
         Assertions.assertEquals(EMAIL_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
         Assertions.assertEquals(EXPECTED_SUCCESS, response.isSuccess(), "Incorrect success status");
@@ -82,7 +89,7 @@ class Main extends BaseTest {
         String fakeEmail = new Faker().artist().name() + System.currentTimeMillis() + "@gmail.com";
 
         User user = new User("", fakeEmail, new Faker().internet().password());
-        var response= new SimpleAction().createUser(user);
+        var response= createUser(user);
 
         Assertions.assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
         Assertions.assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
@@ -99,7 +106,7 @@ class Main extends BaseTest {
         String fakeName = new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH);
 
         User user = new User(fakeName, fakeEmail, "");
-        var response= new SimpleAction().createUser(user);
+        var response= createUser(user);
 
         Assertions.assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
         Assertions.assertEquals(PASSWORD_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
@@ -114,7 +121,7 @@ class Main extends BaseTest {
         final Boolean EXPECTED_SUCCESS = false;
 
         User user = new User("", "", "");
-        var response= new SimpleAction().createUser(user);
+        var response= createUser(user);
 
         Assertions.assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
         Assertions.assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
@@ -137,11 +144,14 @@ class Main extends BaseTest {
 
         User user = new User(fakeName, fakeEmail, fakePassword);
 
-        var response= new SimpleAction().createUser(user);
+        var response= createUser(user);
 
-        Assertions.assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
-        Assertions.assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
-        Assertions.assertEquals(EXPECTED_SUCCESS, response.isSuccess(), "Incorrect success status");
+        Assertions.assertAll("User Registration Response",
+                () -> Assertions.assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
+                () -> Assertions.assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message"),
+                () -> Assertions.assertEquals(EXPECTED_SUCCESS, response.isSuccess(), "Incorrect success status")
+        );
+
         System.out.println(response);
         System.out.println(user);
     }
@@ -159,7 +169,7 @@ class Main extends BaseTest {
 
         User user = new User(fakeName, fakeEmail, fakePassword);
 
-        var response= new SimpleAction().createUser(user);
+        var response= createUser(user);
 
         Assertions.assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
         Assertions.assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
@@ -182,7 +192,7 @@ class Main extends BaseTest {
 
         User user = new User(fakeName, fakeEmail, fakePassword);
 
-        var response= new SimpleAction().createUser(user);
+        var response= createUser(user);
 
         Assertions.assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
         Assertions.assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
@@ -203,12 +213,7 @@ class Main extends BaseTest {
 
         User user = new User("NameFakeNameFakeNameFakeNameFa", fakeEmail, fakePassword);
 
-        var response= new SimpleAction().createUser(user);
-
-        Assertions.assertNotNull(response.getData(), "User [Data] is null");
-        Assertions.assertNotNull(response.getData().getId(), "User [ID] is null");
-        Assertions.assertNotNull(response.getData().getName(), "User [Name] is null");
-        Assertions.assertNotNull(response.getData().getEmail(), "User [Email] is null");
+        var response= createUser(user);
 
         Assertions.assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct");
         Assertions.assertEquals(user.getName(), response.getData().getName(), "User [Name] is not correct");
@@ -232,12 +237,7 @@ class Main extends BaseTest {
 
         User user = new User("Name", fakeEmail, fakePassword);
 
-        var response= new SimpleAction().createUser(user);
-
-        Assertions.assertNotNull(response.getData(), "User [Data] is null");
-        Assertions.assertNotNull(response.getData().getId(), "User [ID] is null");
-        Assertions.assertNotNull(response.getData().getName(), "User [Name] is null");
-        Assertions.assertNotNull(response.getData().getEmail(), "User [Email] is null");
+        var response= createUser(user);
 
         Assertions.assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct");
         Assertions.assertEquals(user.getName(), response.getData().getName(), "User [Name] is not correct");
@@ -248,6 +248,7 @@ class Main extends BaseTest {
         Assertions.assertEquals(EXPECTED_SUCCESS, response.isSuccess());
         System.out.println(user);
     }
+
     @DisplayName("Verify that user is NOT able to register successfully with existing [Email]")
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     void verifyFailUserRegistrationWithEmailLessThan4Characters() {
@@ -256,7 +257,7 @@ class Main extends BaseTest {
         String fakeName = new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH);
 
         User user = new User(fakeName, email, new DataGenerators().generateRandomPassword(6, 30));
-        var response= new SimpleAction().createUser(user);
+        var response= createUser(user);
 
         Assertions.assertEquals(CONFLICT_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
         Assertions.assertEquals(EXISTING_EMAIL_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
@@ -270,7 +271,7 @@ class Main extends BaseTest {
     void VerifySuccessfullLogin(){
         final Boolean EXPECTED_SUCCESS = true;
 
-        var response = new SimpleAction().logIn(email, password);
+        var response = logIn(email, password);
 
         Assertions.assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct");
         Assertions.assertEquals(email, response.getData().getEmail(), "User [Email] is not correct");

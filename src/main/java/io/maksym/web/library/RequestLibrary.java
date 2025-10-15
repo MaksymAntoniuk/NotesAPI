@@ -5,7 +5,7 @@ import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 
-public class BaseRequestLibrary {
+public class RequestLibrary {
     public static RequestSpecification getRequestSpec() {
         return given()
                 .contentType(ContentType.JSON)
