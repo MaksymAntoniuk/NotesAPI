@@ -1,4 +1,14 @@
-package io.maksym.web.dto;
+package io.maksym.web.dto.Profile;
 
-public class Profile {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+@Data
+public class ProfileResponse {
+    private boolean success;
+    private int status;
+    private String message;
+
+    @JsonProperty("data")
+    private ProfileData data;
 }
