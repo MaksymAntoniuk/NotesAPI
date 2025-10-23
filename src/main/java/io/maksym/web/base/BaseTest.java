@@ -16,18 +16,23 @@ public class BaseTest implements SimpleAction {
     protected String email = "<EMAIL>";
     protected String password = "<PASSWORD>";
     protected String token = "<TOKEN>";
+    protected String name = "<NAME>";
+    protected String id = "<ID>";
 
     @BeforeEach
     public void setup(){
         RestAssured.baseURI = ApiEndpoints.BASE_URL;
         String passwordCred = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
         RegistrationSuccessfulResponse createdUser = createUser(new User(new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH), new DataGenerators().generateRandomEmail(true), passwordCred));
+
         email = createdUser.getData().getEmail();
         password = passwordCred;
 
         LoginResponse loggedInUser = logIn(email, password);
+
         token = loggedInUser.getData().getToken();
-        System.out.println("Token: " + token);
+        id = loggedInUser.getData().getId();
+        name = loggedInUser.getData().getName();
     }
 
     @AfterEach
