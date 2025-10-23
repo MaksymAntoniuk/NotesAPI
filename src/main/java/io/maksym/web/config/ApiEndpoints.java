@@ -7,4 +7,7 @@ public final class ApiEndpoints {
     public static final String ENDPOINT_CREATE_USER = "users/register";
     public static final String ENDPOINT_HEALTH_CHECK = "health-check";
     public static final String ENDPOINT_LOG_IN = "users/login";
+    public static final String ENDPOINT_GET_USER_PROFILE = "users/profile";
+    public static final String ENDPOINT_UPDATE_USER_PROFILE = "users/profile";
+    public static final String ENDPOINT_DELETE_USER_PROFILE = "users/delete-account";
 }
