@@ -12,7 +12,6 @@ public class DataGenerators {
             else {
                 fakeName = new Faker().name().firstName();
             }
-            System.out.println(fakeName);
         } while((fakeName.length() < minLength || fakeName.length() > maxLength));
         return fakeName;
     }
@@ -27,8 +26,13 @@ public class DataGenerators {
     public String generateRandomPassword(int minLength, int maxLength) {
         return new Faker().internet().password(minLength, maxLength);
     }
-//    public String generateRandomName(int minLength, int maxLength) {
-//        return new Faker().name().firstName().replaceAll("\\s+", "_");
-//    }
+
+    public String generateRandomPhone() {
+        return new Faker().phoneNumber().subscriberNumber(10);
+    }
+    public String generateRandomCompany() {
+        return new Faker().company().name();
+    }
+
 
 }
