@@ -7,6 +7,7 @@ import io.maksym.web.dto.User.User;
 import io.maksym.web.actions.SimpleAction;
 import io.maksym.web.util.DataGenerators;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import static io.maksym.web.util.Constants.*;
@@ -27,6 +28,11 @@ public class BaseTest implements SimpleAction {
         LoginResponse loggedInUser = logIn(email, password);
         token = loggedInUser.getData().getToken();
         System.out.println("Token: " + token);
+    }
+
+    @AfterEach
+    public void tearDown(){
+        RestAssured.reset();
     }
 
 }

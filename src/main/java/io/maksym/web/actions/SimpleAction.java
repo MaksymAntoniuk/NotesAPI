@@ -16,4 +16,5 @@ public interface SimpleAction extends RequestLibrary{
     default HealthCheckResponse checkHealth(){
         return getCheckHealth();
     };
+
 }
