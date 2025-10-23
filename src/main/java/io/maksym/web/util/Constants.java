@@ -9,10 +9,6 @@ public final class Constants {
     public static final int NAME_MAX_LENGTH = 30;
     public static final int REPEAT_COUNT = 1;
 
-    public static final boolean EXPECTED_SUCCESS = true;
+    public static final boolean EXPECTED_SUCCESS_TRUE = true;
     public static final boolean EXPECTED_SUCCESS_FALSE = false;
-
-
-    private Constants() {
-    }
 }
