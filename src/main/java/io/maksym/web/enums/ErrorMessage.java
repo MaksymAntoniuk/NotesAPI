@@ -1,8 +1,5 @@
 package io.maksym.web.enums;
 
-import lombok.Getter;
-
-@Getter
 public enum ErrorMessage {
 
     LOGIN_SUCCESSFUL_MESSAGE("Login successful"),
@@ -11,13 +8,22 @@ public enum ErrorMessage {
     EMAIL_MISSED_MESSAGE("A valid email address is required"),
     NAME_MISSED_MESSAGE("User name must be between 4 and 30 characters"),
     PASSWORD_MISSED_MESSAGE("Password must be between 6 and 30 characters"),
-    EXISTING_EMAIL_MESSAGE("An account already exists with the same email address");
+    EXISTING_EMAIL_MESSAGE("An account already exists with the same email address"),
+    PROFILE_SUCCESSFUL("Profile successful"),
+    UNAUTHORIZED_MESSAGE("Access token is not valid or has expired, you will need to login"),
+    INVALID_REQUEST_MESSAGE("Invalid Request"),
+    SUCCESSFUL_DELETION_MESSAGE("Account successfully deleted");
+
 
 
     public final String message;
 
     ErrorMessage(String message) {
         this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
 
