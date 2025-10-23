@@ -1,20 +1,22 @@
 package io.maksym.web;
 
-import io.maksym.web.base.BaseTest;
-import io.maksym.web.util.DataGenerators;
-import io.maksym.web.dto.User.User;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.*;
 import com.github.javafaker.Faker;
+import io.maksym.web.base.BaseTest;
+import io.maksym.web.dto.User.User;
+import io.maksym.web.util.DataGenerators;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
+
 import static io.maksym.web.enums.ErrorMessage.*;
 import static io.maksym.web.enums.StatusCode.*;
 import static io.maksym.web.util.Constants.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-class LoginTests extends BaseTest {
+class LoginTest extends BaseTest {
 
-    @DisplayName("Verify that user is able to register successfully")
+    @DisplayName("Verify that user is able to Register successfully")
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     void verifySuccessUserRegistrationTest() {
 
@@ -22,22 +24,18 @@ class LoginTests extends BaseTest {
         String fakeName = new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH);
         String fakePassword = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
 
-        System.out.println("Fake name: " + fakeName);
-        System.out.println("Fake email: " + fakeEmail);
-
         User user = new User(fakeName, fakeEmail, fakePassword);
 
         var response= createUser(user);
 
-        Assertions.assertAll("User Registration Response",
+        assertAll("Verify that user is able to Register successfully",
                 () -> assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct"),
                 () -> assertEquals(user.getName(), response.getData().getName(), "User [Name] is not correct"),
                 () -> assertEquals(user.getEmail().toLowerCase(), response.getData().getEmail().toLowerCase(),"User [Email] is not correct"),
                 () -> assertEquals(CREATED_STATUS.getStatus(), response.getStatus()),
                 () -> assertEquals(REGISTRATION_SUCCESSFUL_MESSAGE.getMessage(), response.getMessage()),
-                () -> assertEquals(EXPECTED_SUCCESS, response.isSuccess()));
-
-        System.out.println(user);
+                () -> assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess())
+        );
     }
 
 
@@ -47,10 +45,12 @@ class LoginTests extends BaseTest {
         User user = new User(new Faker().name().firstName(), "", new Faker().internet().password());
         var response= createUser(user);
 
-        assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
-        assertEquals(EMAIL_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
-        assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status");
-        System.out.println(response);
+        assertAll("Verify that user is not able to register successfully with empty [Email]",
+                () -> assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
+                () -> assertEquals(EMAIL_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message"),
+                () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
+        );
+
     }
 
     @DisplayName("Verify that user is not able to register successfully with empty [Name]")
@@ -61,10 +61,13 @@ class LoginTests extends BaseTest {
         User user = new User("", fakeEmail, new Faker().internet().password());
         var response= createUser(user);
 
-        assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
-        assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
-        assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status");
-        System.out.println(response);
+        assertAll("Verify that user is not able to register successfully with empty [Name]",
+                () -> assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
+                () -> assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message"),
+                () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
+        );
+
+
     }
 
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
@@ -76,11 +79,14 @@ class LoginTests extends BaseTest {
         User user = new User(fakeName, fakeEmail, "");
         var response= createUser(user);
 
-        assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
-        assertEquals(PASSWORD_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
-        assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status");
-        System.out.println(user);
-        System.out.println(response);
+        assertAll("Verify that user is not able to register successfully with empty [Password]",
+                () -> assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
+                () -> assertEquals(PASSWORD_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message"),
+                () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
+        );
+
+
+
     }
 
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
@@ -89,10 +95,12 @@ class LoginTests extends BaseTest {
         User user = new User("", "", "");
         var response= createUser(user);
 
-        assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
-        assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
-        assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status");
-        System.out.println(response);
+        assertAll("Verify that user is not able to register successfully with empty [All fields]",
+                () -> assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
+                () ->assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message"),
+                () ->assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
+        );
+
     }
 
     @DisplayName("Verify that user is NOT able to register successfully with [Name] < 4 characters")
@@ -105,18 +113,13 @@ class LoginTests extends BaseTest {
         User user = new User(fakeName, fakeEmail, fakePassword);
         var response= createUser(user);
 
-        System.out.println("Fake name: " + fakeName);
-        System.out.println("Fake email: " + fakeEmail);
-
-        Assertions.assertAll("User Registration Response",
+        assertAll("Verify that user is NOT able to register successfully with [Name] < 4 characters",
                 () -> assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
                 () -> assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message"),
                 () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
         );
-
-        System.out.println(response);
-        System.out.println(user);
     }
+
     @DisplayName("Verify that user is NOT able to register successfully with [Name] > 30 characters")
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     void verifyFailUserRegistrationWithNameMoreThan4Characters() {
@@ -127,14 +130,11 @@ class LoginTests extends BaseTest {
         User user = new User(fakeName, fakeEmail, fakePassword);
         var response= createUser(user);
 
-        System.out.println("Fake name: " + fakeName);
-        System.out.println("Fake email: " + fakeEmail);
-
-        assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
-        assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
-        assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status");
-        System.out.println(response);
-        System.out.println(user);
+        assertAll("Verify that user is NOT able to register successfully with [Name] > 30 characters",
+                () -> assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
+                () -> assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message"),
+                () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
+        );
     }
 
     @DisplayName("Verify that user is NOT able to register successfully with [Null] in [Name]")
@@ -144,18 +144,15 @@ class LoginTests extends BaseTest {
         String fakeName = null;
         String fakePassword = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
 
-        System.out.println("Fake name: " + fakeName);
-        System.out.println("Fake email: " + fakeEmail);
-
         User user = new User(fakeName, fakeEmail, fakePassword);
 
         var response= createUser(user);
 
-        assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
-        assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
-        assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status");
-        System.out.println(response);
-        System.out.println(user);
+        assertAll("Verify that user is NOT able to register successfully with [Null] in [Name]",
+                () -> assertEquals(BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
+                () ->assertEquals(NAME_MISSED_MESSAGE.getMessage(), response.getMessage(), "Incorrect message"),
+                () ->assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
+        );
     }
 
     @DisplayName("Verify that user is able to register successfully with [Name] == 30 characters")
@@ -166,16 +163,16 @@ class LoginTests extends BaseTest {
 
         User user = new User("NameFakeNameFakeNameFakeNameFa", fakeEmail, fakePassword);
         var response= createUser(user);
-        System.out.println("Fake email: " + fakeEmail);
 
-        assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct");
-        assertEquals(user.getName(), response.getData().getName(), "User [Name] is not correct");
-        assertEquals(user.getEmail().toLowerCase(), response.getData().getEmail().toLowerCase(),"User [Email] is not correct");
+        assertAll("Verify that user is able to register successfully with [Name] == 30 characters",
 
-        assertEquals(CREATED_STATUS.getStatus(), response.getStatus());
-        assertEquals(REGISTRATION_SUCCESSFUL_MESSAGE.getMessage(), response.getMessage());
-        assertEquals(EXPECTED_SUCCESS, response.isSuccess());
-        System.out.println(user);
+                () -> assertEquals(CREATED_STATUS.getStatus(), response.getStatus()),
+                () -> assertEquals(REGISTRATION_SUCCESSFUL_MESSAGE.getMessage(), response.getMessage()),
+                () -> assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess()),
+                () -> assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct"),
+                () -> assertEquals(user.getName(), response.getData().getName(), "User [Name] is not correct"),
+                () -> assertEquals(user.getEmail().toLowerCase(), response.getData().getEmail().toLowerCase(),"User [Email] is not correct")
+        );
     }
 
     @DisplayName("Verify that user is able to register successfully with [Name] == 4 characters")
@@ -188,15 +185,15 @@ class LoginTests extends BaseTest {
         var response= createUser(user);
         System.out.println("Fake email: " + fakeEmail);
 
+        assertAll("Verify that user is able to register successfully with [Name] == 4 characters",
+                    () -> assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct"),
+                    () -> assertEquals(user.getName(), response.getData().getName(), "User [Name] is not correct"),
+                    () -> assertEquals(user.getEmail().toLowerCase(), response.getData().getEmail().toLowerCase(),"User [Email] is not correct"),
 
-        assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct");
-        assertEquals(user.getName(), response.getData().getName(), "User [Name] is not correct");
-        assertEquals(user.getEmail().toLowerCase(), response.getData().getEmail().toLowerCase(),"User [Email] is not correct");
-
-        assertEquals(CREATED_STATUS.getStatus(), response.getStatus());
-        assertEquals(REGISTRATION_SUCCESSFUL_MESSAGE.getMessage(), response.getMessage());
-        assertEquals(EXPECTED_SUCCESS, response.isSuccess());
-        System.out.println(user);
+                    () -> assertEquals(CREATED_STATUS.getStatus(), response.getStatus()),
+                    () -> assertEquals(REGISTRATION_SUCCESSFUL_MESSAGE.getMessage(), response.getMessage()),
+                    () -> assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess())
+        );
     }
 
     @DisplayName("Verify that user is NOT able to register successfully with existing [Email]")
@@ -207,11 +204,11 @@ class LoginTests extends BaseTest {
         User user = new User(fakeName, email, new DataGenerators().generateRandomPassword(6, 30));
         var response= createUser(user);
 
-        assertEquals(CONFLICT_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
-        assertEquals(EXISTING_EMAIL_MESSAGE.getMessage(), response.getMessage(), "Incorrect message");
-        assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status");
-        System.out.println(user);
-        System.out.println(response);
+        assertAll("Verify that user is NOT able to register successfully with existing [Email]",
+                    () -> assertEquals(CONFLICT_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
+                    () -> assertEquals(EXISTING_EMAIL_MESSAGE.getMessage(), response.getMessage(), "Incorrect message"),
+                    () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
+        );
     }
 
     @DisplayName("Verify that user is able to Log In with valid credentials")
@@ -219,15 +216,14 @@ class LoginTests extends BaseTest {
     void VerifySuccessfullLogin(){
         var response = logIn(email, password);
 
-        assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct");
-        assertEquals(email, response.getData().getEmail(), "User [Email] is not correct");
-        assertEquals(TOKEN_LENGTH, response.getData().getToken().length(), "User [Token] is not correct" );
-        assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus());
-        assertEquals(LOGIN_SUCCESSFUL_MESSAGE.getMessage(), response.getMessage());
-        assertEquals(EXPECTED_SUCCESS, response.isSuccess());
-        System.out.println(response);
+        assertAll("Verify that user is able to Log In with valid credentials",
+                () -> assertEquals(UUID_LENGTH, response.getData().getId().length(), "User [ID] is not correct"),
+                () -> assertEquals(email, response.getData().getEmail(), "User [Email] is not correct"),
+                () -> assertEquals(TOKEN_LENGTH, response.getData().getToken().length(), "User [Token] is not correct" ),
+                () -> assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus()),
+                () -> assertEquals(LOGIN_SUCCESSFUL_MESSAGE.getMessage(), response.getMessage()),
+                () -> assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess())
+        );
     }
-
-
 
 }
