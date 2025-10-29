@@ -14,18 +14,18 @@ import static io.maksym.web.util.Constants.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DeleteUserBodyTest extends BaseTest {
+public class DeleteUserUpdateBodyTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is Deleted successfully")
     public void deleteUserTest(){
-        HealthCheckResponse response = deleteUser(ENDPOINT_DELETE_USER_PROFILE, token).as(HealthCheckResponse.class);
+        HealthCheckResponse response = deleteRequest(ENDPOINT_DELETE_USER_PROFILE, token).as(HealthCheckResponse.class);
         assertAll("Verify that user is Deleted successfully",
                 () -> assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Invalid status code"),
                 () -> assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess(), "Invalid success status"),
                 () -> assertEquals( SUCCESSFUL_DELETION_MESSAGE.getMessage(),response.getMessage(),"Invalid message")
         );
 
-        HealthCheckResponse responseAfterSecondDeletion = deleteUser(ENDPOINT_DELETE_USER_PROFILE, token).as(HealthCheckResponse.class);
+        HealthCheckResponse responseAfterSecondDeletion = deleteRequest(ENDPOINT_DELETE_USER_PROFILE, token).as(HealthCheckResponse.class);
         assertAll("Verify that user not able to Deleted second time",
                 () -> assertEquals(UNAUTHORIZED_STATUS.getStatus(), responseAfterSecondDeletion.getStatus(), "Invalid status code"),
                 () -> assertEquals(EXPECTED_SUCCESS_FALSE, responseAfterSecondDeletion.isSuccess(), "Invalid success status"),
@@ -37,7 +37,7 @@ public class DeleteUserBodyTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is NOT able to Delete Profile with invalid Token")
     public void deleteUserWithInvalidTokenTest(){
-        HealthCheckResponse response = deleteUser(ENDPOINT_DELETE_USER_PROFILE, "wrongToken").as(HealthCheckResponse.class);
+        HealthCheckResponse response = deleteRequest(ENDPOINT_DELETE_USER_PROFILE, "wrongToken").as(HealthCheckResponse.class);
         assertAll("Verify that user is NOT able to Delete Profile with invalid Token",
                 () -> assertEquals(UNAUTHORIZED_STATUS.getStatus(), response.getStatus(), "Invalid status code"),
                 () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Invalid success status"),
