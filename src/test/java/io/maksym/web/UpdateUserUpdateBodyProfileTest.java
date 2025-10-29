@@ -1,6 +1,6 @@
 package io.maksym.web;
 
-import io.maksym.web.Records.UserBody;
+import io.maksym.web.Records.UserUpdateBody;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Profile.ProfileResponse;
 import io.maksym.web.enums.ErrorMessage;
@@ -17,12 +17,12 @@ import static io.maksym.web.enums.StatusCode.UNAUTHORIZED_STATUS;
 import static io.maksym.web.util.Constants.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class UpdateUserBodyProfileTest extends BaseTest {
+public class UpdateUserUpdateBodyProfileTest extends BaseTest {
     @DisplayName("Verify that user is able to update [Name]")
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     public void updateUserProfileNameTest(){
         String name = new DataGenerators().generateRandomName(4, 30);
-        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE, token, new UserBody(name, "", "")).as(ProfileResponse.class);
+        ProfileResponse response = patchRequest(ENDPOINT_UPDATE_USER_PROFILE, token, new UserUpdateBody(name, "", "")).as(ProfileResponse.class);
 
         assertAll("Verify that user is able to update [Name]",
                 () -> Assertions.assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
@@ -40,7 +40,7 @@ public class UpdateUserBodyProfileTest extends BaseTest {
         String phone = new DataGenerators().generateRandomPhone();
         String name = new DataGenerators().generateRandomName(4, 30);
 
-        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE, token, new UserBody(name, phone, "")).as(ProfileResponse.class);
+        ProfileResponse response = patchRequest(ENDPOINT_UPDATE_USER_PROFILE, token, new UserUpdateBody(name, phone, "")).as(ProfileResponse.class);
 
         assertAll("Verify that user is able to update [Phone]",
                 () -> Assertions.assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
@@ -58,7 +58,7 @@ public class UpdateUserBodyProfileTest extends BaseTest {
         String company = new DataGenerators().generateRandomCompany();
         String name = new DataGenerators().generateRandomName(4, 30);
 
-        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE, token, new UserBody(name, "", company)).as(ProfileResponse.class);
+        ProfileResponse response = patchRequest(ENDPOINT_UPDATE_USER_PROFILE, token, new UserUpdateBody(name, "", company)).as(ProfileResponse.class);
 
         assertAll("Verify that user is able to update [Company]",
                 () -> Assertions.assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
@@ -77,7 +77,7 @@ public class UpdateUserBodyProfileTest extends BaseTest {
         String phone = new DataGenerators().generateRandomPhone();
         String name = new DataGenerators().generateRandomName(4, 30);
 
-        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE ,token, new UserBody(name, phone, company)).as(ProfileResponse.class);
+        ProfileResponse response = patchRequest(ENDPOINT_UPDATE_USER_PROFILE ,token, new UserUpdateBody(name, phone, company)).as(ProfileResponse.class);
         assertAll("Verify that user is able to update [Name], [Phone], [Company] in the same time",
                 () -> Assertions.assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
                 () -> Assertions.assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess(), "Incorrect success status"),
@@ -95,7 +95,7 @@ public class UpdateUserBodyProfileTest extends BaseTest {
         String phone = new DataGenerators().generateRandomPhone();
         String name = new DataGenerators().generateRandomName(4, 30);
 
-        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE, "wrongToken",new UserBody(name, phone, company)).as(ProfileResponse.class);
+        ProfileResponse response = patchRequest(ENDPOINT_UPDATE_USER_PROFILE, "wrongToken",new UserUpdateBody(name, phone, company)).as(ProfileResponse.class);
 
         assertAll("Verify that user is NOT able to update Profile with invalid Token",
                 () -> Assertions.assertEquals(UNAUTHORIZED_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
@@ -111,7 +111,7 @@ public class UpdateUserBodyProfileTest extends BaseTest {
         String phone = new DataGenerators().generateRandomPhone();
         String name = new DataGenerators().generateRandomName(4, 30);
 
-        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE, token, new UserBody(null, null, null)).as(ProfileResponse.class);
+        ProfileResponse response = patchRequest(ENDPOINT_UPDATE_USER_PROFILE, token, new UserUpdateBody(null, null, null)).as(ProfileResponse.class);
 
         assertAll("Verify that user is able to update with NULL value in [Name], [Phone], [Company]",
                 () -> Assertions.assertEquals(StatusCode.BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
