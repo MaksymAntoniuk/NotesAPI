@@ -1,20 +1,21 @@
 package io.maksym.web.actions;
-
-import io.maksym.web.dto.HealthCheck.HealthCheckResponse;
-import io.maksym.web.dto.Login.LoginResponse;
-import io.maksym.web.dto.Registration.RegistrationSuccResponse.RegistrationSuccessfulResponse;
-import io.maksym.web.dto.User.User;
 import io.maksym.web.library.RequestLibrary;
+import io.restassured.response.Response;
 
-public interface SimpleAction extends RequestLibrary{
-    default RegistrationSuccessfulResponse createUser(User user){
-        return postCreateUser(user);
+public class SimpleAction extends RequestLibrary {
+    public Response getCheckHealth(String url){
+        return getCheckH(url);
     };
-    default LoginResponse logIn(String email, String password){
-        return postLogIn(email, password);
+    public Response postRequest(String url, Record record){
+        return postReq(url, record);
     };
-    default HealthCheckResponse checkHealth(){
-        return getCheckHealth();
+    public Response getRequest(String url, String token){
+        return getReq(url, token);
     };
-
+    public Response patchRequest(String url, String token, Record record){
+        return patchReq(url, token, record);
+    };
+    public Response deleteRequest(String url, String token){
+        return deleteReq(url, token);
+    };
 }
