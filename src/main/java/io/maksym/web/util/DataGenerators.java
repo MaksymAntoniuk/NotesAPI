@@ -33,6 +33,4 @@ public class DataGenerators {
     public String generateRandomCompany() {
         return new Faker().company().name();
     }
-
-
 }
