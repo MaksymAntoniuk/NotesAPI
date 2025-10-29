@@ -15,12 +15,12 @@ import static io.maksym.web.util.Constants.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GetUserBodyProfileTest extends BaseTest {
+public class GetUserUpdateBodyProfileTest extends BaseTest {
 
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to fetch [Profile] data")
     public void getUserProfileTest(){
-        ProfileResponse response = getUserProfile(ENDPOINT_GET_USER_PROFILE, token).as(ProfileResponse.class);
+        ProfileResponse response = getRequest(ENDPOINT_GET_USER_PROFILE, token).as(ProfileResponse.class);
         assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Incorrect status code");
         assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess(), "Incorrect success status");
         assertEquals(PROFILE_SUCCESSFUL.getMessage(), response.getMessage());
@@ -35,7 +35,7 @@ public class GetUserBodyProfileTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is NOT able to fetch [Profile] data with Invalid Token")
     public void getUserProfileWithWrongTokenTest(){
-        ProfileResponse response = getUserProfile(ENDPOINT_GET_USER_PROFILE, "wrongToken").as(ProfileResponse.class);
+        ProfileResponse response = getRequest(ENDPOINT_GET_USER_PROFILE, "wrongToken").as(ProfileResponse.class);
         assertAll("Verify that user is NOT able to fetch [Profile] data with Invalid Token",
                 () -> assertEquals(UNAUTHORIZED_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
                 () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status"),
