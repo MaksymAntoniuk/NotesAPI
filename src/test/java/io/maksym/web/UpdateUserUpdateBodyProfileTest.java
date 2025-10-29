@@ -1,5 +1,6 @@
 package io.maksym.web;
 
+import io.maksym.web.Records.UserBody;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Profile.ProfileResponse;
 import io.maksym.web.enums.ErrorMessage;
@@ -9,30 +10,27 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 
+import static io.maksym.web.config.ApiEndpoints.ENDPOINT_UPDATE_USER_PROFILE;
 import static io.maksym.web.enums.ErrorMessage.UNAUTHORIZED_MESSAGE;
 import static io.maksym.web.enums.StatusCode.SUCCESSFUL_STATUS;
 import static io.maksym.web.enums.StatusCode.UNAUTHORIZED_STATUS;
 import static io.maksym.web.util.Constants.*;
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static io.maksym.web.enums.ErrorMessage.PROFILE_SUCCESSFUL;
 
-
-public class UpdateUserProfileTest extends BaseTest {
-
+public class UpdateUserBodyProfileTest extends BaseTest {
     @DisplayName("Verify that user is able to update [Name]")
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     public void updateUserProfileNameTest(){
         String name = new DataGenerators().generateRandomName(4, 30);
-        ProfileResponse response = updateUserProfileName(token, name);
+        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE, token, new UserBody(name, "", "")).as(ProfileResponse.class);
 
         assertAll("Verify that user is able to update [Name]",
                 () -> Assertions.assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
                 () -> Assertions.assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess(), "Incorrect success status"),
                 () -> Assertions.assertEquals(email, response.getData().getEmail(), "Incorrect [Email]]"),
                 () -> Assertions.assertEquals(name, response.getData().getName(), "Incorrect [Name]"),
-                () -> Assertions.assertNull(response.getData().getPhone(), "Incorrect [Phone]"),
-                () -> Assertions.assertNull(response.getData().getCompany(), "Incorrect [Company]")
+                () -> Assertions.assertEquals("", response.getData().getPhone(), "Incorrect [Phone]"),
+                () -> Assertions.assertEquals("", response.getData().getCompany(), "Incorrect [Company]")
         );
     }
 
@@ -42,7 +40,7 @@ public class UpdateUserProfileTest extends BaseTest {
         String phone = new DataGenerators().generateRandomPhone();
         String name = new DataGenerators().generateRandomName(4, 30);
 
-        ProfileResponse response = updateUserProfilePhone(token, name, phone);
+        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE, token, new UserBody(name, phone, "")).as(ProfileResponse.class);
 
         assertAll("Verify that user is able to update [Phone]",
                 () -> Assertions.assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
@@ -50,7 +48,7 @@ public class UpdateUserProfileTest extends BaseTest {
                 () -> Assertions.assertEquals(email, response.getData().getEmail(), "Incorrect [Email]]"),
                 () -> Assertions.assertEquals(name, response.getData().getName(), "Incorrect [Name]"),
                 () -> Assertions.assertEquals(phone, response.getData().getPhone(), "Incorrect [Phone]"),
-                () -> Assertions.assertNull(response.getData().getCompany(), "Incorrect [Company]")
+                () -> Assertions.assertEquals("", response.getData().getCompany(), "Incorrect [Company]")
         );
     }
 
@@ -58,14 +56,16 @@ public class UpdateUserProfileTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     public void updateUserProfileCompanyTest(){
         String company = new DataGenerators().generateRandomCompany();
-        ProfileResponse response = updateUserProfileCompany(token, name, company);
+        String name = new DataGenerators().generateRandomName(4, 30);
 
-        assertAll("Veerify that user is able to update [Company]",
+        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE, token, new UserBody(name, "", company)).as(ProfileResponse.class);
+
+        assertAll("Verify that user is able to update [Company]",
                 () -> Assertions.assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
                 () -> Assertions.assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess(), "Incorrect success status"),
                 () -> Assertions.assertEquals(email, response.getData().getEmail(), "Incorrect [Email]]"),
                 () -> Assertions.assertEquals(name, response.getData().getName(), "Incorrect [Name]"),
-                () -> Assertions.assertNull(response.getData().getPhone(), "Incorrect [Phone]"),
+                () -> Assertions.assertEquals("", response.getData().getPhone(), "Incorrect [Phone]"),
                 () -> Assertions.assertEquals(company, response.getData().getCompany(), "Incorrect [Company]")
         );
     }
@@ -77,7 +77,7 @@ public class UpdateUserProfileTest extends BaseTest {
         String phone = new DataGenerators().generateRandomPhone();
         String name = new DataGenerators().generateRandomName(4, 30);
 
-        ProfileResponse response = updateUserProfile(token, name, phone, company);
+        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE ,token, new UserBody(name, phone, company)).as(ProfileResponse.class);
         assertAll("Verify that user is able to update [Name], [Phone], [Company] in the same time",
                 () -> Assertions.assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
                 () -> Assertions.assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess(), "Incorrect success status"),
@@ -95,7 +95,7 @@ public class UpdateUserProfileTest extends BaseTest {
         String phone = new DataGenerators().generateRandomPhone();
         String name = new DataGenerators().generateRandomName(4, 30);
 
-        ProfileResponse response = updateUserProfile("wrongToken", name, phone, company);
+        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE, "wrongToken",new UserBody(name, phone, company)).as(ProfileResponse.class);
 
         assertAll("Verify that user is NOT able to update Profile with invalid Token",
                 () -> Assertions.assertEquals(UNAUTHORIZED_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
@@ -111,7 +111,7 @@ public class UpdateUserProfileTest extends BaseTest {
         String phone = new DataGenerators().generateRandomPhone();
         String name = new DataGenerators().generateRandomName(4, 30);
 
-        ProfileResponse response = updateUserProfile(token, name, null, null);
+        ProfileResponse response = patchUserProfile(ENDPOINT_UPDATE_USER_PROFILE, token, new UserBody(null, null, null)).as(ProfileResponse.class);
 
         assertAll("Verify that user is able to update with NULL value in [Name], [Phone], [Company]",
                 () -> Assertions.assertEquals(StatusCode.BAD_REQUEST_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
@@ -119,6 +119,4 @@ public class UpdateUserProfileTest extends BaseTest {
                 () -> Assertions.assertEquals(ErrorMessage.INVALID_REQUEST_MESSAGE.getMessage(), response.getMessage(), "Incorrect message")
         );
     }
-
-
 }

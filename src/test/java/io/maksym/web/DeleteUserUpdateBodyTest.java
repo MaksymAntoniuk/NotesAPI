@@ -5,6 +5,7 @@ import io.maksym.web.dto.HealthCheck.HealthCheckResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 
+import static io.maksym.web.config.ApiEndpoints.ENDPOINT_DELETE_USER_PROFILE;
 import static io.maksym.web.enums.ErrorMessage.SUCCESSFUL_DELETION_MESSAGE;
 import static io.maksym.web.enums.ErrorMessage.UNAUTHORIZED_MESSAGE;
 import static io.maksym.web.enums.StatusCode.SUCCESSFUL_STATUS;
@@ -13,18 +14,18 @@ import static io.maksym.web.util.Constants.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DeleteUserTest extends BaseTest {
+public class DeleteUserBodyTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is Deleted successfully")
     public void deleteUserTest(){
-        HealthCheckResponse response = deleteUser(token);
+        HealthCheckResponse response = deleteUser(ENDPOINT_DELETE_USER_PROFILE, token).as(HealthCheckResponse.class);
         assertAll("Verify that user is Deleted successfully",
                 () -> assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Invalid status code"),
                 () -> assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess(), "Invalid success status"),
                 () -> assertEquals( SUCCESSFUL_DELETION_MESSAGE.getMessage(),response.getMessage(),"Invalid message")
         );
 
-        HealthCheckResponse responseAfterSecondDeletion = deleteUser(token);
+        HealthCheckResponse responseAfterSecondDeletion = deleteUser(ENDPOINT_DELETE_USER_PROFILE, token).as(HealthCheckResponse.class);
         assertAll("Verify that user not able to Deleted second time",
                 () -> assertEquals(UNAUTHORIZED_STATUS.getStatus(), responseAfterSecondDeletion.getStatus(), "Invalid status code"),
                 () -> assertEquals(EXPECTED_SUCCESS_FALSE, responseAfterSecondDeletion.isSuccess(), "Invalid success status"),
@@ -36,7 +37,7 @@ public class DeleteUserTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is NOT able to Delete Profile with invalid Token")
     public void deleteUserWithInvalidTokenTest(){
-        HealthCheckResponse response = deleteUser("wrongToken");
+        HealthCheckResponse response = deleteUser(ENDPOINT_DELETE_USER_PROFILE, "wrongToken").as(HealthCheckResponse.class);
         assertAll("Verify that user is NOT able to Delete Profile with invalid Token",
                 () -> assertEquals(UNAUTHORIZED_STATUS.getStatus(), response.getStatus(), "Invalid status code"),
                 () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Invalid success status"),
