@@ -1,4 +1,4 @@
 package io.maksym.web.Records;
 
-public class UserBody {
+public record UserBody(String name, String email, String password) {
 }
