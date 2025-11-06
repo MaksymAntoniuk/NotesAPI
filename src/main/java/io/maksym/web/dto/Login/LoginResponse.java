@@ -1,9 +1,10 @@
 package io.maksym.web.dto.Login;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 
-@lombok.Data
+@Data
 public class LoginResponse {
     String message;
     int status;
