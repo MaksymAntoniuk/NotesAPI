@@ -15,7 +15,7 @@ import static io.maksym.web.config.ApiEndpoints.ENDPOINT_CREATE_USER;
 import static io.maksym.web.config.ApiEndpoints.ENDPOINT_LOG_IN;
 import static io.maksym.web.util.Constants.*;
 
-public class BaseTest extends SimpleAction {
+public class BaseTest implements SimpleAction {
     protected String email = "<EMAIL>";
     protected String password = "<PASSWORD>";
     protected String token = "<TOKEN>";
