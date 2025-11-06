@@ -3,7 +3,6 @@ package io.maksym.web;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.HealthCheck.HealthCheckResponse;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 
