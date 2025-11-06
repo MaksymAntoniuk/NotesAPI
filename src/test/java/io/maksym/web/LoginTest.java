@@ -7,13 +7,10 @@ import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Login.LoginResponse;
 import io.maksym.web.dto.Registration.RegistrationSuccResponse.RegistrationSuccessfulResponse;
 import io.maksym.web.util.DataGenerators;
-import io.maksym.web.util.SchemaResponseValidator;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -32,7 +29,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class LoginTest extends BaseTest {
 
-    public Stream<? extends Arguments> negativeTests() {
+    public Stream<? extends Arguments> updateUserProfileNegativeTestProvider() {
         return Stream.of(
                 arguments("Verify that user is not able to register successfully with empty [Email]", BAD_REQUEST_STATUS.getStatus(), EMAIL_MISSED_MESSAGE.getMessage(), new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH),"", new Faker().internet().password()),
                 arguments("Verify that user is not able to register successfully with empty [Name]", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), "", new DataGenerators().generateRandomEmail(true), new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)),
@@ -42,6 +39,25 @@ class LoginTest extends BaseTest {
                 arguments("Verify that user is NOT able to register successfully with [Name] > 30 characters", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), new DataGenerators().generateRandomName(31, 100), new DataGenerators().generateRandomEmail(true),  new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)),
                 arguments("Verify that user is NOT able to register successfully with [Null] in [Name]", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), null, new DataGenerators().generateRandomEmail(true), new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)),
                 arguments("Verify that user is NOT able to register successfully with existing [Email]", CONFLICT_STATUS.getStatus(), EXISTING_EMAIL_MESSAGE.getMessage(), new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH), email, new DataGenerators().generateRandomPassword(6, 30))
+        );
+    }
+
+    @MethodSource({"updateUserProfileNegativeTestProvider"})
+    @ParameterizedTest(name = "{0}")
+    @DisplayName("Verify that user is NOT able to register successfully")
+    void verifyRegistrationWithInvalidDataTest(String testName, int expectedStatusCode, String expectedMessage,String name, String email, String password) {
+        UserBody user = new UserBody(name, email, password);
+
+        //Schema validation
+        Response responseSchemaValidation = postRequest(ENDPOINT_CREATE_USER, user);
+        boolean validationSchema = assertResponseSchema("healthcheck-schema.json", responseSchemaValidation);
+
+        RegistrationSuccessfulResponse response = responseSchemaValidation.as(RegistrationSuccessfulResponse.class);
+        assertAll(testName,
+                () -> assertTrue(validationSchema, "Incorrect response schema"),
+                () -> assertEquals(expectedStatusCode, response.getStatus(), "Incorrect status code"),
+                () -> assertEquals(expectedMessage, response.getMessage(), "Incorrect message"),
+                () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
         );
     }
 
@@ -123,27 +139,6 @@ class LoginTest extends BaseTest {
                 () -> assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess())
         );
     }
-
-
-    @MethodSource({"negativeTests"})
-    @ParameterizedTest(name = "{0}")
-    @DisplayName("Verify that user is NOT able to register successfully")
-    void verifyRegistrationWithInvalidDataTest(String testName, int expectedStatusCode, String expectedMessage,String name, String email, String password) {
-        UserBody user = new UserBody(name, email, password);
-
-        //Schema validation
-        Response responseSchemaValidation = postRequest(ENDPOINT_CREATE_USER, user);
-        boolean validationSchema = assertResponseSchema("healthcheck-schema.json", responseSchemaValidation);
-
-        RegistrationSuccessfulResponse response = responseSchemaValidation.as(RegistrationSuccessfulResponse.class);
-        assertAll(testName,
-                () -> assertTrue(validationSchema, "Incorrect response schema"),
-                () -> assertEquals(expectedStatusCode, response.getStatus(), "Incorrect status code"),
-                () -> assertEquals(expectedMessage, response.getMessage(), "Incorrect message"),
-                () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
-        );
-    }
-
 
     @DisplayName("Verify that user is able to Log In with valid credentials")
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
