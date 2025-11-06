@@ -2,6 +2,7 @@ package io.maksym.web;
 
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.HealthCheck.HealthCheckResponse;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 
@@ -11,10 +12,10 @@ import static io.maksym.web.enums.ErrorMessage.UNAUTHORIZED_MESSAGE;
 import static io.maksym.web.enums.StatusCode.SUCCESSFUL_STATUS;
 import static io.maksym.web.enums.StatusCode.UNAUTHORIZED_STATUS;
 import static io.maksym.web.util.Constants.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class DeleteUserUpdateBodyTest extends BaseTest {
+public class DeleteUserTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is Deleted successfully")
     public void deleteUserTest(){
@@ -37,8 +38,12 @@ public class DeleteUserUpdateBodyTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is NOT able to Delete Profile with invalid Token")
     public void deleteUserWithInvalidTokenTest(){
-        HealthCheckResponse response = deleteRequest(ENDPOINT_DELETE_USER_PROFILE, "wrongToken").as(HealthCheckResponse.class);
+        Response responseValidationSchema = deleteRequest(ENDPOINT_DELETE_USER_PROFILE, "wrongToken");
+        boolean validationSchema = assertResponseSchema("healthcheck-schema.json", responseValidationSchema);
+        HealthCheckResponse response = responseValidationSchema.as(HealthCheckResponse.class);
+
         assertAll("Verify that user is NOT able to Delete Profile with invalid Token",
+                () -> assertTrue(validationSchema, "Invalid response schema"),
                 () -> assertEquals(UNAUTHORIZED_STATUS.getStatus(), response.getStatus(), "Invalid status code"),
                 () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Invalid success status"),
                 () -> assertEquals( UNAUTHORIZED_MESSAGE.getMessage(),response.getMessage(),"Invalid message")
