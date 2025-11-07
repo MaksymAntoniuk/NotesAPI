@@ -31,25 +31,22 @@ class LoginTest extends BaseTest {
 
     public Stream<? extends Arguments> updateUserProfileNegativeTestProvider() {
         return Stream.of(
-                arguments("Verify that user is not able to register successfully with empty [Email]", BAD_REQUEST_STATUS.getStatus(), EMAIL_MISSED_MESSAGE.getMessage(), new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH),"", new Faker().internet().password()),
-                arguments("Verify that user is not able to register successfully with empty [Name]", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), "", new DataGenerators().generateRandomEmail(true), new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)),
-                arguments("Verify that user is not able to register successfully with empty [Password]", BAD_REQUEST_STATUS.getStatus(), PASSWORD_MISSED_MESSAGE.getMessage(), new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH), new DataGenerators().generateRandomEmail(true), ""),
-                arguments("Verify that user is not able to register successfully with empty [All fields]", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), "", "", ""),
-                arguments("Verify that user is NOT able to register successfully with [Name] < 4 characters", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), new DataGenerators().generateRandomName(1, 3), new DataGenerators().generateRandomEmail(true), new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)),
-                arguments("Verify that user is NOT able to register successfully with [Name] > 30 characters", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), new DataGenerators().generateRandomName(31, 100), new DataGenerators().generateRandomEmail(true),  new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)),
-                arguments("Verify that user is NOT able to register successfully with [Null] in [Name]", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), null, new DataGenerators().generateRandomEmail(true), new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)),
-                arguments("Verify that user is NOT able to register successfully with existing [Email]", CONFLICT_STATUS.getStatus(), EXISTING_EMAIL_MESSAGE.getMessage(), new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH), email, new DataGenerators().generateRandomPassword(6, 30))
-        );
+                arguments("Verify that user is not able to register successfully with empty [Email]", BAD_REQUEST_STATUS.getStatus(), EMAIL_MISSED_MESSAGE.getMessage(), new UserBody(new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH),"", new Faker().internet().password())),
+                arguments("Verify that user is not able to register successfully with empty [Name]", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), new UserBody("", new DataGenerators().generateRandomEmail(true), new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH))),
+                arguments("Verify that user is not able to register successfully with empty [Password]", BAD_REQUEST_STATUS.getStatus(), PASSWORD_MISSED_MESSAGE.getMessage(), new UserBody(new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH), new DataGenerators().generateRandomEmail(true), "")),
+                arguments("Verify that user is not able to register successfully with empty [All fields]", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), new UserBody("", "", "")),
+                arguments("Verify that user is NOT able to register successfully with [Name] < 4 characters", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), new UserBody(new DataGenerators().generateRandomName(1, 3), new DataGenerators().generateRandomEmail(true), new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH))),
+                arguments("Verify that user is NOT able to register successfully with [Name] > 30 characters", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), new UserBody(new DataGenerators().generateRandomName(31, 100), new DataGenerators().generateRandomEmail(true),  new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH))),
+                arguments("Verify that user is NOT able to register successfully with [Null] in [Name]", BAD_REQUEST_STATUS.getStatus(), NAME_MISSED_MESSAGE.getMessage(), new UserBody(null, new DataGenerators().generateRandomEmail(true), new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH))),
+                arguments("Verify that user is NOT able to register successfully with existing [Email]", CONFLICT_STATUS.getStatus(), EXISTING_EMAIL_MESSAGE.getMessage(), new UserBody(new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH), email, new DataGenerators().generateRandomPassword(6, 30)))
+                );
     }
 
     @MethodSource({"updateUserProfileNegativeTestProvider"})
     @ParameterizedTest(name = "{0}")
     @DisplayName("Verify that user is NOT able to register successfully")
-    void verifyRegistrationWithInvalidDataTest(String testName, int expectedStatusCode, String expectedMessage,String name, String email, String password) {
-        UserBody user = new UserBody(name, email, password);
-
-        //Schema validation
-        Response responseSchemaValidation = postRequest(ENDPOINT_CREATE_USER, user);
+    void verifyRegistrationWithInvalidDataTest(String testName, int expectedStatusCode, String expectedMessage, UserBody userBody) {
+        Response responseSchemaValidation = postRequest(ENDPOINT_CREATE_USER, userBody);
         boolean validationSchema = assertResponseSchema("healthcheck-schema.json", responseSchemaValidation);
 
         RegistrationSuccessfulResponse response = responseSchemaValidation.as(RegistrationSuccessfulResponse.class);
@@ -71,7 +68,6 @@ class LoginTest extends BaseTest {
 
         UserBody user = new UserBody(fakeName, fakeEmail, fakePassword);
 
-        //Schema validation
         Response responseSchemaValidation = postRequest(ENDPOINT_CREATE_USER, user);
         boolean validationSchema = assertResponseSchema("registration-response-schema.json", responseSchemaValidation);
 
@@ -96,7 +92,6 @@ class LoginTest extends BaseTest {
 
         UserBody user = new UserBody("NameFakeNameFakeNameFakeNameFa", fakeEmail, fakePassword);
 
-        //Schema validation
         Response responseSchemaValidation = postRequest(ENDPOINT_CREATE_USER, user);
         boolean validationSchema = assertResponseSchema("registration-response-schema.json", responseSchemaValidation);
 
@@ -121,7 +116,6 @@ class LoginTest extends BaseTest {
 
         UserBody user = new UserBody("Name", fakeEmail, fakePassword);
 
-        //Schema validation
         Response responseSchemaValidation = postRequest(ENDPOINT_CREATE_USER, user);
         boolean validationSchema = assertResponseSchema("registration-response-schema.json", responseSchemaValidation);
 
@@ -143,7 +137,6 @@ class LoginTest extends BaseTest {
     @DisplayName("Verify that user is able to Log In with valid credentials")
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     void VerifySuccessfullLogin(){
-        //Schema validation
         Response responseSchemaValidation = postRequest(ENDPOINT_LOG_IN, new LoginBody(email, password));
         boolean validationSchema = assertResponseSchema("login-response-schema.json", responseSchemaValidation);
 
