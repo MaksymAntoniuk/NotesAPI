@@ -9,10 +9,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 
 public class BaseTest implements SimpleAction {
-    protected static String email = "<EMAIL>";
+    public static String email = "<EMAIL>";
     public static String token = "<TOKEN>";
-    protected static String name = "<NAME>";
-    protected static String id = "<ID>";
+    public static String name = "<NAME>";
+    public static String id = "<ID>";
 
     @BeforeAll
     public static void setup(){
