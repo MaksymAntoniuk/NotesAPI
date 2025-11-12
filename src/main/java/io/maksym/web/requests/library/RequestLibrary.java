@@ -1,4 +1,4 @@
-package io.maksym.web.library;
+package io.maksym.web.requests.library;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -74,5 +74,28 @@ public class RequestLibrary {
                 .when()
                 .delete(BASE_URL + url)
                 .then().log().all().extract().response();
+    }
+    public static Response putRequest(String url, String token, Record record){
+        String jsonBody = null;
+        try{
+            jsonBody = new ObjectMapper().writeValueAsString(record);
+            System.out.println(jsonBody);
+
+        }catch(JsonProcessingException e){
+            System.out.println("Error while converting object to json");
+            e.printStackTrace();
+        }
+
+        return given()
+                .header("accept", "application/json")
+                .header("Content-Type", "application/json")
+                .header("x-auth-token", token)
+                .body(jsonBody)
+                .when()
+                .put(BASE_URL + url)
+                .then()
+                .log().all()
+                .extract().response();
+
     }
 }
