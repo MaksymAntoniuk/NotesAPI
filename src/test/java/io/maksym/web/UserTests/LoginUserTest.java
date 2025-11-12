@@ -18,7 +18,7 @@ import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RegisterUserTest extends BaseTest {
+public class LoginUserTest extends BaseTest {
     @DisplayName("Verify that user is able to Log In with valid credentials")
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     void VerifySuccessfullLogin(){

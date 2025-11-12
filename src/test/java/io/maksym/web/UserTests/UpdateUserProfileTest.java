@@ -1,4 +1,4 @@
-package io.maksym.web;
+package io.maksym.web.UserTests;
 
 import io.maksym.web.Records.LoginBody;
 import io.maksym.web.Records.UserBody;
@@ -79,13 +79,13 @@ public class UpdateUserProfileTest extends BaseTest {
                 () -> Assertions.assertEquals(userUpdateBody.phone(), response.getData().getPhone(), "Incorrect [Phone]"),
                 () -> Assertions.assertEquals(userUpdateBody.company(), response.getData().getCompany(), "Incorrect [Company]")
         );
+        deleteUserProfile(token);
     }
 
     @DisplayName("Verify user is NOT able to update profile with invalid values")
     @ParameterizedTest(name = "{0}")
     @MethodSource("updateUserProfileNegativeTestProvider")
     public void updateUserProfileWithInvalidValuesTest(String testDescription, UserUpdateBody userUpdateBody, String token, int statusCode, boolean expectedSuccess, String expectedMessage){
-
         ProfileResponse response = updateUser(token, userUpdateBody).as(ProfileResponse.class);
 
         assertAll(testDescription,

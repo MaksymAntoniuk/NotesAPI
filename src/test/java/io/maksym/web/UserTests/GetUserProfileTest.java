@@ -1,4 +1,4 @@
-package io.maksym.web;
+package io.maksym.web.UserTests;
 
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Profile.ProfileResponse;

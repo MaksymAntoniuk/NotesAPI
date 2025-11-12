@@ -1,11 +1,8 @@
-package io.maksym.web;
+package io.maksym.web.UserTests;
 
 import com.github.javafaker.Faker;
-import io.maksym.web.Records.LoginBody;
 import io.maksym.web.Records.UserBody;
-import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.base.BaseTest;
-import io.maksym.web.dto.Login.LoginResponse;
 import io.maksym.web.dto.Registration.RegistrationSuccResponse.RegistrationSuccessfulResponse;
 import io.maksym.web.util.DataGenerators;
 import io.restassured.response.Response;
@@ -27,7 +24,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class LoginTest extends BaseTest {
+class RegisterUserTest extends BaseTest {
 
     public Stream<? extends Arguments> registerUserWithNegativeTestProvider() {
         return Stream.of(
@@ -170,6 +167,4 @@ class LoginTest extends BaseTest {
                 () -> assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess())
         );
     }
-
-
 }
