@@ -10,4 +10,10 @@ public final class ApiEndpoints {
     public static final String ENDPOINT_GET_USER_PROFILE = "users/profile";
     public static final String ENDPOINT_UPDATE_USER_PROFILE = "users/profile";
     public static final String ENDPOINT_DELETE_USER_PROFILE = "users/delete-account";
+    public static final String ENDPOINT_CREATE_NOTE = "notes";
+    public static final String ENDPOINT_GET_ALL_NOTES = "notes";
+    public static final String ENDPOINT_GET_NOTE_BY_ID = "notes/";
+    public static final String ENDPOINT_DELETE_NOTE = "notes/";
+    public static final String ENDPOINT_UPDATE_COMPLETED_STATUS = "notes/";
+    public static final String ENDPOINT_UPDATE_NOTE = "notes/";
 }
