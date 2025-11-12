@@ -1,41 +1,29 @@
 package io.maksym.web.base;
 
 import io.maksym.web.Records.LoginBody;
-import io.maksym.web.Records.UserBody;
-import io.maksym.web.actions.SimpleAction;
+import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.config.ApiEndpoints;
 import io.maksym.web.dto.Login.LoginResponse;
-import io.maksym.web.dto.Registration.RegistrationSuccResponse.RegistrationSuccessfulResponse;
-import io.maksym.web.util.DataGenerators;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-
-import static io.maksym.web.config.ApiEndpoints.ENDPOINT_CREATE_USER;
-import static io.maksym.web.config.ApiEndpoints.ENDPOINT_LOG_IN;
-import static io.maksym.web.util.Constants.*;
+import org.junit.jupiter.api.BeforeAll;
 
 public class BaseTest implements SimpleAction {
-    protected String email = "<EMAIL>";
-    protected String password = "<PASSWORD>";
-    protected String token = "<TOKEN>";
-    protected String name = "<NAME>";
-    protected String id = "<ID>";
+    protected static String email = "<EMAIL>";
+    public static String token = "<TOKEN>";
+    protected static String name = "<NAME>";
+    protected static String id = "<ID>";
 
-    @BeforeEach
-    public void setup(){
+    @BeforeAll
+    public static void setup(){
         RestAssured.baseURI = ApiEndpoints.BASE_URL;
-        String passwordCred = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
-        RegistrationSuccessfulResponse createdUser = postRequest(ENDPOINT_CREATE_USER, new UserBody(new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH), new DataGenerators().generateRandomEmail(true), passwordCred)).as(RegistrationSuccessfulResponse.class);
 
-        email = createdUser.getData().getEmail();
-        password = passwordCred;
-
-        LoginResponse loggedInUser = postRequest( ENDPOINT_LOG_IN, new LoginBody(email, password)).as(LoginResponse.class);
-
-        token = loggedInUser.getData().getToken();
+        email = "bernini1762597276638@gmail.com";
+        LoginResponse loggedInUser = SimpleAction.logInUser(new LoginBody(email, "8jt910m63ozhbnuxsxwj4j4xrxf50"))
+                .as(LoginResponse.class);
         id = loggedInUser.getData().getId();
         name = loggedInUser.getData().getName();
+        token = loggedInUser.getData().getToken();
     }
 
     @AfterEach
