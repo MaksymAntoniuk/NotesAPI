@@ -15,18 +15,27 @@ public class RequestLibrary {
                 .accept(ContentType.JSON);
     }
 
-    public static Response getCheckH(String url) {
+    public static Response getCheckHealth(String url) {
         return getRequestSpec()
                 .when()
                 .get(BASE_URL + url).then().log().all().extract().response();
     }
-    public static Response postReq(String url, Record record){
+    public static Response postRequest(String url, Record record){
         return getRequestSpec()
                 .body(record)
                 .when()
                 .post(BASE_URL + url).then().log().all().extract().response();
     }
-    public static Response getReq(String url, String token){
+    public static Response postRequest(String url, String toekn, Record record){
+        return getRequestSpec()
+                .header("accept", "application/json")
+                .header("x-auth-token", toekn)
+                .body(record)
+                .when()
+                .post(BASE_URL + url).then().log().all().extract().response();
+    }
+
+    public static Response getRequest(String url, String token){
         return given()
                 .header("accept", "application/json")
                 .header("x-auth-token", token)
@@ -36,7 +45,7 @@ public class RequestLibrary {
                 .log().all()
                 .extract().response();
     }
-    public static Response patchReq(String url, String token, Record record){
+    public static Response patchRequest(String url, String token, Record record){
         String jsonBody = null;
         try{
             jsonBody = new ObjectMapper().writeValueAsString(record);
@@ -59,7 +68,7 @@ public class RequestLibrary {
                 .extract().response();
 
     }
-    public static Response deleteReq(String url, String token){
+    public static Response deleteRequest(String url, String token){
         return getRequestSpec()
                 .header("x-auth-token", token)
                 .when()

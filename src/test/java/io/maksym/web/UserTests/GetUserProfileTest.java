@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 
-import static io.maksym.web.config.ApiEndpoints.ENDPOINT_GET_USER_PROFILE;
 import static io.maksym.web.enums.ErrorMessage.PROFILE_SUCCESSFUL;
 import static io.maksym.web.enums.ErrorMessage.UNAUTHORIZED_MESSAGE;
 import static io.maksym.web.enums.StatusCode.SUCCESSFUL_STATUS;
@@ -22,8 +21,8 @@ public class GetUserProfileTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to fetch [Profile] data")
     public void getUserProfileTest(){
-
-        Response responseValidationSchema = getRequest(ENDPOINT_GET_USER_PROFILE, token);
+        System.out.println("token: " + token);
+        Response responseValidationSchema = getUserProfileData(token);
         boolean validationSchema = assertResponseSchema("user-profile-response-schema.json", responseValidationSchema);
         ProfileResponse response = responseValidationSchema.as(ProfileResponse.class);
 
@@ -42,7 +41,7 @@ public class GetUserProfileTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is NOT able to fetch [Profile] data with Invalid Token")
     public void getUserProfileWithWrongTokenTest(){
-        Response responseSchemaValidation = getRequest(ENDPOINT_GET_USER_PROFILE, "wrongToken");
+        Response responseSchemaValidation = getUserProfileData("wrongToken");
 
         boolean validationSchema = SchemaResponseValidator.assertResponseSchema("healthcheck-schema.json", responseSchemaValidation);
         ProfileResponse response = responseSchemaValidation.as(ProfileResponse.class);

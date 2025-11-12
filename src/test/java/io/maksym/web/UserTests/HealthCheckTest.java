@@ -6,7 +6,6 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 
-import static io.maksym.web.config.ApiEndpoints.ENDPOINT_HEALTH_CHECK;
 import static io.maksym.web.enums.ErrorMessage.HEALTH_CHECK_MESSAGE;
 import static io.maksym.web.enums.StatusCode.SUCCESSFUL_STATUS;
 import static io.maksym.web.util.Constants.EXPECTED_SUCCESS_TRUE;
@@ -18,7 +17,7 @@ public class HealthCheckTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify Successfull Health Check")
     void verifySuccessfullHealthCheck() {
-        Response responseValidationSchema = getCheckHealth(ENDPOINT_HEALTH_CHECK);
+        Response responseValidationSchema = checkHealthOfApiService();
         boolean validationSchema = assertResponseSchema("healthcheck-schema.json", responseValidationSchema);
         HealthCheckResponse response = responseValidationSchema.as(HealthCheckResponse.class);
 
