@@ -1,4 +1,4 @@
-package io.maksym.web.NoteTest;
+package io.maksym.web.NoteTests;
 
 import io.maksym.web.Records.NoteBody;
 import io.maksym.web.base.BaseTest;
@@ -8,7 +8,6 @@ import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 import static io.maksym.web.enums.ErrorMessage.SUCCESSFUL_CREATION_NOTE;
 import static io.maksym.web.requests.actions.SimpleAction.createNote;

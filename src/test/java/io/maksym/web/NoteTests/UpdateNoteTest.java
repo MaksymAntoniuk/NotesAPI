@@ -16,7 +16,7 @@ import static io.maksym.web.util.Constants.REPEAT_COUNT;
 import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UpdateNoteStatusTest extends BaseTest {
+public class UpdateNoteTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to change Completed status")
     public void updateNoteStatusTest(){

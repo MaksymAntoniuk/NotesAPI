@@ -1,4 +1,4 @@
-package io.maksym.web.NoteTest;
+package io.maksym.web.NoteTests;
 
 import io.maksym.web.Records.NoteBody;
 import io.maksym.web.base.BaseTest;
@@ -10,10 +10,6 @@ import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static io.maksym.web.enums.ErrorMessage.SUCCESSFUL_FETCH_ALL_NOTES;
 import static io.maksym.web.util.Constants.REPEAT_COUNT;
@@ -25,20 +21,29 @@ public class GetNotesTest extends BaseTest {
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to get all [Notes]")
     public void getNotesTest(){
-        List<String> listOfIds = new ArrayList<>();
+        String title = new DataGenerators().generateRandomTitle();
+        String description = new DataGenerators().generateRandomDescription();
+        String category = new DataGenerators().generateRandomCategoryNote();
+
+        Response createNote = SimpleAction.createNote(token, new NoteBody(title,description, category));
+        assertResponseSchema("create-note-response-schema.json", createNote);
+        assertEquals(HttpStatus.SC_OK, createNote.getStatusCode(), "Incorrect status code");
+        String noteId = createNote.as(Note.class).getData().getId();
 
         Response getAllNotes = getAllNotes(token);
         assertResponseSchema("get-all-notes-response-schema.json", getAllNotes);
 
         NoteList notes = getAllNotes.as(NoteList.class);
-        System.out.println("Notes size: " + notes.getData().size());
-        notes.getData().forEach(note -> listOfIds.add(note.getId()));
+
+        String createdNote = notes.getData().get(0).getId();
 
         assertAll("Get all Notes",
                 () -> assertEquals(HttpStatus.SC_OK, notes.getStatus(), "Invalid Message"),
                 () -> assertTrue(notes.isSuccess(), "Invalid Message"),
-                () -> assertEquals(SUCCESSFUL_FETCH_ALL_NOTES.getMessage(), notes.getMessage(), "Invalid Message")
+                () -> assertEquals(SUCCESSFUL_FETCH_ALL_NOTES.getMessage(), notes.getMessage(), "Invalid Message"),
+                () -> assertEquals(noteId, createdNote,  "Invalid Note Id" )
         );
+
     }
 
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")

@@ -1,16 +1,19 @@
-package io.maksym.web.NoteTest;
+package io.maksym.web.NoteTests;
 
 import io.maksym.web.Records.NoteBody;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.HealthCheck.HealthCheckResponse;
 import io.maksym.web.dto.Note.Note;
+import io.maksym.web.dto.Note.NoteList;
 import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.util.DataGenerators;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static io.maksym.web.enums.ErrorMessage.NOTE_NOT_FOUND;
 import static io.maksym.web.enums.ErrorMessage.SUCCESSFUL_DELETION_NOTE;
@@ -55,5 +58,21 @@ public class DeleteNoteTest extends BaseTest {
         assertEquals(HttpStatus.SC_NOT_FOUND, getNoteById.getStatusCode(), "Incorrect status code");
         assertEquals(NOTE_NOT_FOUND.getMessage(), getNoteById.getBody().jsonPath().getString("message"), "Invalid Message" );
 
+    }
+
+    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
+    @DisplayName("Verify that user is able to delete all [Notes]")
+    public void deleteAllNotesTest(){
+        List<String> listOfIds = new ArrayList<>();
+
+        Response getAllNotes = getAllNotes(token);
+        assertResponseSchema("get-all-notes-response-schema.json", getAllNotes);
+
+        NoteList notes = getAllNotes.as(NoteList.class);
+        System.out.println("Notes size: " + notes.getData().size());
+
+        notes.getData().forEach(note -> listOfIds.add(note.getId()));
+
+        listOfIds.forEach(noteId ->deleteNoteById(token, noteId) );
     }
 }
