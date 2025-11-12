@@ -12,9 +12,11 @@ public enum ErrorMessage {
     PROFILE_SUCCESSFUL("Profile successful"),
     UNAUTHORIZED_MESSAGE("Access token is not valid or has expired, you will need to login"),
     INVALID_REQUEST_MESSAGE("Invalid Request"),
-    SUCCESSFUL_DELETION_MESSAGE("Account successfully deleted");
-
-
+    SUCCESSFUL_DELETION_MESSAGE("Account successfully deleted"),
+    SUCCESSFUL_CREATION_NOTE("Note successfully created"),
+    SUCCESSFUL_DELETION_NOTE("Note successfully deleted"),
+    SUCCESSFUL_FETCH_ALL_NOTES("Notes successfully retrieved"),
+    NOTE_NOT_FOUND("No note was found with the provided ID, Maybe it was deleted");
 
     public final String message;
 
