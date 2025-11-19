@@ -57,7 +57,7 @@ public class UpdateUserProfileTest extends BaseTest {
         assertResponseSchema("registration-response-schema.json", createUser);
         assertEquals(HttpStatus.SC_CREATED, createUser.getStatusCode(), "Incorrect status code");
 
-        Response logInUser = SimpleAction.logInUser(new LoginBody(email, password));
+        Response logInUser = logInUser(new LoginBody(email, password));
         assertResponseSchema("login-response-schema.json", logInUser);
         assertEquals(HttpStatus.SC_OK, logInUser.getStatusCode(), "Incorrect status code");
 

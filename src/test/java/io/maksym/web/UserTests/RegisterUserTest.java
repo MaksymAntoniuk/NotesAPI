@@ -8,6 +8,7 @@ import io.maksym.web.util.DataGenerators;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -63,12 +64,7 @@ class RegisterUserTest extends BaseTest {
                         BAD_REQUEST_STATUS.getStatus(),
                         NAME_MISSED_MESSAGE.getMessage(),
                         new UserBody(null, new DataGenerators().generateRandomEmail(true),
-                                new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH))),
-                arguments("Verify that user is NOT able to register successfully with existing [Email]",
-                        CONFLICT_STATUS.getStatus(),
-                        EXISTING_EMAIL_MESSAGE.getMessage(),
-                        new UserBody(new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH),
-                                email, new DataGenerators().generateRandomPassword(6, 30)))
+                                new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)))
                 );
     }
 
@@ -167,4 +163,37 @@ class RegisterUserTest extends BaseTest {
                 () -> assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess())
         );
     }
+
+    @Test
+    @DisplayName("Verify that user is NOT able to register successfully with existing [Email]")
+    void verifyUserIsNotAbleToRegisterWithExistingEmail() {
+        String fakeName = new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH);
+        String fakeEmail = new DataGenerators().generateRandomEmail(true);
+        String fakePassword = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
+
+        Response firstRegisterResponse = registerUser(new UserBody(fakeName, fakeEmail, fakePassword));
+        boolean validationSchemaOfFirstRegisterResponse = assertResponseSchema("registration-response-schema.json", firstRegisterResponse);
+
+        RegistrationSuccessfulResponse responseBefore = firstRegisterResponse.as(RegistrationSuccessfulResponse.class);
+
+        assertAll("Verify first successfull Registration ",
+                () -> assertTrue(validationSchemaOfFirstRegisterResponse, "Incorrect response schema"),
+                () -> assertEquals(CREATED_STATUS.getStatus(), responseBefore.getStatus(), "Incorrect status code"),
+
+        () -> assertEquals(REGISTRATION_SUCCESSFUL_MESSAGE.getMessage(), responseBefore.getMessage()),
+                () -> assertEquals(EXPECTED_SUCCESS_TRUE, responseBefore.isSuccess())
+        );
+
+        Response registerUserSecondTime = registerUser(new UserBody(fakeName, fakeEmail, fakePassword));
+        boolean validationSchema = assertResponseSchema("healthcheck-schema.json", registerUserSecondTime);
+        RegistrationSuccessfulResponse response = registerUserSecondTime.as(RegistrationSuccessfulResponse.class);
+
+        assertAll("Verify that user is NOT able to register successfully with existing [Email]",
+                () -> assertTrue(validationSchema, "Incorrect response schema"),
+                () -> assertEquals( CONFLICT_STATUS.getStatus(), response.getStatus(), "Incorrect status code"),
+                () -> assertEquals(EXISTING_EMAIL_MESSAGE.getMessage(), response.getMessage(), "Incorrect message"),
+                () -> assertEquals(EXPECTED_SUCCESS_FALSE, response.isSuccess(), "Incorrect success status")
+        );
+    }
+
 }

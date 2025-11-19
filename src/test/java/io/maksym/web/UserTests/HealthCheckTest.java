@@ -1,7 +1,7 @@
 package io.maksym.web.UserTests;
 
 import io.maksym.web.base.BaseTest;
-import io.maksym.web.dto.HealthCheck.HealthCheckResponse;
+import io.maksym.web.dto.HealthCheck.BaseResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
@@ -19,7 +19,7 @@ public class HealthCheckTest extends BaseTest {
     void verifySuccessfullHealthCheck() {
         Response responseValidationSchema = checkHealthOfApiService();
         boolean validationSchema = assertResponseSchema("healthcheck-schema.json", responseValidationSchema);
-        HealthCheckResponse response = responseValidationSchema.as(HealthCheckResponse.class);
+        BaseResponse response = responseValidationSchema.as(BaseResponse.class);
 
         assertAll("Verify Successfull Health Check",
                 ()->assertTrue(validationSchema, "Incorrect response schema"),
