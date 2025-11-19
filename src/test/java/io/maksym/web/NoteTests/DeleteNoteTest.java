@@ -2,7 +2,7 @@ package io.maksym.web.NoteTests;
 
 import io.maksym.web.Records.NoteBody;
 import io.maksym.web.base.BaseTest;
-import io.maksym.web.dto.HealthCheck.HealthCheckResponse;
+import io.maksym.web.dto.HealthCheck.BaseResponse;
 import io.maksym.web.dto.Note.Note;
 import io.maksym.web.dto.Note.NoteList;
 import io.maksym.web.requests.actions.SimpleAction;
@@ -42,7 +42,7 @@ public class DeleteNoteTest extends BaseTest {
         assertResponseSchema("delete-note-response-schema.json", deleteNote);
         assertEquals(HttpStatus.SC_OK, deleteNote.getStatusCode(), "Incorrect status code");
 
-        HealthCheckResponse response = deleteNote.as(HealthCheckResponse.class);
+        BaseResponse response = deleteNote.as(BaseResponse.class);
 
 
         assertAll("Delete Note by Id",

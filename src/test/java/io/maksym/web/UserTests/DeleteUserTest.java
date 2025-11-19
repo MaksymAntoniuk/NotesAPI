@@ -4,7 +4,7 @@ import io.maksym.web.Records.LoginBody;
 import io.maksym.web.Records.UserBody;
 import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.base.BaseTest;
-import io.maksym.web.dto.HealthCheck.HealthCheckResponse;
+import io.maksym.web.dto.HealthCheck.BaseResponse;
 import io.maksym.web.util.DataGenerators;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -31,7 +31,7 @@ public class DeleteUserTest extends BaseTest {
         assertResponseSchema("registration-response-schema.json", createUser);
         assertEquals(HttpStatus.SC_CREATED, createUser.getStatusCode(), "Incorrect status code");
 
-        Response logInUser = SimpleAction.logInUser(new LoginBody(email, password));
+        Response logInUser = logInUser(new LoginBody(email, password));
         assertResponseSchema("login-response-schema.json", logInUser);
         assertEquals(HttpStatus.SC_OK, logInUser.getStatusCode(), "Incorrect status code");
 
@@ -39,7 +39,7 @@ public class DeleteUserTest extends BaseTest {
 
         Response deleteUserProfile = deleteUserProfile(token);
 
-        HealthCheckResponse response = deleteUserProfile.as(HealthCheckResponse.class);
+        BaseResponse response = deleteUserProfile.as(BaseResponse.class);
 
         assertAll("Verify that user is Deleted successfully",
                 () -> assertEquals(SUCCESSFUL_STATUS.getStatus(), response.getStatus(), "Invalid status code"),
@@ -47,7 +47,7 @@ public class DeleteUserTest extends BaseTest {
                 () -> assertEquals( SUCCESSFUL_DELETION_MESSAGE.getMessage(),response.getMessage(),"Invalid message")
         );
 
-        HealthCheckResponse responseAfterSecondDeletion = deleteUserProfile(token).as(HealthCheckResponse.class);
+        BaseResponse responseAfterSecondDeletion = deleteUserProfile(token).as(BaseResponse.class);
         assertAll("Verify that user not able to Deleted second time",
                 () -> assertEquals(UNAUTHORIZED_STATUS.getStatus(), responseAfterSecondDeletion.getStatus(), "Invalid status code"),
                 () -> assertEquals(EXPECTED_SUCCESS_FALSE, responseAfterSecondDeletion.isSuccess(), "Invalid success status"),
@@ -61,7 +61,7 @@ public class DeleteUserTest extends BaseTest {
     public void deleteUserWithInvalidTokenTest(){
         Response responseValidationSchema = deleteUserProfile("wrongToken");
         boolean validationSchema = assertResponseSchema("healthcheck-schema.json", responseValidationSchema);
-        HealthCheckResponse response = responseValidationSchema.as(HealthCheckResponse.class);
+        BaseResponse response = responseValidationSchema.as(BaseResponse.class);
 
         assertAll("Verify that user is NOT able to Delete Profile with invalid Token",
                 () -> assertTrue(validationSchema, "Invalid response schema"),
