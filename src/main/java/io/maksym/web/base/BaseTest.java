@@ -7,7 +7,9 @@ import io.maksym.web.dto.Login.LoginResponse;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BaseTest implements SimpleAction {
     public static String email = "<EMAIL>";
     public static String token = "<TOKEN>";
@@ -15,11 +17,11 @@ public class BaseTest implements SimpleAction {
     public static String id = "<ID>";
 
     @BeforeAll
-    public static void setup(){
+    public void setup(){
         RestAssured.baseURI = ApiEndpoints.BASE_URL;
 
         email = "bernini1762597276638@gmail.com";
-        LoginResponse loggedInUser = SimpleAction.logInUser(new LoginBody(email, "8jt910m63ozhbnuxsxwj4j4xrxf50"))
+        LoginResponse loggedInUser = logInUser(new LoginBody(email, "8jt910m63ozhbnuxsxwj4j4xrxf50"))
                 .as(LoginResponse.class);
         id = loggedInUser.getData().getId();
         name = loggedInUser.getData().getName();
