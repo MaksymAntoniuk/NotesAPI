@@ -69,48 +69,5 @@
             <version>2.20</version>
             <scope>compile</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>6.0.0</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.20.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>json-schema-validator</artifactId>
-            <version>5.5.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.13</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>6.0.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.9</version>
-        </dependency>
-
-
     </dependencies>
 </project>
