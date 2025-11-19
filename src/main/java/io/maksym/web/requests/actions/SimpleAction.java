@@ -20,7 +20,7 @@ public  interface SimpleAction {
     default Response registerUser(Record record){
         return postRequest(ENDPOINT_CREATE_USER, record);
     }
-    static Response logInUser(Record record){
+    default Response logInUser(Record record){
         return postRequest(ENDPOINT_LOG_IN, record);
     }
     static Response createNote(String token, Record record){
