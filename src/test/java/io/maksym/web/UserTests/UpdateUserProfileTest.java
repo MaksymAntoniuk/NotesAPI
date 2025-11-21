@@ -7,6 +7,8 @@ import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Profile.ProfileResponse;
 import io.maksym.web.util.DataGenerators;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Severity;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
@@ -28,6 +30,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Epic("User API")
+@DisplayName("Verify that user is able to update [Profile] data")
+@Severity(io.qameta.allure.SeverityLevel.CRITICAL)
 public class UpdateUserProfileTest extends BaseTest {
     public Stream<? extends Arguments> updateUserProfilePositiveTestProvider() {
         DataGenerators generators = new DataGenerators();
@@ -57,7 +62,7 @@ public class UpdateUserProfileTest extends BaseTest {
         assertResponseSchema("registration-response-schema.json", createUser);
         assertEquals(HttpStatus.SC_CREATED, createUser.getStatusCode(), "Incorrect status code");
 
-        Response logInUser = logInUser(new LoginBody(email, password));
+        Response logInUser = SimpleAction.logInUser(new LoginBody(email, password));
         assertResponseSchema("login-response-schema.json", logInUser);
         assertEquals(HttpStatus.SC_OK, logInUser.getStatusCode(), "Incorrect status code");
 

@@ -5,6 +5,9 @@ import io.maksym.web.Records.UserBody;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Registration.RegistrationSuccResponse.RegistrationSuccessfulResponse;
 import io.maksym.web.util.DataGenerators;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Severity;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
@@ -25,6 +28,9 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Epic("User API")
+@DisplayName("Verify that user is able to register successfully")
+@Severity(io.qameta.allure.SeverityLevel.CRITICAL)
 class RegisterUserTest extends BaseTest {
 
     public Stream<? extends Arguments> registerUserWithNegativeTestProvider() {
@@ -114,6 +120,12 @@ class RegisterUserTest extends BaseTest {
 
     @DisplayName("Verify that user is able to register successfully with [Name] == 30 characters")
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
+    @Description("""
+            1. Enter 30 characters length value in [Name] field
+            2. Enter valid value in [Email] field
+            3. Enter valid value in [Password] field
+            4. Send request
+            """)
     void verifySuccessUserRegistrationWithNameEqualTo30Characters() {
         String fakeEmail = new DataGenerators().generateRandomEmail(true);
         String fakePassword = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
@@ -139,6 +151,12 @@ class RegisterUserTest extends BaseTest {
 
     @DisplayName("Verify that user is able to register successfully with [Name] == 4 characters")
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
+    @Description("""
+            1. Enter 4 characters length value in [Name] field
+            2. Enter valid value in [Email] field
+            3. Enter valid value in [Password] field
+            4. Send request
+            """)
     void verifySuccessUserRegistrationWithNameEqualTo4Characters() {
         String fakeEmail = new DataGenerators().generateRandomEmail(true);
         String fakePassword = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
@@ -164,8 +182,14 @@ class RegisterUserTest extends BaseTest {
         );
     }
 
-    @Test
     @DisplayName("Verify that user is NOT able to register successfully with existing [Email]")
+    @Description("""
+            1. Enter valid value in [Name] field
+            2. Enter already registered Email in [Email] field
+            3. Enter valid value in [Password] field
+            4. Send request
+            """)
+    @Test
     void verifyUserIsNotAbleToRegisterWithExistingEmail() {
         String fakeName = new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH);
         String fakeEmail = new DataGenerators().generateRandomEmail(true);
