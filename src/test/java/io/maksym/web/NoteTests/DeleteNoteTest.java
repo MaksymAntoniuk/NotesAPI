@@ -7,6 +7,10 @@ import io.maksym.web.dto.Note.Note;
 import io.maksym.web.dto.Note.NoteList;
 import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.util.DataGenerators;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
@@ -23,11 +27,19 @@ import static io.maksym.web.util.Constants.REPEAT_COUNT;
 import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+@Epic("Note API")
+@DisplayName("Verify that user is able to delete [Note]")
+@Severity(SeverityLevel.NORMAL)
 public class DeleteNoteTest extends BaseTest {
 
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to delete [Note]")
+    @Description("""
+            1. Create new Note
+            2. Delete created Note
+            2. Send request
+            3. Assert response
+            """)
     public void deleteNoteTest() {
         String title = new DataGenerators().generateRandomTitle();
         String description = new DataGenerators().generateRandomDescription();
