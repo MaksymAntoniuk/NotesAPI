@@ -2,6 +2,8 @@ package io.maksym.web.requests.library;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.maksym.web.util.AllureUtils;
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -14,29 +16,38 @@ public class RequestLibrary {
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON);
     }
-
+    @Step("Sending GET request on {url}")
     public static Response getCheckHealth(String url) {
-        return getRequestSpec()
+        Response response =  getRequestSpec()
                 .when()
                 .get(BASE_URL + url).then().log().all().extract().response();
+        AllureUtils.attachResponseToAllure(response);
+        return response;
     }
+    @Step("Sending POST request on {url}")
     public static Response postRequest(String url, Record record){
-        return getRequestSpec()
+        Response response = getRequestSpec()
                 .body(record)
                 .when()
                 .post(BASE_URL + url).then().log().all().extract().response();
+        AllureUtils.attachResponseToAllure(response);
+        return response;
     }
+    @Step("Sending POST request on {url}")
     public static Response postRequest(String url, String toekn, Record record){
-        return getRequestSpec()
+        Response response = getRequestSpec()
                 .header("accept", "application/json")
                 .header("x-auth-token", toekn)
                 .body(record)
                 .when()
                 .post(BASE_URL + url).then().log().all().extract().response();
-    }
 
+        AllureUtils.attachResponseToAllure(response);
+        return response;
+    }
+    @Step("Sending GET request on {url}")
     public static Response getRequest(String url, String token){
-        return given()
+        Response response = given()
                 .header("accept", "application/json")
                 .header("x-auth-token", token)
                 .when()
@@ -44,7 +55,11 @@ public class RequestLibrary {
                 .then()
                 .log().all()
                 .extract().response();
+        AllureUtils.attachResponseToAllure(response);
+
+        return response;
     }
+    @Step("Sending PATCH request on {url}")
     public static Response patchRequest(String url, String token, Record record){
         String jsonBody = null;
         try{
@@ -55,8 +70,7 @@ public class RequestLibrary {
             System.out.println("Error while converting object to json");
             e.printStackTrace();
         }
-
-        return given()
+        Response response = given()
                 .header("accept", "application/json")
                 .header("Content-Type", "application/json")
                 .header("x-auth-token", token)
@@ -66,15 +80,21 @@ public class RequestLibrary {
                 .then()
                 .log().all()
                 .extract().response();
+        AllureUtils.attachResponseToAllure(response);
 
+        return response;
     }
+    @Step("Sending DELETE request on {url}")
     public static Response deleteRequest(String url, String token){
-        return getRequestSpec()
+        Response response = getRequestSpec()
                 .header("x-auth-token", token)
                 .when()
                 .delete(BASE_URL + url)
                 .then().log().all().extract().response();
+        AllureUtils.attachResponseToAllure(response);
+        return response;
     }
+    @Step("Sending PUT request on {url}")
     public static Response putRequest(String url, String token, Record record){
         String jsonBody = null;
         try{
@@ -85,8 +105,7 @@ public class RequestLibrary {
             System.out.println("Error while converting object to json");
             e.printStackTrace();
         }
-
-        return given()
+        Response response = given()
                 .header("accept", "application/json")
                 .header("Content-Type", "application/json")
                 .header("x-auth-token", token)
@@ -96,6 +115,9 @@ public class RequestLibrary {
                 .then()
                 .log().all()
                 .extract().response();
+        AllureUtils.attachResponseToAllure(response);
+
+        return response;
 
     }
 }
