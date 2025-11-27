@@ -13,6 +13,7 @@ import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @Severity(io.qameta.allure.SeverityLevel.CRITICAL)
 public class GetNotesTest extends BaseTest {
 
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @Description("""
             1. Send request to Get all Notes
             2. Assert response
             """)
     @DisplayName("Verify that user is able to get all [Notes]")
+    @Test
     public void getNotesTest(){
         String title = new DataGenerators().generateRandomTitle();
         String description = new DataGenerators().generateRandomDescription();
@@ -68,13 +69,13 @@ public class GetNotesTest extends BaseTest {
         deleteNoteById(token, noteId);
     }
 
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to get [Note] by Id")
     @Description("""
             1. Create new Note
             2. Send request to get Note by ID
             3. Assert response
             """)
+    @Test
     public void getNoteByIdTest(){
         String title = new DataGenerators().generateRandomTitle();
         String description = new DataGenerators().generateRandomDescription();

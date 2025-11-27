@@ -12,6 +12,7 @@ import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import static io.maksym.web.enums.ErrorMessage.SUCCESSFUL_CREATION_NOTE;
 import static io.maksym.web.util.Constants.REPEAT_COUNT;
@@ -23,13 +24,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @Severity(io.qameta.allure.SeverityLevel.CRITICAL)
 public class CreateNotesTest extends BaseTest {
 
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to create new [Note]")
     @Description("""
             1. Create new Note
             2. Send request
             3. Assert response
             """)
+    @Test
     public void createNoteTest(){
         String title = new DataGenerators().generateRandomTitle();
         String description = new DataGenerators().generateRandomDescription();

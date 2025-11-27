@@ -9,25 +9,27 @@ import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.util.DataGenerators;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
-import static io.maksym.web.util.Constants.REPEAT_COUNT;
 import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Note API")
 @DisplayName("Verify that user is able to change [Note] fields")
+@Severity(SeverityLevel.NORMAL)
 public class UpdateNoteTest extends BaseTest {
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to change Completed status")
     @Description("""
             1. Create new Note
             2. Send request to Update [Status] of Note
             3. Assert response
             """)
+    @Test
     public void updateNoteStatusTest(){
 
         String title = new DataGenerators().generateRandomTitle();
@@ -56,13 +58,13 @@ public class UpdateNoteTest extends BaseTest {
                 () -> assertTrue(response.getData().isCompleted(), "Invalid [Completed] status"));
     }
 
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to update [Note] fields")
     @Description("""
             1. Create new Note
             2. Send request to Update all fields
             3. Assert response
             """)
+    @Test
     public void updateNoteFieldsTest(){
 
         String title = new DataGenerators().generateRandomTitle();

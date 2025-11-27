@@ -35,38 +35,38 @@ class RegisterUserTest extends BaseTest {
 
     public Stream<? extends Arguments> registerUserWithNegativeTestProvider() {
         return Stream.of(
-                arguments("Verify that user is not able to register successfully with empty [Email]",
+                arguments("with empty [Email]",
                         BAD_REQUEST_STATUS.getStatus(),
                         EMAIL_MISSED_MESSAGE.getMessage(),
                         new UserBody(new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH), "",
                                 new Faker().internet().password())),
-                arguments("Verify that user is not able to register successfully with empty [Name]",
+                arguments("with empty [Name]",
                         BAD_REQUEST_STATUS.getStatus(),
                         NAME_MISSED_MESSAGE.getMessage(),
                         new UserBody("", new DataGenerators().generateRandomEmail(true),
                                 new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH))),
-                arguments("Verify that user is not able to register successfully with empty [Password]",
+                arguments("with empty [Password]",
                         BAD_REQUEST_STATUS.getStatus(),
                         PASSWORD_MISSED_MESSAGE.getMessage(),
                         new UserBody(new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH),
                                 new DataGenerators().generateRandomEmail(true), "")),
-                arguments("Verify that user is not able to register successfully with empty [All fields]",
+                arguments("with empty [All fields]",
                         BAD_REQUEST_STATUS.getStatus(),
                         NAME_MISSED_MESSAGE.getMessage(),
                         new UserBody("", "", "")),
-                arguments("Verify that user is NOT able to register successfully with [Name] < 4 characters",
+                arguments("with [Name] < 4 characters",
                         BAD_REQUEST_STATUS.getStatus(),
                         NAME_MISSED_MESSAGE.getMessage(),
                         new UserBody(new DataGenerators().generateRandomName(1, 3),
                                 new DataGenerators().generateRandomEmail(true),
                                 new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH))),
-                arguments("Verify that user is NOT able to register successfully with [Name] > 30 characters",
+                arguments("with [Name] > 30 characters",
                         BAD_REQUEST_STATUS.getStatus(),
                         NAME_MISSED_MESSAGE.getMessage(),
                         new UserBody(new DataGenerators().generateRandomName(31, 100),
                                 new DataGenerators().generateRandomEmail(true),
                                 new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH))),
-                arguments("Verify that user is NOT able to register successfully with [Null] in [Name]",
+                arguments("with [Null] in [Name]",
                         BAD_REQUEST_STATUS.getStatus(),
                         NAME_MISSED_MESSAGE.getMessage(),
                         new UserBody(null, new DataGenerators().generateRandomEmail(true),
@@ -119,13 +119,13 @@ class RegisterUserTest extends BaseTest {
     }
 
     @DisplayName("Verify that user is able to register successfully with [Name] == 30 characters")
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @Description("""
             1. Enter 30 characters length value in [Name] field
             2. Enter valid value in [Email] field
             3. Enter valid value in [Password] field
             4. Send request
             """)
+    @Test
     void verifySuccessUserRegistrationWithNameEqualTo30Characters() {
         String fakeEmail = new DataGenerators().generateRandomEmail(true);
         String fakePassword = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
@@ -150,13 +150,13 @@ class RegisterUserTest extends BaseTest {
     }
 
     @DisplayName("Verify that user is able to register successfully with [Name] == 4 characters")
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @Description("""
             1. Enter 4 characters length value in [Name] field
             2. Enter valid value in [Email] field
             3. Enter valid value in [Password] field
             4. Send request
             """)
+    @Test
     void verifySuccessUserRegistrationWithNameEqualTo4Characters() {
         String fakeEmail = new DataGenerators().generateRandomEmail(true);
         String fakePassword = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);

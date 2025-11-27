@@ -15,6 +15,7 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import static io.maksym.web.enums.ErrorMessage.*;
 import static io.maksym.web.enums.StatusCode.*;
@@ -27,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @io.qameta.allure.Severity(io.qameta.allure.SeverityLevel.CRITICAL)
 public class GetUserProfileTest extends BaseTest {
 
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to fetch [Profile] data")
     @Description("""
             1. Register User
@@ -35,6 +35,7 @@ public class GetUserProfileTest extends BaseTest {
             3. Get user Profile
             4. Assert response
             """)
+    @Test
     public void getUserProfileTest(){
         String fakeName = new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH);
         String fakeEmail = new DataGenerators().generateRandomEmail(true);
@@ -77,8 +78,8 @@ public class GetUserProfileTest extends BaseTest {
             1. Attempt to get User Profile with Invalid Token
             2. Assert response
             """)
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is NOT able to fetch [Profile] data with Invalid Token")
+    @Test
     public void getUserProfileWithWrongTokenTest(){
         Response responseSchemaValidation = getUserProfileData("wrongToken");
 
