@@ -14,6 +14,11 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static io.maksym.web.enums.ErrorMessage.SUCCESSFUL_FETCH_ALL_NOTES;
 import static io.maksym.web.util.Constants.REPEAT_COUNT;
 import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
@@ -44,16 +49,23 @@ public class GetNotesTest extends BaseTest {
         assertResponseSchema("get-all-notes-response-schema.json", getAllNotes);
 
         NoteList notes = getAllNotes.as(NoteList.class);
+        List<String> ids = new ArrayList<>();
+        AtomicBoolean exist = new AtomicBoolean(false);
 
-        String createdNote = notes.getData().get(0).getId();
+        notes.getData().forEach(note -> {
+            if (Objects.equals(note.getId(), noteId)) {
+                exist.set(true);
+            }
+            ids.add(note.getId());
+        });
 
         assertAll("Get all Notes",
                 () -> assertEquals(HttpStatus.SC_OK, notes.getStatus(), "Invalid Message"),
                 () -> assertTrue(notes.isSuccess(), "Invalid Message"),
                 () -> assertEquals(SUCCESSFUL_FETCH_ALL_NOTES.getMessage(), notes.getMessage(), "Invalid Message"),
-                () -> assertEquals(noteId, createdNote,  "Invalid Note Id" )
+                () -> assertTrue(exist.get(),  "Invalid Note Id" )
         );
-
+        deleteNoteById(token, noteId);
     }
 
     @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
