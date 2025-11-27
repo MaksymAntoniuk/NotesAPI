@@ -91,7 +91,7 @@ class RegisterUserTest extends BaseTest {
     }
 
     @DisplayName("Verify that user is able to Register successfully")
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
+    @Test
     void verifySuccessUserRegistrationTest() {
 
         String fakeEmail = new DataGenerators().generateRandomEmail(true);
