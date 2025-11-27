@@ -15,11 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 20
           cache: maven
 
       - name: Run tests
@@ -29,7 +29,7 @@ jobs:
         if: always()
         run: mvn allure:report
 
-      - name: Upload Allure report
+      - name: Upload Allure Report Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
