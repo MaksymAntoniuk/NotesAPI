@@ -9,10 +9,13 @@ import io.maksym.web.dto.Registration.RegistrationSuccResponse.RegistrationSucce
 import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.util.DataGenerators;
 import io.maksym.web.util.SchemaResponseValidator;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import static io.maksym.web.enums.ErrorMessage.*;
 import static io.maksym.web.enums.StatusCode.*;
@@ -20,10 +23,19 @@ import static io.maksym.web.util.Constants.*;
 import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("User API")
+@DisplayName("Verify that user is able to fetch [Profile] data")
+@io.qameta.allure.Severity(io.qameta.allure.SeverityLevel.CRITICAL)
 public class GetUserProfileTest extends BaseTest {
 
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
     @DisplayName("Verify that user is able to fetch [Profile] data")
+    @Description("""
+            1. Register User
+            2. Log In with User
+            3. Get user Profile
+            4. Assert response
+            """)
+    @Test
     public void getUserProfileTest(){
         String fakeName = new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH);
         String fakeEmail = new DataGenerators().generateRandomEmail(true);
@@ -42,7 +54,7 @@ public class GetUserProfileTest extends BaseTest {
                 () -> assertEquals(EXPECTED_SUCCESS_TRUE, response.isSuccess())
         );
 
-       Response responseLogin = logInUser(new LoginBody(fakeEmail, fakePassword));
+       Response responseLogin = SimpleAction.logInUser(new LoginBody(fakeEmail, fakePassword));
        boolean responseLoginSchema = assertResponseSchema("login-response-schema.json", responseLogin);
        LoginResponse responseLoginData = responseLogin.as(LoginResponse.class);
        String id = responseLoginData.getData().getId();
@@ -62,9 +74,12 @@ public class GetUserProfileTest extends BaseTest {
                 () -> assertEquals(id, responseLoginData.getData().getId(), "Incorrect [Id]")
         );
     }
-
-    @RepeatedTest(value = REPEAT_COUNT, name = "{displayName} : {currentRepetition}/{totalRepetitions}")
+    @Description("""
+            1. Attempt to get User Profile with Invalid Token
+            2. Assert response
+            """)
     @DisplayName("Verify that user is NOT able to fetch [Profile] data with Invalid Token")
+    @Test
     public void getUserProfileWithWrongTokenTest(){
         Response responseSchemaValidation = getUserProfileData("wrongToken");
 
