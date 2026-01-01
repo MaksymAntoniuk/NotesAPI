@@ -1,7 +1,7 @@
 package io.maksym.web.UserTests;
 
-import io.maksym.web.Records.LoginBody;
-import io.maksym.web.Records.UserBody;
+import io.maksym.web.records.LoginBody;
+import io.maksym.web.records.UserBody;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Login.LoginResponse;
 import io.maksym.web.dto.Profile.ProfileResponse;
@@ -14,7 +14,6 @@ import io.qameta.allure.Epic;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static io.maksym.web.enums.ErrorMessage.*;

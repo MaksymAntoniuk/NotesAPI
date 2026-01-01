@@ -1,6 +1,6 @@
 package io.maksym.web.NoteTests;
 
-import io.maksym.web.Records.NoteBody;
+import io.maksym.web.records.NoteBody;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.HealthCheck.BaseResponse;
 import io.maksym.web.dto.Note.Note;
@@ -15,7 +15,6 @@ import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ import static io.maksym.web.enums.ErrorMessage.NOTE_NOT_FOUND;
 import static io.maksym.web.enums.ErrorMessage.SUCCESSFUL_DELETION_NOTE;
 import static io.maksym.web.enums.StatusCode.SUCCESSFUL_STATUS;
 import static io.maksym.web.util.Constants.EXPECTED_SUCCESS_TRUE;
-import static io.maksym.web.util.Constants.REPEAT_COUNT;
 import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;

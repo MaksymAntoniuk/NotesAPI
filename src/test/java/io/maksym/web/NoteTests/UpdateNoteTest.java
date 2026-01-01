@@ -1,8 +1,8 @@
 package io.maksym.web.NoteTests;
 
-import io.maksym.web.Records.NoteBody;
-import io.maksym.web.Records.NoteCompletedBody;
-import io.maksym.web.Records.NoteUpdateBody;
+import io.maksym.web.records.NoteBody;
+import io.maksym.web.records.NoteCompletedBody;
+import io.maksym.web.records.NoteUpdateBody;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Note.Note;
 import io.maksym.web.requests.actions.SimpleAction;

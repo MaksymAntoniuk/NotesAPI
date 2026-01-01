@@ -1,8 +1,8 @@
 package io.maksym.web.UserTests;
 
-import io.maksym.web.Records.LoginBody;
-import io.maksym.web.Records.UserBody;
-import io.maksym.web.Records.UserUpdateBody;
+import io.maksym.web.records.LoginBody;
+import io.maksym.web.records.UserBody;
+import io.maksym.web.records.UserUpdateBody;
 import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Profile.ProfileResponse;

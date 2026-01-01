@@ -1,12 +1,10 @@
 package io.maksym.web.base;
 
-import io.maksym.web.Records.LoginBody;
+import io.maksym.web.records.LoginBody;
 import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.config.ApiEndpoints;
 import io.maksym.web.dto.Login.LoginResponse;
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 

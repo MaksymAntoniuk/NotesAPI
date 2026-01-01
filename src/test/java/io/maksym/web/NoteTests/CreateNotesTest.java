@@ -1,6 +1,6 @@
 package io.maksym.web.NoteTests;
 
-import io.maksym.web.Records.NoteBody;
+import io.maksym.web.records.NoteBody;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Note.Note;
 import io.maksym.web.requests.actions.SimpleAction;
@@ -11,11 +11,9 @@ import io.qameta.allure.Severity;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static io.maksym.web.enums.ErrorMessage.SUCCESSFUL_CREATION_NOTE;
-import static io.maksym.web.util.Constants.REPEAT_COUNT;
 import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
 import static org.junit.jupiter.api.Assertions.*;
 
