@@ -16,7 +16,20 @@ public enum ErrorMessage {
     SUCCESSFUL_CREATION_NOTE("Note successfully created"),
     SUCCESSFUL_DELETION_NOTE("Note successfully deleted"),
     SUCCESSFUL_FETCH_ALL_NOTES("Notes successfully retrieved"),
-    NOTE_NOT_FOUND("No note was found with the provided ID, Maybe it was deleted");
+    NOTE_NOT_FOUND("No note was found with the provided ID, Maybe it was deleted"),
+
+    USERNAME_MISSED_MESSAGE("All fields are required."),
+    USERNAME_SHORT_MESSAGE("Username must be at least 3 characters long."),
+    USERNAME_LONG_MESSAGE("Invalid username. Usernames can only contain lowercase letters, numbers, and single hyphens, must be between 3 and 39 characters, and cannot start or end with a hyphen."),
+
+    PASSWORD_SHORT_MESSAGE("Password must be at least 4 characters long."),
+    PASSWORD_LONG_MESSAGE("Password must be at least 4 characters long."),
+    PASSWORD_MISSED("All fields are required."),
+    PASSWORD_MISMATCH_MESSAGE("Passwords do not match."),
+
+    ALL_FIELDS_REQUIRED_MESSAGE("All fields are required."),
+    UNEXPECTED_ERROR("An error occurred during registration. Please try again.");
+
 
     public final String message;
 
