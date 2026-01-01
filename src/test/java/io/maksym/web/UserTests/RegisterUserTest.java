@@ -1,7 +1,7 @@
 package io.maksym.web.UserTests;
 
 import com.github.javafaker.Faker;
-import io.maksym.web.Records.UserBody;
+import io.maksym.web.records.UserBody;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Registration.RegistrationSuccResponse.RegistrationSuccessfulResponse;
 import io.maksym.web.util.DataGenerators;
@@ -10,7 +10,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
