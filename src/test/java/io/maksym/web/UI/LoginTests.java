@@ -5,7 +5,6 @@ import io.maksym.web.pages.LoginPage;
 import io.maksym.web.pages.RegisterPage;
 import io.maksym.web.pages.SecurePage;
 import io.maksym.web.records.ui.UiUserLogIn;
-import io.maksym.web.ui.BaseTest;
 import io.maksym.web.util.DataGenerators;
 import lombok.extern.apachecommons.CommonsLog;
 import org.junit.jupiter.api.Assertions;
@@ -21,7 +20,7 @@ import static io.maksym.web.enums.FlashAlertMessage.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @CommonsLog
-public class LoginTests extends BaseTest {
+public class LoginTests extends io.maksym.web.UI.BaseTest {
     public static Stream<?extends Arguments> loginWithNegativeTestProvider() {
         return Stream.of(
                 Arguments.of("with invalid [Username]", INVALID_USERNAME_ALERT.getMessage(), new UiUserLogIn("practice@", "SuperSecretPassword!")),

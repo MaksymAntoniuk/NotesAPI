@@ -6,6 +6,7 @@ import com.microsoft.playwright.options.AriaRole;
 import io.maksym.web.components.FlashAlert;
 import io.maksym.web.records.ui.UiUserLogIn;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static io.maksym.web.config.ApiEndpoints.BASE_URL_UI;
 
 public class LoginPage extends BasePage{
     private final FlashAlert flashAlert;
@@ -68,7 +69,7 @@ public class LoginPage extends BasePage{
     }
 
     public LoginPage loginPageShouldBeOpened(){
-        assertThat(page).hasURL("**/login");
+        assertThat(page).hasURL(BASE_URL_UI + "/login");
         assertThat(
                 page.getByRole(
                         AriaRole.HEADING,

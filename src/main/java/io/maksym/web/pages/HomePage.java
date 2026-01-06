@@ -5,6 +5,8 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 public class HomePage extends BasePage {
     public HomePage(Page page) {
         super(page);
@@ -41,11 +43,18 @@ public LoginPage goToLogin() {
 
         registrationLink.click();
 
-        page.waitForSelector("//h1[contains(.,'Test Register page')]",
-                new Page.WaitForSelectorOptions()
-                        .setState(WaitForSelectorState.VISIBLE)
-                        .setTimeout(5000)
-        );
+        assertThat(
+                page.getByRole(
+                        AriaRole.HEADING,
+                        new Page.GetByRoleOptions().setLevel(1)
+                )
+        ).containsText("Test Register page for Automation Testing Practice");
+
+//        page.waitForSelector("//h1[contains(.,'Test Register page')]",
+//                new Page.WaitForSelectorOptions()
+//                        .setState(WaitForSelectorState.VISIBLE)
+//                        .setTimeout(5000)
+//        );
 
         return new RegisterPage(page);
     }

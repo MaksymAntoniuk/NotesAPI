@@ -1,7 +1,6 @@
 package io.maksym.web.UI;
 
 import io.maksym.web.pages.HomePage;
-import io.maksym.web.ui.BaseTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
