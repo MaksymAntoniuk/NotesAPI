@@ -58,7 +58,12 @@ public class UpdateUserProfileTest extends BaseTest {
         String email = new DataGenerators().generateRandomEmail(true);
         String password = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
 
-        Response createUser = registerUser(new UserBody(name, email, password));
+        UserBody user = new UserBody(name, email, password);
+
+        Response createUser = registerUser(user);
+
+        registerCreatedUser(user);
+
         assertResponseSchema("registration-response-schema.json", createUser);
         assertEquals(HttpStatus.SC_CREATED, createUser.getStatusCode(), "Incorrect status code");
 

@@ -163,6 +163,9 @@ class RegisterUserTest extends BaseTest {
         UserBody user = new UserBody("Name", fakeEmail, fakePassword);
 
         Response registerUser = registerUser(user);
+
+        registerCreatedUser(user);
+
         boolean validationSchema = assertResponseSchema("registration-response-schema.json", registerUser);
 
         RegistrationSuccessfulResponse response = registerUser.as(RegistrationSuccessfulResponse.class);

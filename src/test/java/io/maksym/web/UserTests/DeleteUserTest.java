@@ -37,8 +37,11 @@ public class DeleteUserTest extends BaseTest {
         String name = new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH);
         String email = new DataGenerators().generateRandomEmail(true);
         String password = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
+        UserBody user = new UserBody(name, email, password);
+        Response createUser = registerUser(user);
 
-        Response createUser = registerUser(new UserBody(name, email, password));
+        registerCreatedUser(user);
+
         assertResponseSchema("registration-response-schema.json", createUser);
         assertEquals(HttpStatus.SC_CREATED, createUser.getStatusCode(), "Incorrect status code");
 

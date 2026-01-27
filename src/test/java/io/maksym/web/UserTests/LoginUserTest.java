@@ -41,6 +41,8 @@ public class LoginUserTest extends BaseTest {
         UserBody user = new UserBody(fakeName, fakeEmail, fakePassword);
         RegistrationSuccessfulResponse registrationResponse = registerUser(user).as(RegistrationSuccessfulResponse.class);
 
+        registerCreatedUser(user);
+
         Response logInUser = SimpleAction.logInUser(new LoginBody(registrationResponse.getData().getEmail(), fakePassword));
         boolean validationSchema = assertResponseSchema("login-response-schema.json", logInUser);
 

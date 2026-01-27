@@ -40,7 +40,11 @@ public class GetUserProfileTest extends BaseTest {
         String fakeEmail = new DataGenerators().generateRandomEmail(true);
         String fakePassword = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
 
-        Response registerResponse = registerUser(new UserBody(fakeName, fakeEmail, fakePassword));
+        UserBody user = new UserBody(fakeName, fakeEmail, fakePassword);
+        Response registerResponse = registerUser(user);
+
+        registerCreatedUser(user);
+
         boolean validationSchemaOfFirstRegisterResponse = assertResponseSchema("registration-response-schema.json", registerResponse);
 
         RegistrationSuccessfulResponse response = registerResponse.as(RegistrationSuccessfulResponse.class);
@@ -57,7 +61,7 @@ public class GetUserProfileTest extends BaseTest {
        boolean responseLoginSchema = assertResponseSchema("login-response-schema.json", responseLogin);
        LoginResponse responseLoginData = responseLogin.as(LoginResponse.class);
        String id = responseLoginData.getData().getId();
-       String token = responseLoginData.getData().getToken();
+
        String email = responseLoginData.getData().getEmail();
        String name = responseLoginData.getData().getName();
 
