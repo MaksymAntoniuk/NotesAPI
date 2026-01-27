@@ -49,6 +49,6 @@ public class CreateNotesTest extends BaseTest {
                 () -> assertEquals(category, response.getData().getCategory(), "Invalid Category")
         );
 
-        deleteNoteById(token, response.getData().getId());
+        registerCreatedNote(response.getData().getId());
     }
 }
