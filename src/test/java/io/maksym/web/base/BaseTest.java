@@ -36,8 +36,6 @@ public class BaseTest implements SimpleAction {
     }
     @AfterAll
     public static void tearDown(){
-        System.out.println("Cleaning up...");
-
         BaseTest action = new BaseTest();
         try {
             notesToDelete.forEach(noteId ->{
