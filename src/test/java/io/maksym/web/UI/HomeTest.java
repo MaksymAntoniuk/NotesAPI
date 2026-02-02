@@ -8,7 +8,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     public void HomeTest() {
-        HomePage homePage = new HomePage(page).open();
+        HomePage homePage = new HomePage(page()).open();
         var title = homePage.getPageTitle();
 
         Assertions.assertEquals("Automation Testing Practice WebSite for QA and Developers", title);
