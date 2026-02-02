@@ -19,7 +19,7 @@ public class RegisterPage extends BasePage{
 
     public RegisterPage(Page page) {
         super(page);
-        this.flashAlert = new FlashAlert(page);
+        this.flashAlert = new FlashAlert(page.locator("#flash"));
     }
     @Override
     protected String path() {
@@ -66,18 +66,9 @@ public class RegisterPage extends BasePage{
     }
 
     public RegisterPage registerPageShouldBeOpened(){
-        waitInterstitialAdToDisappear();
         assertThat(page).hasURL(BASE_URL_UI + "/register");
         assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setLevel(1)))
                 .containsText("Test Register page for Automation Testing Practice");
         return this;
     }
-    private void waitInterstitialAdToDisappear(){
-        page.waitForSelector("body:not(:has(#google_vignette)):not(:has(#adtech_redirect))",
-                new Page.WaitForSelectorOptions()
-                        .setState(WaitForSelectorState.VISIBLE)
-                        .setTimeout(5000)
-        );
-    }
-
 }
