@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69813535f7461602953c65ee",
+        "name": "Norberto",
+        "email": "da_vinci1770075444791@gmail.com",
+        "token": "ae5b36ba2423476694d1fb3a818ac28117adc91d2d164e8d80a5eb84b57b2eb6"
+    }
+}

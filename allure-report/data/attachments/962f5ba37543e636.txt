@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "69813536f7461602953c6609",
+        "name": "Burt",
+        "email": "michelangelo1770075446165@gmail.com",
+        "phone": "0749080251",
+        "company": "Mertz LLC"
+    }
+}

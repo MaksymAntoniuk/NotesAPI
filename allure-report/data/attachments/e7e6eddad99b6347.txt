@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69813532f7461602953c65be",
+        "name": "Dillon",
+        "email": "edward_hopper1770075442130@gmail.com",
+        "token": "807d734ed5784c6fa016998f4230094ff11c76c06b674567add778119462e0ed"
+    }
+}
