@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "69813459f7461602953c64ac",
+        "title": "Ego Dominus Tuus",
+        "description": "Praesentium quod non tempore reiciendis sint. Magnam voluptatum provident dolor illo quaerat molestiae. Quia sapiente optio maiores. Ipsam error et ullam.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-02-02T23:33:45.017Z",
+        "updated_at": "2026-02-02T23:33:45.017Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

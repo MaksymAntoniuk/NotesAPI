@@ -1,0 +1,37 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Notes successfully retrieved",
+    "data": [
+        {
+            "id": "69813458f7461602953c64a0",
+            "title": "The Other Side of Silence",
+            "description": "Ipsa asperiores sed et provident sit molestiae doloremque. Sapiente sed eos cupiditate saepe sed ullam. Dolor quia omnis temporibus ea. Perferendis aut est rem dolorem. Rerum et qui dolorum.",
+            "category": "Personal",
+            "completed": false,
+            "created_at": "2026-02-02T23:33:44.274Z",
+            "updated_at": "2026-02-02T23:33:44.274Z",
+            "user_id": "690f199d45fcff029aa9bdde"
+        },
+        {
+            "id": "69813458f7461602953c649c",
+            "title": "Consider the Lilies",
+            "description": "Illo nisi eos labore aut. Atque excepturi id. Pariatur quis eveniet ut. Sed aut qui facere quaerat.",
+            "category": "Home",
+            "completed": false,
+            "created_at": "2026-02-02T23:33:44.253Z",
+            "updated_at": "2026-02-02T23:33:44.253Z",
+            "user_id": "690f199d45fcff029aa9bdde"
+        },
+        {
+            "id": "69813458f7461602953c6496",
+            "title": "The Lathe of Heaven",
+            "description": "Neque sint similique doloribus dolorem repellat sequi. Omnis consequatur cum harum. Rem odio sunt id beatae. Cumque voluptas dolorum.",
+            "category": "Home",
+            "completed": false,
+            "created_at": "2026-02-02T23:33:44.206Z",
+            "updated_at": "2026-02-02T23:33:44.206Z",
+            "user_id": "690f199d45fcff029aa9bdde"
+        }
+    ]
+}

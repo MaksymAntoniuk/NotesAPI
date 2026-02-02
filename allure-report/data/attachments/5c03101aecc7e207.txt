@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "69813459f7461602953c64ba",
+        "title": "Françoise Sagan",
+        "description": "Laborum quod qui consectetur animi aperiam ut. Dolor aliquam dicta. Aspernatur rerum rerum exercitationem. Dolor modi omnis voluptatem et reprehenderit doloremque qui. Ab nihil rerum rerum eos eius numquam.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-02-02T23:33:45.225Z",
+        "updated_at": "2026-02-02T23:33:45.225Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "6981345ef7461602953c652b",
+        "name": "Janel",
+        "email": "monet1770075230011@gmail.com",
+        "phone": "9430451940",
+        "company": "Rowe, Gleason and Hauck"
+    }
+}
