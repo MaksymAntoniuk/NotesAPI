@@ -24,7 +24,10 @@ public class LoginPage extends BasePage{
 
     public LoginPage(Page page) {
         super(page);
-        this.flashAlert = new FlashAlert(page);
+        this.flashAlert = new FlashAlert(page.locator("#flash"));
+    }
+    public FlashAlert getFlashAlert(){
+        return new FlashAlert(page.locator("#flash"));
     }
 
     @Override
@@ -44,8 +47,9 @@ public class LoginPage extends BasePage{
         submit.click();
     }
 
-    public FlashAlert flashAlert(){
-        return flashAlert;
+    public String flashAlertText(){
+        assert(page.locator("#flash").isVisible());
+        return flashAlert.text();
     }
 
     public SecurePage loginAs(UiUserLogIn user){
