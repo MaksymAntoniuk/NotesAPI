@@ -7,13 +7,11 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static io.maksym.web.enums.ErrorMessage.HEALTH_CHECK_MESSAGE;
 import static io.maksym.web.enums.StatusCode.SUCCESSFUL_STATUS;
 import static io.maksym.web.util.Constants.EXPECTED_SUCCESS_TRUE;
-import static io.maksym.web.util.Constants.REPEAT_COUNT;
 import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
 import static org.junit.jupiter.api.Assertions.*;
 @Epic("User API")
