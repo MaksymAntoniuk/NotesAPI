@@ -1,9 +1,6 @@
 package io.maksym.web.UI;
 
-import io.maksym.web.pages.HomePage;
-import io.maksym.web.pages.LoginPage;
-import io.maksym.web.pages.RegisterPage;
-import io.maksym.web.pages.SecurePage;
+import io.maksym.web.pages.*;
 import io.maksym.web.records.ui.UiUserLogIn;
 import io.maksym.web.util.DataGenerators;
 import lombok.extern.apachecommons.CommonsLog;
@@ -20,7 +17,7 @@ import static io.maksym.web.enums.FlashAlertMessage.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @CommonsLog
-public class LoginTests extends io.maksym.web.UI.BaseTest {
+public class LoginTest extends BaseTest {
     public static Stream<?extends Arguments> loginWithNegativeTestProvider() {
         return Stream.of(
                 Arguments.of("with invalid [Username]", INVALID_USERNAME_ALERT.getMessage(), new UiUserLogIn("practice@", "SuperSecretPassword!")),
@@ -32,25 +29,23 @@ public class LoginTests extends io.maksym.web.UI.BaseTest {
     @Test
     @DisplayName("Verify that user is able to login successfully")
     public void verifyUserIsAbleToLogin() {
-        HomePage homePage = new HomePage(page).open();
+        HomePage homePage = new HomePage(page()).open();
 
         var loginPage = homePage.goToLogin();
         SecurePage securePage = loginPage.loginAs(new UiUserLogIn("practice", "SuperSecretPassword!"));
 
         securePage.securePageShouldBeOpened();
-        securePage.flashAlert().shouldBeVisible();
 
         Assertions.assertAll(
                 () -> securePage.greetingsShouldBeDisplayed("practice"),
-                () -> securePage.flashAlert().shouldBeVisible(),
-                () -> securePage.flashAlert().shouldContain(SUCCESSFUL_LOGIN_ALERT.getMessage())
+                () -> assertEquals(SUCCESSFUL_LOGIN_ALERT.getMessage(),securePage.flashAlertText())
         );
 
     }
     @Test
     @DisplayName("Verify that user is able to logout successfully")
     public void verifyUserIsAbleToLogout(){
-        HomePage homePage = new HomePage(page).open();
+        HomePage homePage = new HomePage(page()).open();
         SecurePage securePage = homePage.goToLogin().loginAs(new UiUserLogIn("practice", "SuperSecretPassword!"));
         securePage.securePageShouldBeOpened();
         securePage.isLogoutButtonIsVisible();
@@ -58,15 +53,15 @@ public class LoginTests extends io.maksym.web.UI.BaseTest {
         LoginPage logout = securePage.logout();
 
         Assertions.assertAll(
-                () -> logout.flashAlert().shouldBeVisible(),
-                () -> logout.flashAlert().shouldContain(LOGOUT_ALERT.getMessage())
+                () -> logout.getFlashAlert().shouldBeVisible(),
+                () -> logout.getFlashAlert().shouldContain(LOGOUT_ALERT.getMessage())
         );
     }
 
     @MethodSource("loginWithNegativeTestProvider")
     @ParameterizedTest(name = "{0}")
     public void verifyUserIsNotAbleToLoginWithInvalidCredentials(String testName, String expectedMessage, UiUserLogIn userLogIn) {
-        HomePage homePage = new HomePage(page).open();
+        HomePage homePage = new HomePage(page()).open();
 
         LoginPage loginPage = homePage.goToLogin();
         loginPage.loginWithInvalidUser(userLogIn);
@@ -75,14 +70,14 @@ public class LoginTests extends io.maksym.web.UI.BaseTest {
 
         Assertions.assertAll(testName,
                 () -> loginPage.loginPageShouldBeOpened(),
-                () -> loginPage.flashAlert().shouldBeVisible(),
-                () -> loginPage.flashAlert().shouldContain(expectedMessage)
+                () -> loginPage.getFlashAlert().shouldBeVisible(),
+                () -> loginPage.getFlashAlert().shouldContain(expectedMessage)
         );
     }
     @Test
     @DisplayName("Verify that user is able to redirect to Registration Page successfully")
     public void verifyUseIsAbleToRedirectToRegistrationPage(){
-        HomePage homePage = new HomePage(page).open();
+        HomePage homePage = new HomePage(page()).open();
         LoginPage loginPage = homePage.goToLogin();
         RegisterPage registerPage = loginPage.navigateToRegisterPage();
 
@@ -95,7 +90,7 @@ public class LoginTests extends io.maksym.web.UI.BaseTest {
     @Test
     @DisplayName("Verify that user is able to redirect to Home Page successfully")
     public void verifyUserIsAbleToRedirectToHomePage(){
-        HomePage homePage = new HomePage(page).open();
+        HomePage homePage = new HomePage(page()).open();
         LoginPage loginPage = homePage.goToLogin();
         loginPage.homeLinkShouldBeVisible();
         HomePage returnToHome = loginPage.navigateToHomePage();
