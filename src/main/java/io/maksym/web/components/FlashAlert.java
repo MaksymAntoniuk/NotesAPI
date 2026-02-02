@@ -8,8 +8,8 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 public class FlashAlert {
     private final Locator root;
 
-    public FlashAlert(Page page) {
-        this.root = page.locator("#flash");
+    public FlashAlert(Locator root) {
+        this.root = root;
     }
 
     public void shouldBeVisible(){
