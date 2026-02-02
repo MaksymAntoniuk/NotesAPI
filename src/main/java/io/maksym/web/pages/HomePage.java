@@ -28,15 +28,28 @@ public class HomePage extends BasePage {
             AriaRole.LINK,
             new Page.GetByRoleOptions().setName("Scrollbars"));
 
-public LoginPage goToLogin() {
-    waitInterstitialAdToDisappear();
-    loginPageLink.click();
-    return new LoginPage(page);
-}
+    private final Locator forgotPasswordForm = page.getByRole(
+            AriaRole.LINK,
+            new Page.GetByRoleOptions().setName("Forgot password form"));
+
+    private final Locator webInputs = page.getByRole(AriaRole.LINK,
+            new Page.GetByRoleOptions().setName("Web inputs"));
+
+    private final Locator locatorPageLink = page.getByRole(AriaRole.LINK,
+            new Page.GetByRoleOptions().setName("Locators Page"));
+
+    public LoginPage goToLogin() {
+        loginPageLink.click();
+        return new LoginPage(page);
+    }
+
+    public LocatorsPage goToLocatorsPage(){
+        locatorPageLink.click();
+        return new LocatorsPage(page);
+    }
 
 
     public RegisterPage goToRegisterPage(){
-        waitInterstitialAdToDisappear();
         registrationLink.waitFor(new Locator.WaitForOptions()
                 .setState(WaitForSelectorState.VISIBLE)
                 .setTimeout(5000));
@@ -50,17 +63,10 @@ public LoginPage goToLogin() {
                 )
         ).containsText("Test Register page for Automation Testing Practice");
 
-//        page.waitForSelector("//h1[contains(.,'Test Register page')]",
-//                new Page.WaitForSelectorOptions()
-//                        .setState(WaitForSelectorState.VISIBLE)
-//                        .setTimeout(5000)
-//        );
-
         return new RegisterPage(page);
     }
 
     public ScrollPage goToScrollPage(){
-    waitInterstitialAdToDisappear();
         scrollbarsLink.waitFor(new Locator.WaitForOptions()
                 .setState(WaitForSelectorState.VISIBLE)
                 .setTimeout(5000));
@@ -71,13 +77,13 @@ public LoginPage goToLogin() {
     public String getPageTitle(){
         return mainTitle.innerText();
     }
-
-    private void waitInterstitialAdToDisappear(){
-        page.waitForSelector("body:not(:has(#google_vignette)):not(:has(#adtech_redirect))",
-                new Page.WaitForSelectorOptions()
-                        .setState(WaitForSelectorState.VISIBLE)
-                        .setTimeout(5000)
-        );
+    public ForgotPasswordFormPage goToForgotPasswordForm(){
+        forgotPasswordForm.click();
+        return new ForgotPasswordFormPage(page);
+    }
+    public WebInputsPage goToWebInputsPage(){
+        webInputs.click();
+        return new WebInputsPage(page);
     }
 
     @Override
