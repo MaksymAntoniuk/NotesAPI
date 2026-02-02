@@ -37,10 +37,16 @@ public class UpdateUserProfileTest extends BaseTest {
     public Stream<? extends Arguments> updateUserProfilePositiveTestProvider() {
         DataGenerators generators = new DataGenerators();
         return Stream.of(
-                Arguments.of("[Name]", new UserUpdateBody(generators.generateRandomName(4, 30), "", "")),
-                Arguments.of("[Phone]", new UserUpdateBody(generators.generateRandomName(4, 30), generators.generateRandomPhone(), "")),
-                Arguments.of("[Company]", new UserUpdateBody(generators.generateRandomName(4, 30), "", generators.generateRandomCompany())),
-                Arguments.of("[Name], [Phone], [Company] in the same time", new UserUpdateBody(generators.generateRandomName(4, 30), generators.generateRandomPhone(), generators.generateRandomCompany())));
+                Arguments.of("[Name]",
+                        new UserUpdateBody(generators.generateRandomName(4, 30), "", "")),
+                Arguments.of("[Phone]",
+                        new UserUpdateBody(generators.generateRandomName(4, 30), generators.generateRandomPhone(), "")),
+                Arguments.of("[Company]",
+                        new UserUpdateBody(generators.generateRandomName(4, 30), generators.generateRandomPhone(),
+                                generators.generateRandomCompany())),
+                Arguments.of("[Name], [Phone], [Company] in the same time",
+                        new UserUpdateBody(generators.generateRandomName(4, 30), generators.generateRandomPhone(),
+                                generators.generateRandomCompany())));
     }
     public Stream<? extends Arguments> updateUserProfileNegativeTestProvider() {
         DataGenerators generators = new DataGenerators();
@@ -62,7 +68,6 @@ public class UpdateUserProfileTest extends BaseTest {
 
         Response createUser = registerUser(user);
 
-        registerCreatedUser(user);
 
         assertResponseSchema("registration-response-schema.json", createUser);
         assertEquals(HttpStatus.SC_CREATED, createUser.getStatusCode(), "Incorrect status code");
@@ -72,7 +77,13 @@ public class UpdateUserProfileTest extends BaseTest {
         assertEquals(HttpStatus.SC_OK, logInUser.getStatusCode(), "Incorrect status code");
 
         String token = logInUser.getBody().jsonPath().getString("data.token");
-        System.out.println("Token: " + token);
+//        System.out.println("Token: " + token);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Response responseSchemaValidation = updateUser(token, userUpdateBody);
 
@@ -89,7 +100,9 @@ public class UpdateUserProfileTest extends BaseTest {
                 () -> Assertions.assertEquals(userUpdateBody.phone(), response.getData().getPhone(), "Incorrect [Phone]"),
                 () -> Assertions.assertEquals(userUpdateBody.company(), response.getData().getCompany(), "Incorrect [Company]")
         );
-        deleteUserProfile(token);
+//        deleteUserProfile(token);
+        registerCreatedUser(user);
+
     }
 
     @DisplayName("Verify that user is NOT able to update")
