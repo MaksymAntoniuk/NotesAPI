@@ -19,28 +19,18 @@ public class ScrollPage extends BasePage{
     }
 
     public void clickAfterScrolling(){
-        waitInterstitialAdToDisappear();
         hidingButton.scrollIntoViewIfNeeded();
         hidingButton.click();
     }
 
     public void scrollPageShouldBeOpened(){
-        waitInterstitialAdToDisappear();
         assertThat(page).hasURL(BASE_URL_UI + "/scrollbars");
     }
     public void hidingButtonShouldBeVisible(){
-        waitInterstitialAdToDisappear();
         assertThat(hidingButton).isVisible();
-    }
-    private void waitInterstitialAdToDisappear(){
-        page.waitForSelector("body:not(:has(#google_vignette)):not(:has(#adtech_redirect))",
-                new Page.WaitForSelectorOptions()
-                        .setState(WaitForSelectorState.VISIBLE)
-                        .setTimeout(5000)
-        );
     }
     @Override
     protected String path() {
-        return "";
+        return "/scrollbars";
     }
 }

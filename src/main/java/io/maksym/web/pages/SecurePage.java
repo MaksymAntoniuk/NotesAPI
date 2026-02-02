@@ -16,13 +16,14 @@ public class SecurePage extends BasePage{
 
     public SecurePage(Page page) {
         super(page);
-        this.flashAlert = new FlashAlert(page);
+        flashAlert = new FlashAlert(page.locator("#flash"));
     }
 
     @Override
     protected String path() {
-        return "";
+        return "/secure";
     }
+
     public SecurePage waitUntilLoaded(String username){
         page.locator(String.format(GREETING_MESSAGE, username.toLowerCase()))
                 .waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
@@ -32,9 +33,9 @@ public class SecurePage extends BasePage{
 //    public Locator greeting(String username){
 //        return page.locator(String.format(GREETING_MESSAGE, username.toLowerCase()));
 //    }
-
-    public FlashAlert flashAlert(){
-        return flashAlert;
+    public String flashAlertText(){
+        assert(page.locator("#flash").isVisible());
+        return flashAlert.text();
     }
 
     public void securePageShouldBeOpened(){
