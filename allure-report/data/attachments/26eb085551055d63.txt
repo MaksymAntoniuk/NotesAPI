@@ -1,0 +1,37 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Notes successfully retrieved",
+    "data": [
+        {
+            "id": "698132b1f7461602953c63c6",
+            "title": "The Way of All Flesh",
+            "description": "Est cumque deleniti qui. Nihil in non. Inventore ut est occaecati nihil.",
+            "category": "Home",
+            "completed": false,
+            "created_at": "2026-02-02T23:26:41.273Z",
+            "updated_at": "2026-02-02T23:26:41.273Z",
+            "user_id": "690f199d45fcff029aa9bdde"
+        },
+        {
+            "id": "698132b1f7461602953c63c4",
+            "title": "What's Become of Waring",
+            "description": "Impedit veniam quisquam. Sint eos quidem esse et. Facilis ipsa est sit cum dolorum minus illo. Quo culpa ducimus quis ea. Et eum veniam quisquam.",
+            "category": "Home",
+            "completed": false,
+            "created_at": "2026-02-02T23:26:41.268Z",
+            "updated_at": "2026-02-02T23:26:41.268Z",
+            "user_id": "690f199d45fcff029aa9bdde"
+        },
+        {
+            "id": "698132b1f7461602953c63be",
+            "title": "The Wealth of Nations",
+            "description": "Voluptatem nam aperiam velit. Similique esse magnam hic. Id quia asperiores. Non tempore qui enim.",
+            "category": "Personal",
+            "completed": false,
+            "created_at": "2026-02-02T23:26:41.255Z",
+            "updated_at": "2026-02-02T23:26:41.255Z",
+            "user_id": "690f199d45fcff029aa9bdde"
+        }
+    ]
+}

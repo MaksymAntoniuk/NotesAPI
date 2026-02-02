@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "698132b1f7461602953c63be",
+        "title": "The Wealth of Nations",
+        "description": "Voluptatem nam aperiam velit. Similique esse magnam hic. Id quia asperiores. Non tempore qui enim.",
+        "category": "Personal",
+        "completed": false,
+        "created_at": "2026-02-02T23:26:41.255Z",
+        "updated_at": "2026-02-02T23:26:41.255Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

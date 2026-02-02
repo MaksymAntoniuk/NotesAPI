@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "698132b5f7461602953c6434",
+        "name": "Keneth",
+        "email": "gauguin1770074805621@gmail.com",
+        "phone": "2305060771",
+        "company": ""
+    }
+}

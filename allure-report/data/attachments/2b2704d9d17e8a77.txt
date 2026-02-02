@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully Updated",
+    "data": {
+        "id": "698132b1f7461602953c63c6",
+        "title": "Infinite Jest",
+        "description": "Quaerat cumque neque quis cupiditate nesciunt. Quam eius nobis a ut consequuntur. Est fugit ut odit. Sed ut provident molestiae.",
+        "category": "Personal",
+        "completed": true,
+        "created_at": "2026-02-02T23:26:41.273Z",
+        "updated_at": "2026-02-02T23:26:41.882Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}
