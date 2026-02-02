@@ -1,9 +1,6 @@
 package io.maksym.web.UI;
 
-import io.maksym.web.pages.HomePage;
-import io.maksym.web.pages.LoginPage;
-import io.maksym.web.pages.RegisterPage;
-import io.maksym.web.pages.SecurePage;
+import io.maksym.web.pages.*;
 import io.maksym.web.records.ui.UiUser;
 import io.maksym.web.records.ui.UiUserLogIn;
 import io.maksym.web.util.DataGenerators;
@@ -17,9 +14,10 @@ import java.util.stream.Stream;
 
 import static io.maksym.web.enums.ErrorMessage.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class RegistrationTests extends BaseTest {
+public class RegistrationTest extends BaseTest {
         public static Stream<? extends Arguments> registerUserWithNegativeTestProvider() {
                 String password = new DataGenerators().generateRandomPassword(6, 10);
                 String confirmPassword = password;
@@ -58,26 +56,24 @@ public class RegistrationTests extends BaseTest {
          UiUser user = new UiUser(new DataGenerators().generateRandomName(1, 30),
          "SuperSecretPassword!", "SuperSecretPassword!");
 
-         HomePage homePage = new HomePage(page).open();
+         HomePage homePage = new HomePage(page()).open();
          RegisterPage registerPage = homePage.goToRegisterPage();
          LoginPage loginPage = registerPage.registerNewUser(user);
 
          loginPage.loginPageShouldBeOpened();
-         loginPage.flashAlert().shouldBeVisible();
-         loginPage.flashAlert().shouldContain("Successfully registered, you can log in now.");
+         loginPage.getFlashAlert().shouldBeVisible();
+         loginPage.getFlashAlert().shouldContain("Successfully registered, you can log in now.");
 
          loginPage.loginAs(new UiUserLogIn(user.username(),
          user.password())).waitUntilLoaded(user.username());
 
-         SecurePage securePage = new SecurePage(page);
+         SecurePage securePage = new SecurePage(page());
 
          assertAll("User is successfully logged in",
              () -> securePage.securePageShouldBeOpened(),
              () -> securePage.greetingsShouldBeDisplayed(user.username()),
              () -> securePage.isLogoutButtonIsVisible(),
-             () -> securePage.flashAlert().shouldBeVisible(),
-             () -> securePage.flashAlert().shouldContain("You logged into a secure area!")
-             );
+             () -> assertEquals("You logged into a secure area!", securePage.flashAlertText()));
          }
 
         @MethodSource("registerUserWithNegativeTestProvider" )
@@ -85,7 +81,7 @@ public class RegistrationTests extends BaseTest {
         @DisplayName("Verify that user is NOT able to register successfully")
         public void invalidUserRegistrationAndLoginTest(String testName, String expectedMessage, UiUser user) {
 
-            HomePage homePage = new HomePage(page).open();
+            HomePage homePage = new HomePage(page()).open();
             RegisterPage registerPage = homePage.goToRegisterPage();
 
             registerPage.tryToRegisterWithInvalidUser(user);
