@@ -4,6 +4,7 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.WaitForSelectorState;
+import io.maksym.web.myNotes.pages.WelcomePage;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
@@ -12,8 +13,7 @@ public class HomePage extends BasePage {
         super(page);
     }
 
-    private final Locator webInputLink = page.getByRole(
-            AriaRole.LINK,
+    private final Locator webInputsLink = page.getByRole(AriaRole.LINK,
             new Page.GetByRoleOptions().setName("Web inputs"));
 
     private final Locator loginPageLink = page.getByRole(
@@ -32,11 +32,14 @@ public class HomePage extends BasePage {
             AriaRole.LINK,
             new Page.GetByRoleOptions().setName("Forgot password form"));
 
-    private final Locator webInputs = page.getByRole(AriaRole.LINK,
-            new Page.GetByRoleOptions().setName("Web inputs"));
-
     private final Locator locatorPageLink = page.getByRole(AriaRole.LINK,
             new Page.GetByRoleOptions().setName("Locators Page"));
+
+    private final Locator radioButtonsLink = page.getByRole(AriaRole.LINK,
+            new Page.GetByRoleOptions().setName("Radio buttons"));
+
+    private final Locator notesAppReactLink = page.getByRole(AriaRole.LINK,
+            new Page.GetByRoleOptions().setName("Notes App | React"));
 
     public LoginPage goToLogin() {
         loginPageLink.click();
@@ -74,6 +77,13 @@ public class HomePage extends BasePage {
         return new ScrollPage(page);
     }
 
+    public RadioButtonsPage goToRadioButtonsPage(){
+        assertThat(radioButtonsLink).isVisible();
+        radioButtonsLink.click();
+        return new RadioButtonsPage(page);
+    }
+
+
     public String getPageTitle(){
         return mainTitle.innerText();
     }
@@ -82,8 +92,14 @@ public class HomePage extends BasePage {
         return new ForgotPasswordFormPage(page);
     }
     public WebInputsPage goToWebInputsPage(){
-        webInputs.click();
+        webInputsLink.click();
         return new WebInputsPage(page);
+    }
+
+    public WelcomePage goToNotesAppReactPage(){
+        notesAppReactLink.click();
+        page.waitForURL("**/notes/app");
+        return new WelcomePage(page);
     }
 
     @Override
