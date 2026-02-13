@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "status": 201,
+    "message": "User account created successfully",
+    "data": {
+        "id": "698f0abb3c1da702950805f5",
+        "name": "Anamaria",
+        "email": "edward_hopper1770982074684@gmail.com"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "698f0abd3c1da70295080668",
+        "name": "Carlyn",
+        "email": "caravaggio1770982077131@gmail.com",
+        "phone": "9897042448",
+        "company": "Jerde-Klocko"
+    }
+}

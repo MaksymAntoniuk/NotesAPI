@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "698f0abc3c1da70295080648",
+        "title": "Postern of Fate",
+        "description": "Maxime vero omnis. Et asperiores temporibus occaecati. Recusandae rerum soluta aperiam provident aut. Eveniet maxime est laudantium quam. Rem rerum amet fugit enim consequatur.",
+        "category": "Personal",
+        "completed": false,
+        "created_at": "2026-02-13T11:27:56.614Z",
+        "updated_at": "2026-02-13T11:27:56.614Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

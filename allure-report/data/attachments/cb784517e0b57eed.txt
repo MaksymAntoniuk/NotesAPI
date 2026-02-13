@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "698f0abc3c1da7029508062e",
+        "title": "As I Lay Dying",
+        "description": "Nesciunt odit ratione aut sit voluptatem accusamus illo. Et itaque ut nobis. Perspiciatis sed sit aperiam maiores molestias animi sed.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-02-13T11:27:56.083Z",
+        "updated_at": "2026-02-13T11:27:56.083Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "698f0abb3c1da70295080618",
+        "title": "The Torment of Others",
+        "description": "Exercitationem facere expedita qui fugiat similique. Dolor voluptatum enim. Vero aut amet voluptas ea omnis et magni. Expedita aperiam qui nostrum. Similique repellat hic odit ipsum.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-02-13T11:27:55.819Z",
+        "updated_at": "2026-02-13T11:27:55.819Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}
