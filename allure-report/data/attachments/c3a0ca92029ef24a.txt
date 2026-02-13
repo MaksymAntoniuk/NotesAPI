@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "698f07de3c1da702950803d8",
+        "name": "Ileen",
+        "email": "cassatt1770981342180@gmail.com",
+        "phone": "1941493592",
+        "company": "Crist-King"
+    }
+}

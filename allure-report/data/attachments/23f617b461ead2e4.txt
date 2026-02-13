@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "698f07dc3c1da70295080393",
+        "title": "Carrion Comfort",
+        "description": "Qui nobis est eaque veritatis facilis. Natus sint placeat autem. Quo iste dolorum. Aspernatur quia et inventore.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-02-13T11:15:40.155Z",
+        "updated_at": "2026-02-13T11:15:40.155Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "698f07dc3c1da70295080391",
+        "title": "Terrible Swift Sword",
+        "description": "Quae facilis cupiditate voluptas dolorem nostrum. Et ut voluptatum animi id tempore. Officia quos ab. Voluptatem ut fugit quaerat.",
+        "category": "Personal",
+        "completed": false,
+        "created_at": "2026-02-13T11:15:40.154Z",
+        "updated_at": "2026-02-13T11:15:40.154Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "698f07d93c1da7029508034b",
+        "name": "Nerissa",
+        "email": "durer1770981337181@gmail.com",
+        "phone": "",
+        "company": ""
+    }
+}

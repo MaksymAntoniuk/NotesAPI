@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "698f07dd3c1da702950803ba",
+        "name": "Grayce",
+        "email": "dali1770981340854@gmail.com",
+        "phone": "4670715160",
+        "company": "Tremblay, Macejkovic and Rodri"
+    }
+}
