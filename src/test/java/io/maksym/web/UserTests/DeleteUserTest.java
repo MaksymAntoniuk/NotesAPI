@@ -1,7 +1,7 @@
 package io.maksym.web.UserTests;
 
-import io.maksym.web.Records.LoginBody;
-import io.maksym.web.Records.UserBody;
+import io.maksym.web.records.LoginBody;
+import io.maksym.web.records.UserBody;
 import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.HealthCheck.BaseResponse;
@@ -11,7 +11,6 @@ import io.qameta.allure.Epic;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static io.maksym.web.enums.ErrorMessage.SUCCESSFUL_DELETION_MESSAGE;
@@ -38,8 +37,11 @@ public class DeleteUserTest extends BaseTest {
         String name = new DataGenerators().generateRandomName(NAME_MIN_LENGTH, NAME_MAX_LENGTH);
         String email = new DataGenerators().generateRandomEmail(true);
         String password = new DataGenerators().generateRandomPassword(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
+        UserBody user = new UserBody(name, email, password);
+        Response createUser = registerUser(user);
 
-        Response createUser = registerUser(new UserBody(name, email, password));
+        registerCreatedUser(user);
+
         assertResponseSchema("registration-response-schema.json", createUser);
         assertEquals(HttpStatus.SC_CREATED, createUser.getStatusCode(), "Incorrect status code");
 

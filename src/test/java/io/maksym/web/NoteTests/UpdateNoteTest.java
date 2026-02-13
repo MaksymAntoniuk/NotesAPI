@@ -1,8 +1,8 @@
 package io.maksym.web.NoteTests;
 
-import io.maksym.web.Records.NoteBody;
-import io.maksym.web.Records.NoteCompletedBody;
-import io.maksym.web.Records.NoteUpdateBody;
+import io.maksym.web.records.NoteBody;
+import io.maksym.web.records.NoteCompletedBody;
+import io.maksym.web.records.NoteUpdateBody;
 import io.maksym.web.base.BaseTest;
 import io.maksym.web.dto.Note.Note;
 import io.maksym.web.requests.actions.SimpleAction;
@@ -56,6 +56,7 @@ public class UpdateNoteTest extends BaseTest {
                 () -> assertEquals(description, response.getData().getDescription(),"Invalid Description"),
                 () -> assertEquals(category, response.getData().getCategory(), "Invalid Category"),
                 () -> assertTrue(response.getData().isCompleted(), "Invalid [Completed] status"));
+        registerCreatedNote(noteId);
     }
 
     @DisplayName("Verify that user is able to update [Note] fields")
@@ -95,6 +96,6 @@ public class UpdateNoteTest extends BaseTest {
                 () -> assertEquals(newCategory, response.getData().getCategory(), "Invalid Category"),
                 () -> assertTrue(response.getData().isCompleted(), "Invalid [Completed] status"));
 
-        deleteNoteById(token, noteId);
+        registerCreatedNote(noteId);
     }
 }
