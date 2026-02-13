@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "698f05143c1da702950802c4",
+        "title": "The Wind's Twelve Quarters",
+        "description": "Nesciunt nam id dignissimos iusto. Est nisi nisi debitis qui sequi molestiae. Est quia itaque.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-02-13T11:03:48.336Z",
+        "updated_at": "2026-02-13T11:03:48.336Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

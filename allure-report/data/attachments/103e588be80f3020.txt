@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "698f05163c1da702950802f2",
+        "name": "Ryan",
+        "email": "pollock1770980630082@gmail.com",
+        "token": "92df709ce75a46808af38bfc1cc899025d8e2ab5c35b453994c2d7063bc92cb0"
+    }
+}

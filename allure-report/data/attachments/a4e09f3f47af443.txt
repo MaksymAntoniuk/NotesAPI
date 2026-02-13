@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "698f05143c1da702950802c8",
+        "title": "A Summer Bird-Cage",
+        "description": "Et velit aliquid officia. Architecto quasi dolorem qui porro vero eaque voluptas. Ut perspiciatis sequi fugit quia sit.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-02-13T11:03:48.354Z",
+        "updated_at": "2026-02-13T11:03:48.354Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

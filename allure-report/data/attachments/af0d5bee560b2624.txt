@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "698f05153c1da702950802e3",
+        "name": "Treena",
+        "email": "chagall1770980628852@gmail.com",
+        "token": "6db82675bdfe427e9ff984bb8e7b075697e6aeb0947d4a138513f9c028d0a3c9"
+    }
+}
