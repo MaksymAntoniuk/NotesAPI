@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "698f09833c1da70295080586",
+        "name": "Jess",
+        "email": "vincent1770981763222@gmail.com",
+        "phone": "9225963038",
+        "company": "Padberg Group"
+    }
+}

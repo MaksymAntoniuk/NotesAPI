@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "698f09803c1da70295080511",
+        "name": "Laquanda",
+        "email": "rembrandt1770981760531@gmail.com",
+        "token": "e328582628d54a83b3dc875a6eae99b08513798ae3af424ebd494778e766d2a0"
+    }
+}

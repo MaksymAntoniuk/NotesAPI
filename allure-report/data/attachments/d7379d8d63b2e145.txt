@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully Updated",
+    "data": {
+        "id": "698f09823c1da70295080570",
+        "title": "Ring of Bright Water",
+        "description": "Cum non cumque quia animi aspernatur. Delectus molestias atque dolor sunt praesentium numquam tempora. Et itaque perferendis et. Tenetur eveniet reiciendis et sit dolorem molestiae unde.",
+        "category": "Home",
+        "completed": true,
+        "created_at": "2026-02-13T11:22:42.842Z",
+        "updated_at": "2026-02-13T11:22:43.019Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

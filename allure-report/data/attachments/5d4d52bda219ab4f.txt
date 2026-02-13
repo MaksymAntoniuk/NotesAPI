@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "698f09823c1da70295080560",
+        "title": "The Daffodil Sky",
+        "description": "Inventore dolores dolorem aut quia ut consequatur sed. Et dolores aperiam et. Aliquid quas aliquam. Consectetur vero qui.",
+        "category": "Personal",
+        "completed": false,
+        "created_at": "2026-02-13T11:22:42.602Z",
+        "updated_at": "2026-02-13T11:22:42.602Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

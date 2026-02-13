@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "698f09823c1da70295080548",
+        "name": "Bruce",
+        "email": "pollock1770981761937@gmail.com",
+        "phone": "2993442639",
+        "company": "Rolfson-Wolf"
+    }
+}

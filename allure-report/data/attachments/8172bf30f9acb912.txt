@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "698f097c3c1da702950804db",
+        "name": "Sharri",
+        "email": "diego_rivera1770981756420@gmail.com",
+        "token": "5dd012d4c0f5444a8052a4126aa909584dfc068e6a094433b9c1060e3cae1519"
+    }
+}
