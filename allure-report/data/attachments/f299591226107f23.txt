@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "69942dd73c1da7029508553c",
+        "title": "The Green Bay Tree",
+        "description": "Quos doloribus quas quasi delectus. Est quia doloribus. Sequi voluptatem ut maiores cum qui unde possimus. Voluptatem rerum in quos ea eos optio doloremque. In repellat est iste quasi.",
+        "category": "Personal",
+        "completed": false,
+        "created_at": "2026-02-17T08:59:03.647Z",
+        "updated_at": "2026-02-17T08:59:03.647Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "69942dd63c1da7029508552e",
+        "title": "In Dubious Battle",
+        "description": "Minus recusandae eos est provident. Neque corporis quasi necessitatibus facere. Dolores praesentium commodi non enim ullam. Reprehenderit voluptas accusamus sed vel est. Numquam provident harum sit aspernatur expedita provident.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-02-17T08:59:02.984Z",
+        "updated_at": "2026-02-17T08:59:02.984Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

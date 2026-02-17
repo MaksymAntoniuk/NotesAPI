@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "status": 201,
+    "message": "User account created successfully",
+    "data": {
+        "id": "69942dd63c1da7029508551f",
+        "name": "Jacques",
+        "email": "picasso1771318741976@gmail.com"
+    }
+}

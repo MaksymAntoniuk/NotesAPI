@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69942dce3c1da702950854c7",
+        "name": "Darius",
+        "email": "vettriano1771318734017@gmail.com",
+        "token": "86f0e3467db94be2abf061153e401dfb056882308be5485ea41285e2b52d1e71"
+    }
+}

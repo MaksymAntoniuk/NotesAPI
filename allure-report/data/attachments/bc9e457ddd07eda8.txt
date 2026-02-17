@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "69942dcb3c1da702950854bd",
+        "name": "Christoper",
+        "email": "pollock1771318731434@gmail.com",
+        "phone": "1324010037",
+        "company": ""
+    }
+}
