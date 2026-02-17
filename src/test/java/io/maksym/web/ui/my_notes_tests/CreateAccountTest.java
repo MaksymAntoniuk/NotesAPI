@@ -23,7 +23,7 @@ public class CreateAccountTest extends BaseTest {
         myNotesRegisterPage.assertRegisterPageTitleIsVisible();
 
         String email = new DataGenerators().generateRandomEmail(true);
-        String username = new DataGenerators().generateRandomName(3,6);
+        String username = new DataGenerators().generateRandomName(4,6);
         String password = new DataGenerators().generateRandomPassword(6,10);
         String confirmPassword = password;
 
@@ -47,7 +47,7 @@ public class CreateAccountTest extends BaseTest {
         MyNotesRegisterPage myNotesRegisterPage = myNotesWelcomePage.navigateToRegisterPage();
 
         String email = TestUsers.validUser().getEmail();
-        String username = new DataGenerators().generateRandomName(3,6);
+        String username = new DataGenerators().generateRandomName(4,6);
         String password = new DataGenerators().generateRandomPassword(6,10);
         String confirmPassword = password;
 
@@ -93,7 +93,7 @@ public class CreateAccountTest extends BaseTest {
         myNotesProfilePage.assertUserIdFieldIsDisabled();
 
         String companyName = new DataGenerators().generateRandomCompany();
-        String fullName = new DataGenerators().generateRandomName(3,10);
+        String fullName = new DataGenerators().generateRandomName(4,10);
         String phoneNumber = new DataGenerators().generateRandomPhone();
 
         myNotesProfilePage.fillCompanyNameField(companyName);
@@ -119,7 +119,7 @@ public class CreateAccountTest extends BaseTest {
         myNotesRegisterPage.assertRegisterPageTitleIsVisible();
 
         String email = new DataGenerators().generateRandomEmail(true);
-        String username = new DataGenerators().generateRandomName(3,6);
+        String username = new DataGenerators().generateRandomName(4,6);
         String password = new DataGenerators().generateRandomPassword(6,10);
         String confirmPassword = password;
 
