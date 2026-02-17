@@ -1,0 +1,54 @@
+package io.maksym.web.api.note_tests;
+
+import io.maksym.web.records.NoteBody;
+import io.maksym.web.api.base.BaseTest;
+import io.maksym.web.dto.Note.Note;
+import io.maksym.web.requests.actions.SimpleAction;
+import io.maksym.web.util.DataGenerators;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Severity;
+import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static io.maksym.web.enums.ErrorMessage.SUCCESSFUL_CREATION_NOTE;
+import static io.maksym.web.util.SchemaResponseValidator.assertResponseSchema;
+import static org.junit.jupiter.api.Assertions.*;
+
+@Epic("Note API")
+@DisplayName("Verify that user is able to create new [Note]")
+@Severity(io.qameta.allure.SeverityLevel.CRITICAL)
+public class CreateNotesTest extends BaseTest {
+
+    @DisplayName("Verify that user is able to create new [Note]")
+    @Description("""
+            1. Create new Note
+            2. Send request
+            3. Assert response
+            """)
+    @Test
+    public void createNoteTest(){
+        String title = new DataGenerators().generateRandomTitle();
+        String description = new DataGenerators().generateRandomDescription();
+        String category = new DataGenerators().generateRandomCategoryNote();
+
+        Response createNote = SimpleAction.createNote(token, new NoteBody(title, description, category));
+        assertResponseSchema("create-note-response-schema.json", createNote);
+        assertEquals(HttpStatus.SC_OK, createNote.getStatusCode(), "Incorrect status code");
+
+        Note response = createNote.as(Note.class);
+
+        assertAll("Create valid Note",
+                () -> assertEquals(HttpStatus.SC_OK, response.getStatus(), "Invalid Status Code"),
+                () -> assertTrue(response.isSuccess(), "Invalid Success Status"),
+                () -> assertEquals(SUCCESSFUL_CREATION_NOTE.getMessage(), response.getMessage(), "Invalid Message" ),
+                () -> assertEquals(title, response.getData().getTitle(), "Invalid Title"),
+                () -> assertEquals(description, response.getData().getDescription(),"Invalid Description"),
+                () -> assertEquals(category, response.getData().getCategory(), "Invalid Category")
+        );
+
+        registerCreatedNote(response.getData().getId());
+    }
+}
