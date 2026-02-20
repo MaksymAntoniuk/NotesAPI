@@ -6,6 +6,7 @@ import com.microsoft.playwright.options.AriaRole;
 import io.maksym.web.components.my_notes.AlertToast;
 import io.maksym.web.pages.BasePage;
 import io.maksym.web.pages.ForgotPasswordFormPage;
+import io.maksym.web.records.ui.MyNoteLoginUser;
 import io.qameta.allure.Step;
 
 public class MyNotesLoginPage extends BasePage {
@@ -20,62 +21,43 @@ public class MyNotesLoginPage extends BasePage {
 
     public MyNotesLoginPage(Page page) {
         super(page);
-        alertToast = new AlertToast(page, "Your account has been deleted. You should create a new account to continue.");
+        alertToast = new AlertToast(page);
     }
 
-    @Step("Assert Login button is visible")
-    public void assertLoginButtonIsVisible(){
-        loginBtn.waitFor();
-        loginBtn.isVisible();
-    }
-    @Step("Assert Email field is visible")
-    public void assertEmailFieldIsVisible(){
-        emailField.waitFor();
-        emailField.isVisible();
-    }
-    @Step("Assert Password field is visible")
-    public void assertPasswordFieldIsVisible(){
-        passwordField.waitFor();
-    }
-    @Step("Assert Forgot password link is visible")
-    public void assertForgotPasswordLinkIsVisible(){
-        forgotPasswordLink.waitFor();
-        forgotPasswordLink.isVisible();
-    }
-    @Step("Assert Login page title is visible")
-    public void assertLoginPageTitleIsVisible(){
-        loginTitle.waitFor();
-        loginTitle.isVisible();
-    }
     @Step("Click on forgot password link")
     public ForgotPasswordFormPage clickOnForgotPasswordLink(){
+        forgotPasswordLink.waitFor();
         forgotPasswordLink.click();
         return new ForgotPasswordFormPage(page);
     }
 
     @Step("Enter email")
     public void enterEmail(String email){
+        emailField.waitFor();
         emailField.fill(email);
     }
     @Step("Enter password")
     public void enterPassword(String password){
+        passwordField.waitFor();
         passwordField.fill(password);
     }
     @Step("Click on login button")
     public void clickLoginBtn(){
+        loginBtn.waitFor();
         loginBtn.click();
     }
 
-    public MyNotesPage fillLoginForm(String email, String password){
-        enterEmail(email);
-        enterPassword(password);
-        page.waitForTimeout(2000);
+    @Step("Log in with user {0}")
+    public MyNotesPage logInWithUser(MyNoteLoginUser user){
+        enterEmail(user.getEmail());
+        enterPassword(user.getPassword());
         clickLoginBtn();
         return new MyNotesPage(page);
     }
 
     @Step("Assert Log In page is opened")
     public void assertLogInPageIsOpened(){
+        loginTitle.waitFor();
         page.waitForURL("**/notes/app/login");
     }
 
