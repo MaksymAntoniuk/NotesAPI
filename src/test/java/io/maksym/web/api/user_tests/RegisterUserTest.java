@@ -3,7 +3,7 @@ package io.maksym.web.api.user_tests;
 import com.github.javafaker.Faker;
 import io.maksym.web.records.UserBody;
 import io.maksym.web.api.base.BaseTest;
-import io.maksym.web.dto.Registration.RegistrationSuccResponse.RegistrationSuccessfulResponse;
+import io.maksym.web.dto.Registration.RegistrationSuccessfulResponse;
 import io.maksym.web.util.DataGenerators;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;

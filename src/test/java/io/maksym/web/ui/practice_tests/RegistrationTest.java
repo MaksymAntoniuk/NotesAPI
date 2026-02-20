@@ -1,6 +1,10 @@
 package io.maksym.web.ui.practice_tests;
 
-import io.maksym.web.pages.*;
+
+import io.maksym.web.pages.RegisterPage;
+import io.maksym.web.pages.SecurePage;
+import io.maksym.web.pages.practice.HomePage;
+import io.maksym.web.pages.practice.LoginPage;
 import io.maksym.web.records.ui.UiUser;
 import io.maksym.web.records.ui.UiUserLogIn;
 import io.maksym.web.ui.pages.BaseTest;
