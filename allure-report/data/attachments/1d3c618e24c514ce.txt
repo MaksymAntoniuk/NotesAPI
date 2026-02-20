@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69987c9d0dcebe0296f2d91d",
+        "name": "Rubie",
+        "email": "caravaggio1771601052928@gmail.com",
+        "token": "6d4cfc0d8a78467296753041b194757b3fd4e38e64964240a95bab0731d7b042"
+    }
+}

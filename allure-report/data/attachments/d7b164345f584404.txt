@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "69987c990dcebe0296f2d8b7",
+        "title": "Lilies of the Field",
+        "description": "Magni eum fugiat et eaque. Voluptatem ut aut harum dolorem natus. Ullam quia ut vero qui voluptatem qui. Ut ut ut reprehenderit quaerat. Quis rerum minus quidem consequuntur.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-02-20T15:24:09.769Z",
+        "updated_at": "2026-02-20T15:24:09.769Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

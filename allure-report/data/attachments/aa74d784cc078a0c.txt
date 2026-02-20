@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "69987c970dcebe0296f2d88c",
+        "name": "Ghislaine",
+        "email": "michelangelo1771601047280@gmail.com",
+        "phone": "",
+        "company": ""
+    }
+}

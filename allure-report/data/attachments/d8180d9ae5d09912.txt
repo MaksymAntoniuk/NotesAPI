@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "69987c9a0dcebe0296f2d8e5",
+        "title": "Brandy of the Damned",
+        "description": "Quo id est atque illum in culpa. Cum molestias delectus corrupti quibusdam ea. Modi blanditiis ipsum assumenda.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-02-20T15:24:10.665Z",
+        "updated_at": "2026-02-20T15:24:10.665Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}
