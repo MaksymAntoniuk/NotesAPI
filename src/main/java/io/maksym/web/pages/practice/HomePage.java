@@ -1,9 +1,10 @@
-package io.maksym.web.pages;
+package io.maksym.web.pages.practice;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.WaitForSelectorState;
+import io.maksym.web.pages.BasePage;
 import io.maksym.web.pages.my_notes.MyNotesWelcomePage;
 import io.qameta.allure.Step;
 
@@ -48,13 +49,13 @@ public class HomePage extends BasePage {
         return new LoginPage(page);
     }
 
-    public LocatorsPage goToLocatorsPage(){
+    public io.maksym.web.pages.LocatorsPage goToLocatorsPage(){
         locatorPageLink.click();
-        return new LocatorsPage(page);
+        return new io.maksym.web.pages.LocatorsPage(page);
     }
 
 
-    public RegisterPage goToRegisterPage(){
+    public io.maksym.web.pages.RegisterPage goToRegisterPage(){
         registrationLink.waitFor(new Locator.WaitForOptions()
                 .setState(WaitForSelectorState.VISIBLE)
                 .setTimeout(5000));
@@ -68,38 +69,38 @@ public class HomePage extends BasePage {
                 )
         ).containsText("Test Register page for Automation Testing Practice");
 
-        return new RegisterPage(page);
+        return new io.maksym.web.pages.RegisterPage(page);
     }
 
-    public ScrollPage goToScrollPage(){
+    public io.maksym.web.pages.ScrollPage goToScrollPage(){
         scrollbarsLink.waitFor(new Locator.WaitForOptions()
                 .setState(WaitForSelectorState.VISIBLE)
                 .setTimeout(5000));
         scrollbarsLink.click();
-        return new ScrollPage(page);
+        return new io.maksym.web.pages.ScrollPage(page);
     }
 
-    public RadioButtonsPage goToRadioButtonsPage(){
+    public io.maksym.web.pages.RadioButtonsPage goToRadioButtonsPage(){
         assertThat(radioButtonsLink).isVisible();
         radioButtonsLink.click();
-        return new RadioButtonsPage(page);
+        return new io.maksym.web.pages.RadioButtonsPage(page);
     }
 
 
     public String getPageTitle(){
         return mainTitle.innerText();
     }
-    public ForgotPasswordFormPage goToForgotPasswordForm(){
+    public io.maksym.web.pages.ForgotPasswordFormPage goToForgotPasswordForm(){
         forgotPasswordForm.click();
-        return new ForgotPasswordFormPage(page);
+        return new io.maksym.web.pages.ForgotPasswordFormPage(page);
     }
-    public WebInputsPage goToWebInputsPage(){
+    public io.maksym.web.pages.WebInputsPage goToWebInputsPage(){
         webInputsLink.click();
-        return new WebInputsPage(page);
+        return new io.maksym.web.pages.WebInputsPage(page);
     }
 
     @Step("Go to Notes App React page")
-    public MyNotesWelcomePage goToNotesAppReactPage(){
+    public MyNotesWelcomePage goToMyNotesWelcomePage(){
         notesAppReactLink.click();
         page.waitForURL("**/notes/app");
         return new MyNotesWelcomePage(page);
