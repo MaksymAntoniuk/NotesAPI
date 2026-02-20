@@ -5,6 +5,8 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.WaitForSelectorState;
 import io.maksym.web.components.practice.FlashAlert;
+import io.maksym.web.pages.practice.LoginPage;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import static io.maksym.web.config.ApiEndpoints.BASE_URL_UI;
 
