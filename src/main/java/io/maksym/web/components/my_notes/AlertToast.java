@@ -9,15 +9,16 @@ public class AlertToast {
     private final Locator toast;
     private final Locator closeBtn;
 
-    public AlertToast(Page page, String message) {
+    public AlertToast(Page page) {
         this.page = page;
-        toast = page.getByTestId("alert-message").getByText(message);
+        toast = page.getByTestId("alert-message");
         closeBtn = page.getByTestId("alert-close");
     }
-    @Step("Assert Alert Toast is visible")
-    public void assertAlertToastIsVisible(){
-        toast.waitFor();
-        toast.isVisible();
+    @Step("Assert Alert is visible with message {message}")
+    public void assertAlertToastIsVisible(String message){
+        Locator specificToast = toast.getByText(message);
+        specificToast.waitFor();
+        specificToast.isVisible();
     }
     @Step("Click on Close Button")
     public void clickOnCloseBtn(){
@@ -28,6 +29,5 @@ public class AlertToast {
     public void assertAlertIsClosed(){
         assert(toast).isHidden();
         assert(closeBtn).isHidden();
-        page.waitForTimeout(2000);
     }
 }
