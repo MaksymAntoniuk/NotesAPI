@@ -1,4 +1,4 @@
-package io.maksym.web.dto.Registration.RegistrationSuccResponse;
+package io.maksym.web.dto.Registration;
 
 
 import lombok.Data;
