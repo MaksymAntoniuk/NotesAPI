@@ -20,12 +20,7 @@ public class SuccessRegistration {
     @Step("Assert Success Message is visible")
     public void assertSuccessMessageIsVisible(){
         successMessage.waitFor();
-        successMessage.isVisible();
-    }
-    @Step("Assert Log In link on Success Page is visible")
-    public void assertLogInLinkOnSuccessPageIsVisible(){
-        logInLinkOnSuccessPage.waitFor();
-        logInLinkOnSuccessPage.isVisible();
+        assert(successMessage).isVisible();
     }
     @Step("Go to Login Page")
     public MyNotesLoginPage goToLoginPage(){
