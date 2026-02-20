@@ -4,6 +4,7 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import io.maksym.web.pages.my_notes.MyNotesProfilePage;
+import io.maksym.web.pages.my_notes.MyNotesWelcomePage;
 import io.qameta.allure.Step;
 
 public class NavigationBar {
@@ -21,22 +22,19 @@ public class NavigationBar {
     @Step("Assert Profile Button is visible")
     public void assertProfileBtnIsVisible(){
         profileBtn.waitFor();
-        profileBtn.isVisible();
+        assert(profileBtn).isVisible();
     }
     @Step("Assert Log Out Button is visible")
     public void assertLogOutBtnIsVisible(){
         logOutBtn.waitFor();
-        logOutBtn.isVisible();
+        assert(logOutBtn).isVisible();
     }
-    @Step("Assert Home Logo Button is visible")
-    public void assertHomeLogoBtnIsVisible(){
-        homeLogoBtn.waitFor();
-        homeLogoBtn.isVisible();
-    }
+
     @Step("Click on Profile Button")
-    public void clickOnLogOutBtn(){
+    public MyNotesWelcomePage clickOnLogOutBtn(){
         logOutBtn.waitFor();
         logOutBtn.click();
+        return new MyNotesWelcomePage(page);
     }
 
     public MyNotesProfilePage clickOnProfileBtn(){
