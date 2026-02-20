@@ -4,6 +4,7 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import io.maksym.web.components.practice.FlashAlert;
+import io.maksym.web.pages.practice.LoginPage;
 import io.maksym.web.records.ui.UiUser;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import static io.maksym.web.config.ApiEndpoints.BASE_URL_UI;
