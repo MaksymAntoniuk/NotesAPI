@@ -29,54 +29,8 @@ public class MyNotesRegisterPage extends BasePage {
 
     public MyNotesRegisterPage(Page page) {
         super(page);
-        this.alertToast = new AlertToast(page, "An account already exists with the same email address");
+        this.alertToast = new AlertToast(page);
         this.successRegistration = new SuccessRegistration(page);
-    }
-
-    @Step("Assert Register button is visible")
-    public boolean assertRegisterBtnShouldBeVisible(){
-        registerBtn.waitFor();
-        return registerBtn.isVisible();
-    }
-    @Step("Assert Register with Google button is visible")
-    public boolean assertRegisterGoogleBtnShouldBeVisible(){
-        registerGoogleBtn.waitFor();
-        return registerGoogleBtn.isVisible();
-    }
-    @Step("Assert Register with LinkedIn button is visible")
-    public boolean assertRegisterLinkedInBtnShouldBeVisible(){
-        registerLinkedInBtn.waitFor();
-        return registerLinkedInBtn.isVisible();
-    }
-    @Step("Assert Log In link is visible")
-    public boolean assertLogInLinkIsVisible(){
-        logInLink.waitFor();
-        return logInLink.isVisible();
-    }
-    @Step("Assert Register page title is visible")
-    public void assertRegisterPageTitleIsVisible(){
-        registerPageTitle.waitFor();
-        registerPageTitle.isVisible();
-    }
-
-    @Step("Assert email input is visible")
-    public void assertEmailInputShouldBeVisible(){
-        emailInput.waitFor();
-        emailInput.isVisible();
-    }
-    @Step("Assert name input is visible")
-    public void assertNameInputIsVisible(){
-        nameInput.waitFor();
-        nameInput.isVisible();
-    }
-    @Step("Assert password input is visible")
-    public void assertPasswordInputIsVisible(){
-        passwordInput.waitFor();
-        passwordInput.isVisible();
-    }
-    @Step("Assert confirm password input is visible")
-    public void assertConfirmPasswordInputIsVisible(){
-        confirmPasswordInput.waitFor();
     }
 
     @Step("Enter email")
@@ -102,16 +56,17 @@ public class MyNotesRegisterPage extends BasePage {
         confirmPasswordInput.fill(confirmPassword);
     }
     @Step("Click on register button")
-    public void clickRegisterBtn(){
+    public MyNotesLoginPage clickRegisterBtn(){
         registerBtn.click();
-        page.waitForTimeout(2000);
+        return new MyNotesLoginPage(page);
     }
     @Step("Submit registration form")
-    public void fillRegistrationForm(MyNoteRegisterUser user){
+    public MyNotesLoginPage registerNewUser(MyNoteRegisterUser user){
         fillEmail(user.email());
         fillName(user.username());
         fillPassword(user.password());
         fillConfirmPassword(user.password());
+        return clickRegisterBtn();
     }
 
     @Step("Click on link to login page")
@@ -129,7 +84,8 @@ public class MyNotesRegisterPage extends BasePage {
     }
 
     public MyNotesRegisterPage assertRegistrationPageIsOpened(){
-        assertRegisterPageTitleIsVisible();
+        registerPageTitle.waitFor();
+        assert(registerPageTitle).isVisible();
         page.waitForURL("**/notes/app/register");
         return this;
     }
