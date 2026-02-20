@@ -1,8 +1,8 @@
 package io.maksym.web.ui.practice_tests;
 
+import io.maksym.web.pages.practice.HomePage;
 import io.maksym.web.ui.pages.BaseTest;
 import io.maksym.web.pages.ForgotPasswordFormPage;
-import io.maksym.web.pages.HomePage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
