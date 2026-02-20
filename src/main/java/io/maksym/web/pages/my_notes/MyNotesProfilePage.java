@@ -4,11 +4,14 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import io.maksym.web.components.my_notes.AlertToast;
-import io.maksym.web.components.my_notes.DeleteAccountModal;
+import io.maksym.web.components.my_notes.ConfirmationModal;
+import io.maksym.web.enums.UiModalTitle;
 import io.maksym.web.pages.BasePage;
+import io.maksym.web.records.ui.MyNoteUpdateUser;
 import io.qameta.allure.Step;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static io.maksym.web.enums.UiModalTitle.DELETE_ACCOUNT_MODAL_TITLE;
 
 public class MyNotesProfilePage extends BasePage {
     Locator pageTitle = page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Profile settings"));
@@ -23,53 +26,18 @@ public class MyNotesProfilePage extends BasePage {
     Locator deleteAccountButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Delete Account"));
 
     public AlertToast alertToast;
-    public DeleteAccountModal deleteAccountModal;
+    public ConfirmationModal confirmationModal;
 
     public MyNotesProfilePage(Page page) {
         super(page);
-        deleteAccountModal = new DeleteAccountModal(page);
-        this.alertToast = new AlertToast(page, "Profile updated successful");
+        confirmationModal = new ConfirmationModal(page);
+        this.alertToast = new AlertToast(page);
     }
 
     @Step("Assert Profile page is opened")
     public void assertProfilePageIsOpened(){
         pageTitle.waitFor();
-        pageTitle.isVisible();
-    }
-    @Step("Assert User ID field is visible")
-    public void assertUserIdFieldIsVisible(){
-        userIdField.waitFor();
-        userIdField.isVisible();
-    }
-    @Step("Assert Email field is visible")
-    public void assertEmailFieldIsVisible(){
-        emailField.waitFor();
-        emailField.isVisible();
-    }
-    @Step("Assert Full Name field is visible")
-    public void assertFullNameFieldIsVisible(){
-        fullNameField.waitFor();
-        fullNameField.isVisible();
-    }
-    @Step("Assert Phone Number field is visible")
-    public void assertPhoneNumberFieldIsVisible(){
-        phoneNumberField.waitFor();
-        phoneNumberField.isVisible();
-    }
-    @Step("Assert Company Name field is visible")
-    public void assertCompanyNameFieldIsVisible(){
-        companyNameField.waitFor();
-        phoneNumberField.isVisible();
-    }
-    @Step("Assert Update button is visible")
-    public void assertUpdateButtonIsVisible(){
-        updateButton.waitFor();
-        updateButton.isVisible();
-    }
-    @Step("Assert Delete Account button is visible")
-    public void assertDeleteAccountButtonIsVisible(){
-        deleteAccountButton.waitFor();
-        deleteAccountButton.isVisible();
+        assert(pageTitle).isVisible();
     }
     @Step("Fill Full Name field")
     public void fillFullNameField(String fullName){
@@ -87,10 +55,14 @@ public class MyNotesProfilePage extends BasePage {
     public void assertUserIdFieldIsDisabled(){
         assertThat(userIdField).isDisabled();
     }
-    @Step("Assert Email field is disabled")
-    public void assertEmailFieldIsDisabled(){
-        assertThat(emailField).isDisabled();
+    @Step("Update profile data: Full Name, Phone Number, Company Name")
+    public void updateProfile(MyNoteUpdateUser data){
+        fillFullNameField(data.getFullName());
+        fillPhoneNumberField(data.getPhone());
+        fillCompanyNameField(data.getCompany());
+        clickUpdateButton();
     }
+
     @Step("Assert Profile data")
     public void assertProfileData(String email, String fullName, String phoneNumber, String companyName){
         emailField.waitFor();
@@ -98,6 +70,9 @@ public class MyNotesProfilePage extends BasePage {
         assertThat(fullNameField).hasValue(fullName);
         assertThat(phoneNumberField).hasValue(phoneNumber);
         assertThat(companyNameField).hasValue(companyName);
+
+        assertThat(userIdField).isDisabled();
+        assertThat(emailField).isDisabled();
     }
 
     @Step("Click on Update button")
@@ -105,10 +80,13 @@ public class MyNotesProfilePage extends BasePage {
         updateButton.click();
     }
     @Step("Click on Delete Account button")
-    public void clickDeleteAccountButton(){
+    public MyNotesLoginPage clickDeleteAccountButton(){
         deleteAccountButton.click();
+        ConfirmationModal modal = new ConfirmationModal(page);
+        modal.assertModalIsVisible(DELETE_ACCOUNT_MODAL_TITLE.getMessage());
+        modal.clickOnDeleteBtn();
+        return new MyNotesLoginPage(page);
     }
-
 
 
     @Override
