@@ -4,7 +4,7 @@ import io.maksym.web.records.LoginBody;
 import io.maksym.web.records.UserBody;
 import io.maksym.web.api.base.BaseTest;
 import io.maksym.web.dto.Login.LoginResponse;
-import io.maksym.web.dto.Registration.RegistrationSuccResponse.RegistrationSuccessfulResponse;
+import io.maksym.web.dto.Registration.RegistrationSuccessfulResponse;
 import io.maksym.web.requests.actions.SimpleAction;
 import io.maksym.web.util.DataGenerators;
 import io.qameta.allure.Description;
