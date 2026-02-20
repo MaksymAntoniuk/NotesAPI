@@ -1,14 +1,15 @@
-package io.maksym.web.pages;
+package io.maksym.web.pages.practice;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import io.maksym.web.components.practice.FlashAlert;
+import io.maksym.web.pages.BasePage;
 import io.maksym.web.records.ui.UiUserLogIn;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import static io.maksym.web.config.ApiEndpoints.BASE_URL_UI;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
     private final FlashAlert flashAlert;
     private final Locator username = page.locator("//input[@name='username']");
     private final Locator password = page.locator("//input[@name='password']");
@@ -52,12 +53,12 @@ public class LoginPage extends BasePage{
         return flashAlert.text();
     }
 
-    public SecurePage loginAs(UiUserLogIn user){
+    public io.maksym.web.pages.SecurePage loginAs(UiUserLogIn user){
         fillUserName(user.username());
         fillPassword(user.password());
         loginClick();
         page.waitForURL("**/secure");
-        return new SecurePage(page);
+        return new io.maksym.web.pages.SecurePage(page);
     }
 
     public LoginPage loginWithInvalidUser(UiUserLogIn user){
@@ -67,12 +68,13 @@ public class LoginPage extends BasePage{
         return new LoginPage(page);
     }
 
-    public RegisterPage navigateToRegisterPage(){
+    public io.maksym.web.pages.RegisterPage navigateToRegisterPage(){
         hereLink.click();
-        return new RegisterPage(page);
+        return new io.maksym.web.pages.RegisterPage(page);
     }
 
     public LoginPage loginPageShouldBeOpened(){
+        page.waitForTimeout(1000);
         assertThat(page).hasURL(BASE_URL_UI + "/login");
         assertThat(
                 page.getByRole(
