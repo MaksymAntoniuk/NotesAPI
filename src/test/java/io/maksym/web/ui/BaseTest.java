@@ -1,4 +1,4 @@
-package io.maksym.web.ui.pages;
+package io.maksym.web.ui;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
