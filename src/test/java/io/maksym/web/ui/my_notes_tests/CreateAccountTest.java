@@ -4,7 +4,7 @@ import io.maksym.web.pages.my_notes.*;
 import io.maksym.web.pages.practice.HomePage;
 import io.maksym.web.records.ui.MyNoteLoginUser;
 import io.maksym.web.records.ui.MyNoteRegisterUser;
-import io.maksym.web.ui.pages.BaseTest;
+import io.maksym.web.ui.BaseTest;
 import io.maksym.web.test_data.TestUsers;
 import io.maksym.web.util.DataGenerators;
 import io.qameta.allure.Epic;
@@ -13,6 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static io.maksym.web.enums.UiErrorMessage.ACCOUNT_EXISTS_MESSAGE;
+import static io.maksym.web.test_data.TestUsers.validUser;
 
 @Epic("My Notes App")
 @DisplayName("Verify user is able to create account")
@@ -36,7 +37,7 @@ public class CreateAccountTest extends BaseTest {
         MyNotesRegisterPage myNotesRegisterPage = myNotesWelcomePage.goToRegisterPage();
         myNotesRegisterPage.assertRegistrationPageIsOpened();
 
-        myNotesRegisterPage.registerNewUser(user);
+        String userId = myNotesRegisterPage.registerNewUser(user);
         myNotesRegisterPage.successRegistration.assertSuccessMessageIsVisible();
 
         MyNotesLoginPage myNotesLoginPage = myNotesRegisterPage.clickLinkToLoginPage();
@@ -45,8 +46,14 @@ public class CreateAccountTest extends BaseTest {
         MyNotesPage myNotesPage = myNotesLoginPage.logInWithUser(loginUser);
         myNotesPage.assertMyNotesPageIsOpened();
 
+        MyNotesProfilePage myNotesProfilePage = myNotesPage.navigationBar.clickOnProfileBtn();
+        myNotesProfilePage.assertProfilePageIsOpened();
+        myNotesProfilePage.assertUserId(userId);
+
         MyNotesWelcomePage welcomePage = myNotesPage.navigationBar.clickOnLogOutBtn();
         welcomePage.assertWelcomePageIsOpened();
+
+        welcomePage.goToLoginPage().logInWithUser(loginUser).navigationBar.clickOnProfileBtn().clickDeleteAccountButton();
     }
 
     @Test
@@ -66,7 +73,7 @@ public class CreateAccountTest extends BaseTest {
         MyNotesRegisterPage myNotesRegisterPage = myNotesWelcomePage.goToRegisterPage();
 
         myNotesRegisterPage.registerNewUser(user);
-        myNotesRegisterPage.clickRegisterBtn();
+//        myNotesRegisterPage.clickRegisterBtn();
 
         myNotesRegisterPage.assertRegistrationPageIsOpened();
         myNotesRegisterPage.alertToast.assertAlertToastIsVisible(ACCOUNT_EXISTS_MESSAGE.getMessage());
