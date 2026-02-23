@@ -39,22 +39,27 @@ public class MyNotesProfilePage extends BasePage {
         pageTitle.waitFor();
         assert(pageTitle).isVisible();
     }
+
     @Step("Fill Full Name field")
     public void fillFullNameField(String fullName){
         fullNameField.fill(fullName);
     }
+
     @Step("Fill Email field")
     public void fillPhoneNumberField(String phoneNumber){
         phoneNumberField.fill(phoneNumber);
     }
+
     @Step("Fill Company Name field")
     public void fillCompanyNameField(String companyName){
         companyNameField.fill(companyName);
     }
+
     @Step("Assert User ID field is disabled")
     public void assertUserIdFieldIsDisabled(){
         assertThat(userIdField).isDisabled();
     }
+
     @Step("Update profile data: Full Name, Phone Number, Company Name")
     public void updateProfile(MyNoteUpdateUser data){
         fillFullNameField(data.getFullName());
@@ -75,10 +80,16 @@ public class MyNotesProfilePage extends BasePage {
         assertThat(emailField).isDisabled();
     }
 
+    public void assertUserId(String userId){
+        userIdField.waitFor();
+        assertThat(userIdField).hasValue(userId);
+    }
+
     @Step("Click on Update button")
     public void clickUpdateButton(){
         updateButton.click();
     }
+
     @Step("Click on Delete Account button")
     public MyNotesLoginPage clickDeleteAccountButton(){
         deleteAccountButton.click();
@@ -87,7 +98,6 @@ public class MyNotesProfilePage extends BasePage {
         modal.clickOnDeleteBtn();
         return new MyNotesLoginPage(page);
     }
-
 
     @Override
     protected String path() {
