@@ -24,12 +24,14 @@ public class MyNotesWelcomePage extends BasePage {
         page.waitForURL("**/notes/app");
         assertThat(pageTitle).isVisible();
     }
+
     @Step("Navigate to Register page")
     public MyNotesRegisterPage goToRegisterPage(){
         createAccountLink.click();
         page.waitForURL("**/notes/app/register");
         return new MyNotesRegisterPage(page);
     }
+
     @Step("Navigate to Login page")
     public MyNotesLoginPage goToLoginPage(){
         loginLink.click();
