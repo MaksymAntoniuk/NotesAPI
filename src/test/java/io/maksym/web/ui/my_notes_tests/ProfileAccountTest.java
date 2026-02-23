@@ -6,7 +6,7 @@ import io.maksym.web.pages.practice.HomePage;
 import io.maksym.web.records.ui.MyNoteLoginUser;
 import io.maksym.web.records.ui.MyNoteRegisterUser;
 import io.maksym.web.records.ui.MyNoteUpdateUser;
-import io.maksym.web.ui.pages.BaseTest;
+import io.maksym.web.ui.BaseTest;
 import io.maksym.web.util.DataGenerators;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.DisplayName;
@@ -25,15 +25,29 @@ public class ProfileAccountTest extends BaseTest {
         String fullName = new DataGenerators().generateRandomName(4,10);
         String phoneNumber = new DataGenerators().generateRandomPhone();
 
-        MyNoteLoginUser loginUser = new MyNoteLoginUser(validUser().getEmail(), validUser().getPassword());
         MyNoteUpdateUser updateUser = new MyNoteUpdateUser(fullName, phoneNumber, companyName);
+
+        String email = new DataGenerators().generateRandomEmail(true);
+        String username = new DataGenerators().generateRandomName(4,6);
+        String password = new DataGenerators().generateRandomPassword(6,10);
+        String confirmPassword = password;
+
+        MyNoteRegisterUser user = new MyNoteRegisterUser(email, username, password, confirmPassword);
+        MyNoteLoginUser loginUser = new MyNoteLoginUser(email, password);
 
         HomePage homePage = new HomePage(page()).open();
         MyNotesWelcomePage myNotesWelcomePage = homePage.goToMyNotesWelcomePage();
         myNotesWelcomePage.assertWelcomePageIsOpened();
 
-        MyNotesLoginPage myNotesLoginPage = myNotesWelcomePage.goToLoginPage();
+        MyNotesRegisterPage myNotesRegisterPage = myNotesWelcomePage.goToRegisterPage();
+        myNotesRegisterPage.assertRegistrationPageIsOpened();
+
+        myNotesRegisterPage.registerNewUser(user);
+        myNotesRegisterPage.successRegistration.assertSuccessMessageIsVisible();
+
+        MyNotesLoginPage myNotesLoginPage = myNotesRegisterPage.clickLinkToLoginPage();
         myNotesLoginPage.assertLogInPageIsOpened();
+
         MyNotesPage myNotesPage = myNotesLoginPage.logInWithUser(loginUser);
         myNotesPage.assertMyNotesPageIsOpened();
 
@@ -46,8 +60,10 @@ public class ProfileAccountTest extends BaseTest {
         myNotesProfilePage.alertToast.clickOnCloseBtn();
         myNotesProfilePage.alertToast.assertAlertIsClosed();
 
-        myNotesProfilePage.assertProfileData(validUser().getEmail(), updateUser.getFullName(),
+        myNotesProfilePage.assertProfileData(user.email(), updateUser.getFullName(),
                 updateUser.getPhone(), updateUser.getCompany());
+
+        myNotesProfilePage.clickDeleteAccountButton().assertLogInPageIsOpened();
     }
 
     @Test

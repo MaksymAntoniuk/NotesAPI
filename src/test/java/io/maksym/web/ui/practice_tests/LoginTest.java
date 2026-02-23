@@ -1,13 +1,11 @@
 package io.maksym.web.ui.practice_tests;
 
-import io.maksym.web.pages.*;
-
 import io.maksym.web.pages.RegisterPage;
 import io.maksym.web.pages.SecurePage;
 import io.maksym.web.pages.practice.HomePage;
 import io.maksym.web.pages.practice.LoginPage;
 import io.maksym.web.records.ui.UiUserLogIn;
-import io.maksym.web.ui.pages.BaseTest;
+import io.maksym.web.ui.BaseTest;
 import io.maksym.web.util.DataGenerators;
 import lombok.extern.apachecommons.CommonsLog;
 import org.junit.jupiter.api.Assertions;

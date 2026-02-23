@@ -1,7 +1,7 @@
 package io.maksym.web.ui.practice_tests;
 
 import io.maksym.web.pages.practice.HomePage;
-import io.maksym.web.ui.pages.BaseTest;
+import io.maksym.web.ui.BaseTest;
 import io.maksym.web.pages.ScrollPage;
 import org.junit.jupiter.api.Assertions;
 
