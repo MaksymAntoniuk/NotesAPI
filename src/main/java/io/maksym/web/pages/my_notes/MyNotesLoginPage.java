@@ -36,11 +36,13 @@ public class MyNotesLoginPage extends BasePage {
         emailField.waitFor();
         emailField.fill(email);
     }
+
     @Step("Enter password")
     public void enterPassword(String password){
         passwordField.waitFor();
         passwordField.fill(password);
     }
+
     @Step("Click on login button")
     public void clickLoginBtn(){
         loginBtn.waitFor();
