@@ -38,10 +38,12 @@ public class MyNotesPage extends BasePage {
         navigationBar.assertProfileBtnIsVisible();
         navigationBar.assertLogOutBtnIsVisible();
     }
+
     @Step("Click on + Add Note button")
     public void clickOnAddNoteBtn(){
         addNoteBtn.click();
     }
+
     @Step("Get Note Card by title: {title}")
     public NoteCard getNoteByTitle(String title) {
         Locator card = noteCard
@@ -53,6 +55,36 @@ public class MyNotesPage extends BasePage {
     @Step("Assert Note Card is not visible with title: {title}")
     public void assertNoteIsNotVisible(String title){
         assertThat(page.getByTestId("note-card").filter(new Locator.FilterOptions().setHasText(title))).isHidden();
+    }
+
+    @Step("Click on Work Filter button")
+    public void clickOnWorkFilterButton(){
+        workFilterBtn.waitFor();
+        workFilterBtn.click();
+    }
+
+    @Step("Click on Personal Filter button")
+    public void clickOnPersonalFilterButton(){
+        personalFilterBtn.waitFor();
+        personalFilterBtn.click();
+    }
+
+    @Step("Click on All Filter button")
+    public void clickOnAllFilterButton(){
+        allFilterBtn.waitFor();
+        allFilterBtn.click();
+    }
+
+    @Step("Click on Search button")
+    public void clickOnSearchField(){
+        searchBtn.click();
+    }
+
+    @Step("Search Note by Title")
+    public void searchNoteByTitle(String title){
+        searchField.click();
+        searchField.fill(title);
+        clickOnSearchField();
     }
 
     @Override
