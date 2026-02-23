@@ -3,7 +3,6 @@ package io.maksym.web.components.my_notes;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
-import io.maksym.web.enums.CategoryNote;
 import io.maksym.web.records.ui.MyNoteBody;
 import io.qameta.allure.Step;
 
@@ -65,7 +64,6 @@ public class AddNewNoteForm {
             checkCompletedCheckbox();
         }
         clickOnCreateBtn();
-        page.waitForTimeout(2000);
     }
 
     @Step("Click on Create button")
