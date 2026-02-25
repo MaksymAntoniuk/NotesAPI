@@ -3,7 +3,7 @@ package io.maksym.web.pages.my_notes;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
-import io.maksym.web.components.my_notes.AddNewNoteForm;
+import io.maksym.web.components.my_notes.NoteModal;
 import io.maksym.web.components.my_notes.NavigationBar;
 import io.maksym.web.components.my_notes.NoteCard;
 import io.maksym.web.pages.BasePage;
@@ -15,7 +15,7 @@ public class MyNotesPage extends BasePage {
 
     private final Locator addNoteBtn = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("+ Add Note"));
     public NavigationBar navigationBar;
-    public AddNewNoteForm addNewNoteForm;
+    public NoteModal noteModal;
 
     private final Locator allFilterBtn = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("All"));
     private final Locator homeFilterBtn = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Home"));
@@ -30,7 +30,7 @@ public class MyNotesPage extends BasePage {
     public MyNotesPage(Page page) {
         super(page);
         navigationBar = new NavigationBar(page);
-        addNewNoteForm = new AddNewNoteForm(page);
+        noteModal = new NoteModal(page);
     }
 
     @Step("Assert My Notes page is opened")
