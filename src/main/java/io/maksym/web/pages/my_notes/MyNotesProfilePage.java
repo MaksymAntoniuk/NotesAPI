@@ -5,7 +5,7 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import io.maksym.web.components.my_notes.AlertToast;
 import io.maksym.web.components.my_notes.ConfirmationModal;
-import io.maksym.web.enums.UiModalTitle;
+import io.maksym.web.components.my_notes.NavigationBar;
 import io.maksym.web.pages.BasePage;
 import io.maksym.web.records.ui.MyNoteUpdateUser;
 import io.qameta.allure.Step;
@@ -25,13 +25,21 @@ public class MyNotesProfilePage extends BasePage {
     Locator updateButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Update profile"));
     Locator deleteAccountButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Delete Account"));
 
+    Locator changePasswordTab = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Change password"));
+    Locator currentPasswordField = page.getByTestId("current-password");
+    Locator newPasswordField = page.getByTestId("new-password");
+    Locator confirmPasswordField = page.getByTestId("confirm-password");
+    Locator updatePasswordButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Update password"));
+
     public AlertToast alertToast;
     public ConfirmationModal confirmationModal;
+    public NavigationBar navigationBar;
 
     public MyNotesProfilePage(Page page) {
         super(page);
         confirmationModal = new ConfirmationModal(page);
         this.alertToast = new AlertToast(page);
+        this.navigationBar = new NavigationBar(page);
     }
 
     @Step("Assert Profile page is opened")
@@ -91,13 +99,44 @@ public class MyNotesProfilePage extends BasePage {
     }
 
     @Step("Click on Delete Account button")
-    public MyNotesLoginPage clickDeleteAccountButton(){
+    public MyNotesLoginPage deleteUserProfile(){
         deleteAccountButton.click();
         ConfirmationModal modal = new ConfirmationModal(page);
         modal.assertModalIsVisible(DELETE_ACCOUNT_MODAL_TITLE.getMessage());
         modal.clickOnDeleteBtn();
         return new MyNotesLoginPage(page);
     }
+
+    public void clickChangePasswordTab(){
+        changePasswordTab.click();
+    }
+    public void fillCurrentPasswordField(String password){
+        currentPasswordField.fill(password);
+    }
+
+    public void fillNewPasswordField(String password){
+        newPasswordField.fill(password);
+    }
+    public void fillConfirmPasswordField(String password){
+        confirmPasswordField.fill(password);
+    }
+    public void clickUpdatePasswordButton(){
+        updatePasswordButton.click();
+    }
+
+    public void updatePassword(String currentPassword, String newPassword){
+        clickChangePasswordTab();
+        fillCurrentPasswordField(currentPassword);
+        fillNewPasswordField(newPassword);
+        fillConfirmPasswordField(newPassword);
+        clickUpdatePasswordButton();
+        page.waitForTimeout(2000);
+    }
+
+    public void assertPasswordUpdatedMessage(){
+        alertToast.assertAlertToastIsVisible("The password was successfully updated");
+    }
+
 
     @Override
     protected String path() {
