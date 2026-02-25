@@ -57,10 +57,23 @@ public class MyNotesLoginPage extends BasePage {
         return new MyNotesPage(page);
     }
 
+    @Step("Log in with invalid user {0}")
+    public MyNotesLoginPage logInWithInvalidUser(MyNoteLoginUser user){
+        enterEmail(user.getEmail());
+        enterPassword(user.getPassword());
+        clickLoginBtn();
+        return this;
+    }
+
     @Step("Assert Log In page is opened")
     public void assertLogInPageIsOpened(){
         loginTitle.waitFor();
         page.waitForURL("**/notes/app/login");
+    }
+
+    @Step("Assert invalid credentials message is visible")
+    public void assertInvalidCredentialsMessage(){
+        alertToast.assertAlertToastIsVisible("Incorrect email address or password");
     }
 
     @Override
