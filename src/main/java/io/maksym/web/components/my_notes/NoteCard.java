@@ -73,7 +73,6 @@ public class NoteCard {
         LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
 
         long secondsBetween = ChronoUnit.SECONDS.between(parsedUiTime, now);
-        System.out.println("Second Between: " + secondsBetween);
 
         if (Math.abs(secondsBetween) > 60){
             throw new AssertionError("Timestamp drift too high! UI (UTC): " + uiTimeText +
