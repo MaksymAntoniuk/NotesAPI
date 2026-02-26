@@ -4,13 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Response;
 import com.microsoft.playwright.options.AriaRole;
 import io.maksym.web.components.my_notes.AlertToast;
 import io.maksym.web.components.my_notes.SuccessRegistration;
 import io.maksym.web.pages.BasePage;
 import io.maksym.web.records.ui.MyNoteRegisterUser;
 import io.qameta.allure.Step;
+
+import static io.maksym.web.enums.UiErrorMessage.ACCOUNT_EXISTS_MESSAGE;
 
 public class MyNotesRegisterPage extends BasePage {
 
@@ -114,6 +115,11 @@ public class MyNotesRegisterPage extends BasePage {
         assert(registerPageTitle).isVisible();
         page.waitForURL("**/notes/app/register");
         return this;
+    }
+
+    @Step("Assert Account exists message")
+    public void assertAccountExistsMessage(){
+        alertToast.assertAlertToastIsVisible(ACCOUNT_EXISTS_MESSAGE.getMessage());
     }
 
     @Override
