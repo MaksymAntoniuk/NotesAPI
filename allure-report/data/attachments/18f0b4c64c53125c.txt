@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully retrieved",
+    "data": {
+        "id": "69a09aaa99141c0295a088fa",
+        "title": "A Time to Kill",
+        "description": "Voluptatem consequatur eum nobis architecto. Officiis nisi tempora consequatur magnam soluta dolorem nisi. Labore odio dolor illo dolores libero et. Dignissimos dolores eum consequatur hic.",
+        "category": "Personal",
+        "completed": false,
+        "created_at": "2026-02-26T19:10:34.847Z",
+        "updated_at": "2026-02-26T19:10:34.847Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

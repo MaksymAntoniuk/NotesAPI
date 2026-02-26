@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69a09a9399141c0295a0883a",
+        "name": "Neville",
+        "email": "picasso1772133011538@gmail.com",
+        "token": "3d1199ebda10444db255b4008bf4d545dafec49bf9d7437ca5e47d4c4e6fbc49"
+    }
+}

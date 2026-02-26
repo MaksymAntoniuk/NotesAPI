@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69a09a9899141c0295a0884c",
+        "name": "Thalia",
+        "email": "kahlo1772133016139@gmail.com",
+        "token": "56abf86e001b4b728a430e4a6dd647a34433d9eb5948457b92b1d9366e69ff47"
+    }
+}

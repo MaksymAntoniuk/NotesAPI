@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "69a09a9e99141c0295a0886a",
+        "name": "Jennie",
+        "email": "picasso1772133022108@gmail.com",
+        "phone": "6361354702",
+        "company": "Nikolaus-Jaskolski"
+    }
+}

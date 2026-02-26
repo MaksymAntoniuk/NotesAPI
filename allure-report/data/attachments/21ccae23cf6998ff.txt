@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "69a09a9899141c0295a0884c",
+        "name": "Edyth",
+        "email": "kahlo1772133016139@gmail.com",
+        "phone": "",
+        "company": ""
+    }
+}

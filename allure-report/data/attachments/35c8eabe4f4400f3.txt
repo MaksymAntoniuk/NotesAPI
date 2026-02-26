@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69a09aa699141c0295a088b9",
+        "name": "Colby",
+        "email": "winslow_homer1772133030696@gmail.com",
+        "token": "eb0d9ece7fe1406bba5f46e0659281333d57d58ce7e746548031dd5328cd50b6"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "69a09a9c99141c0295a08860",
+        "name": "Domingo",
+        "email": "monet1772133020702@gmail.com",
+        "phone": "3836724754",
+        "company": "Mraz, Kshlerin and Orn"
+    }
+}
