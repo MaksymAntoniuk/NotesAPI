@@ -55,10 +55,15 @@ public class NoteModal {
         categorySelect.selectOption(category);
     }
 
-    @Step("Check completed checkbox")
-    public void checkCompletedCheckbox(){
-        completedCheckbox.check();
-        assertThat(completedCheckbox).isChecked();
+    @Step("Set completed checkbox to {0}")
+    public void setCompletedCheckbox(boolean isCompleted){
+        completedCheckbox.setChecked(isCompleted);
+
+        if (isCompleted){
+            assertThat(completedCheckbox).isChecked();
+        } else {
+            assertThat(completedCheckbox).not().isChecked();
+        }
     }
 
     @Step("Create new note")
@@ -66,9 +71,8 @@ public class NoteModal {
         fillInTitleField(note.title());
         fillInDescriptionField(note.description());
         selectCategory(note.category().getCategory());
-        if (note.completed()) {
-            checkCompletedCheckbox();
-        }
+        setCompletedCheckbox(note.completed());
+
         clickOnCreateBtn();
     }
 
@@ -77,9 +81,8 @@ public class NoteModal {
         fillInTitleField(note.title());
         fillInDescriptionField(note.description());
         selectCategory(note.category().getCategory());
-        if (note.completed()) {
-            checkCompletedCheckbox();
-        }
+        setCompletedCheckbox(note.completed());
+
         clickOnCreateBtn();
     }
 
