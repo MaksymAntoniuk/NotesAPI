@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "69a0997799141c0295a086e1",
+        "name": "Alvina",
+        "email": "winslow_homer1772132727120@gmail.com",
+        "phone": "2509609280",
+        "company": ""
+    }
+}

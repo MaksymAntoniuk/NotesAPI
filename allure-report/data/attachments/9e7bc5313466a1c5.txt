@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully retrieved",
+    "data": {
+        "id": "69a0998599141c0295a0877e",
+        "title": "The Moon by Night",
+        "description": "Accusantium corporis aut harum. Ex eligendi repellat harum illo esse optio voluptatem. Temporibus nulla non incidunt modi voluptatem. Qui quae omnis.",
+        "category": "Personal",
+        "completed": false,
+        "created_at": "2026-02-26T19:05:41.376Z",
+        "updated_at": "2026-02-26T19:05:41.376Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

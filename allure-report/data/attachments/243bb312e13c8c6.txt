@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69a0997a99141c0295a086f5",
+        "name": "Angelina",
+        "email": "bernini1772132729989@gmail.com",
+        "token": "bd4312f24e3e4b6ab06ae2736b82485a3ff6a1a827e44c6996c5255c34217049"
+    }
+}

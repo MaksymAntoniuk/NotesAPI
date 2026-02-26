@@ -1,0 +1,17 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Notes successfully retrieved",
+    "data": [
+        {
+            "id": "69a0998499141c0295a08775",
+            "title": "No Highway",
+            "description": "Suscipit voluptates quisquam ut optio sequi culpa ut. Consectetur vero dolores. Dolor mollitia minus quos quis.",
+            "category": "Home",
+            "completed": false,
+            "created_at": "2026-02-26T19:05:40.911Z",
+            "updated_at": "2026-02-26T19:05:40.911Z",
+            "user_id": "690f199d45fcff029aa9bdde"
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully Updated",
+    "data": {
+        "id": "69a0998399141c0295a08755",
+        "title": "Bury My Heart at Wounded Knee",
+        "description": "Mollitia eos maxime aliquam dolorum explicabo. Doloremque quia id. Vel aliquid reprehenderit consequuntur. Quibusdam est est est est eaque cumque. Assumenda aliquid quis dolorem molestiae nisi.",
+        "category": "Personal",
+        "completed": true,
+        "created_at": "2026-02-26T19:05:39.103Z",
+        "updated_at": "2026-02-26T19:05:39.360Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

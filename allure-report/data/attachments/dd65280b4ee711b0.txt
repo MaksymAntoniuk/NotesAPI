@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "69a0997a99141c0295a086f5",
+        "name": "Mohammad",
+        "email": "bernini1772132729989@gmail.com",
+        "phone": "1712675993",
+        "company": "Renner Group"
+    }
+}

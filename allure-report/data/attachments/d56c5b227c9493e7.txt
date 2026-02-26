@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "status": 201,
+    "message": "User account created successfully",
+    "data": {
+        "id": "69a0997e99141c0295a08729",
+        "name": "NameFakeNameFakeNameFakeNameFa",
+        "email": "chagall1772132734001@gmail.com"
+    }
+}
