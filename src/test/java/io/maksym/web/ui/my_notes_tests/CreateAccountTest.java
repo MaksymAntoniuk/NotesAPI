@@ -13,8 +13,6 @@ import io.qameta.allure.Severity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static io.maksym.web.enums.UiErrorMessage.ACCOUNT_EXISTS_MESSAGE;
-
 @Epic("My Notes App")
 @DisplayName("Verify user is able to create account")
 @Severity(io.qameta.allure.SeverityLevel.CRITICAL)
@@ -95,7 +93,7 @@ public class CreateAccountTest extends BaseTest {
         myNotesRegisterPage.registerNewUser(user);
 
         myNotesRegisterPage.assertRegistrationPageIsOpened();
-        myNotesRegisterPage.alertToast.assertAlertToastIsVisible(ACCOUNT_EXISTS_MESSAGE.getMessage());
+        myNotesRegisterPage.assertAccountExistsMessage();
 
         myNotesRegisterPage.alertToast.clickOnCloseBtn();
         myNotesRegisterPage.alertToast.assertAlertIsClosed();
