@@ -1,6 +1,5 @@
 package io.maksym.web.ui.my_notes_tests;
 
-
 import io.maksym.web.pages.my_notes.*;
 import io.maksym.web.pages.practice.HomePage;
 import io.maksym.web.records.ui.MyNoteLoginUser;
@@ -12,8 +11,6 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static io.maksym.web.enums.UiErrorMessage.*;
 
 @Epic("My Notes App")
 @DisplayName("Verify user is able to update profile data")
@@ -66,7 +63,7 @@ public class ProfileAccountTest extends BaseTest {
 
         myNotesProfilePage.updateProfile(updateUser);
 
-        myNotesProfilePage.alertToast.assertAlertToastIsVisible(SUCCESSFUL_PROFILE_UPDATE_MESSAGE.getMessage());
+        myNotesProfilePage.assertSuccessfulProfileUpdateMessage();
         myNotesProfilePage.alertToast.clickOnCloseBtn();
         myNotesProfilePage.alertToast.assertAlertIsClosed();
 
@@ -118,7 +115,8 @@ public class ProfileAccountTest extends BaseTest {
         myNotesProfilePage.updatePassword(password, newPassword);
         myNotesProfilePage.assertPasswordUpdatedMessage();
 
-        MyNotesLoginPage loginPage = myNotesProfilePage.navigationBar.clickOnLogOutBtn().goToLoginPage().logInWithInvalidUser(loginUser);
+        MyNotesLoginPage loginPage = myNotesProfilePage.navigationBar.clickOnLogOutBtn().goToLoginPage()
+                        .logInWithInvalidUser(loginUser);
         loginPage.assertInvalidCredentialsMessage();
 
         MyNotesPage notesPage = loginPage.logInWithUser(new MyNoteLoginUser(email, newPassword));
