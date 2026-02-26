@@ -62,6 +62,7 @@ public class MyNotesViewPage extends BasePage {
             assertCategoryColor(note.category());
         }
     }
+
     @Step("Assert color of category")
     private void assertCategoryColor(CategoryNote category){
         String expectedColor = switch (category) {
@@ -105,11 +106,10 @@ public class MyNotesViewPage extends BasePage {
         return new MyNotesPage(page);
     }
 
+    @Step("Check as Completed")
     public void setIsCompleted(){
         isCompleted.click();
-        page.waitForTimeout(2000);
     }
-
 
     @Override
     protected String path() {
