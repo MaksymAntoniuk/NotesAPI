@@ -27,6 +27,8 @@ public class MyNotesPage extends BasePage {
 
     private final Locator noteCard = page.getByTestId("note-card");
 
+    private final Locator noteCounter = page.getByTestId("progress-info");
+
     public MyNotesPage(Page page) {
         super(page);
         navigationBar = new NavigationBar(page);
@@ -85,6 +87,19 @@ public class MyNotesPage extends BasePage {
         searchField.click();
         searchField.fill(title);
         clickOnSearchField();
+    }
+
+    @Step("Assert counter works correct")
+    public void assertCounterOfNotes(int expectedCompleted, int expectedTotal){
+        String pattern = String.format("You have %d/%d notes completed in the all categories",
+                expectedCompleted, expectedTotal);
+
+        assertThat(noteCounter).hasText(pattern);
+    }
+
+    @Step("Assert All Notes are completed")
+    public void asserAllNotesCompleted(){
+        assertThat(noteCounter).hasText("You have completed all notes");
     }
 
     @Override
