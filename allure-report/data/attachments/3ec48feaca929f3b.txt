@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully Updated",
+    "data": {
+        "id": "69b2725414ccdb029563a37a",
+        "title": "The Golden Apples of the Sun",
+        "description": "Dolores maiores molestias ex maxime. Ut dolore ut laboriosam. Tempora quae ratione cupiditate. Perferendis expedita illo iure illo enim.",
+        "category": "Personal",
+        "completed": true,
+        "created_at": "2026-03-12T07:59:16.958Z",
+        "updated_at": "2026-03-12T07:59:17.181Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

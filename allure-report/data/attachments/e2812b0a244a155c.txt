@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69b2724414ccdb029563a2ea",
+        "name": "Stefanie",
+        "email": "paul_klee1773302340150@gmail.com",
+        "token": "4a0e183d7ef6461e870b4c8388eab7c07bd5e3fd4c6f4bc8b26bdfcd648677a5"
+    }
+}

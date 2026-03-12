@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "69b2725514ccdb029563a393",
+        "title": "The Doors of Perception",
+        "description": "Sint repellat temporibus pariatur temporibus excepturi voluptate. Eaque qui reiciendis beatae. Minima quam odit. Eum autem earum. Quis autem libero harum quibusdam dolore quo et.",
+        "category": "Home",
+        "completed": false,
+        "created_at": "2026-03-12T07:59:17.967Z",
+        "updated_at": "2026-03-12T07:59:17.967Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}

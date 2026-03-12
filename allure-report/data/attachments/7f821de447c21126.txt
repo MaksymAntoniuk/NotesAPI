@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69b2725014ccdb029563a340",
+        "name": "Earnestine",
+        "email": "vettriano1773302352140@gmail.com",
+        "token": "e38ef7533c524e8cb71aa2f9d298cf049770235d5122425584acb7bdefb8d07b"
+    }
+}

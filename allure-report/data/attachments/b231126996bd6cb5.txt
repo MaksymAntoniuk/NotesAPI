@@ -1,0 +1,17 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Notes successfully retrieved",
+    "data": [
+        {
+            "id": "69b2725614ccdb029563a39c",
+            "title": "If Not Now, When?",
+            "description": "Esse ut laboriosam maiores est voluptates eius eaque. Ipsa maiores error fugit. Hic enim commodi. Quaerat blanditiis quia cum. Culpa reiciendis dolores perspiciatis ut enim omnis qui.",
+            "category": "Home",
+            "completed": false,
+            "created_at": "2026-03-12T07:59:18.218Z",
+            "updated_at": "2026-03-12T07:59:18.218Z",
+            "user_id": "690f199d45fcff029aa9bdde"
+        }
+    ]
+}

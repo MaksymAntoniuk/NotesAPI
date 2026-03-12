@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "id": "69b2724b14ccdb029563a305",
+        "name": "Isidro",
+        "email": "seurat1773302347294@gmail.com",
+        "token": "0c1d19cc028743f98d151e943bd24ebace33f6f3749544fc8d74193e9d51eee6"
+    }
+}

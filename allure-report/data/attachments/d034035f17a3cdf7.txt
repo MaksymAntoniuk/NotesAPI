@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Profile updated successful",
+    "data": {
+        "id": "69b2724d14ccdb029563a319",
+        "name": "Eugena",
+        "email": "cezanne1773302349482@gmail.com",
+        "phone": "6292375728",
+        "company": "Gleichner and Sons"
+    }
+}

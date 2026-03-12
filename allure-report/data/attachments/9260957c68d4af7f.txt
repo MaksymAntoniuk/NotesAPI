@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "status": 201,
+    "message": "User account created successfully",
+    "data": {
+        "id": "69b2724814ccdb029563a2fb",
+        "name": "Breanne",
+        "email": "raphael1773302343797@gmail.com"
+    }
+}

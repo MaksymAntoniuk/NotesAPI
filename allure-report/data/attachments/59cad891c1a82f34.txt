@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "status": 200,
+    "message": "Note successfully created",
+    "data": {
+        "id": "69b2725514ccdb029563a381",
+        "title": "The Moon by Night",
+        "description": "Saepe et ut est reprehenderit voluptates. Eligendi nostrum eveniet est itaque. Nihil sequi eligendi. Et commodi id velit laboriosam veritatis qui rerum.",
+        "category": "Personal",
+        "completed": false,
+        "created_at": "2026-03-12T07:59:17.276Z",
+        "updated_at": "2026-03-12T07:59:17.276Z",
+        "user_id": "690f199d45fcff029aa9bdde"
+    }
+}
