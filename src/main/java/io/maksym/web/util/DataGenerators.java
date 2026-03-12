@@ -75,4 +75,8 @@ public class DataGenerators {
                 CategoryNote.WORK));
         return categories.get(new Faker().number().numberBetween(0, categories.size() - 1));
     }
+
+    public boolean generateRandomBoolean(){
+        return new Faker().bool().bool();
+    }
 }
