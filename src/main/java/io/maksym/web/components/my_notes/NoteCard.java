@@ -24,6 +24,7 @@ public class NoteCard {
     private Locator viewNoteBtn;
     private Locator noteEditBtn;
     private Locator noteDeleteBtn;
+    private Locator isCompleted;
 
 
     public NoteCard(Locator root) {
@@ -35,6 +36,7 @@ public class NoteCard {
         viewNoteBtn = root.getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("View"));
         noteEditBtn = root.getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("Edit"));
         noteDeleteBtn = root.getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("Delete"));
+        isCompleted = root.getByTestId("toggle-note-switch");
     }
 
     @Step("Assert Note data")
@@ -94,6 +96,11 @@ public class NoteCard {
     @Step("Click on Delete button")
     public void clickOnDeleteBtn(){
         noteDeleteBtn.click();
+    }
+
+    @Step("Set Note as Completed")
+    public void setNoteIsCompleted(){
+        isCompleted.click();
     }
 }
 
