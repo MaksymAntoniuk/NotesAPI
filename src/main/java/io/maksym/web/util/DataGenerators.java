@@ -68,4 +68,15 @@ public class DataGenerators {
                 CategoryNote.WORK.getCategory()));
         return categories.get(new Faker().number().numberBetween(0, categories.size() - 1));
     }
+    public CategoryNote generateRandomCatNote(){
+        List<CategoryNote> categories = new ArrayList<CategoryNote>(List.of(
+                CategoryNote.HOME,
+                CategoryNote.PERSONAL,
+                CategoryNote.WORK));
+        return categories.get(new Faker().number().numberBetween(0, categories.size() - 1));
+    }
+
+    public boolean generateRandomBoolean(){
+        return new Faker().bool().bool();
+    }
 }
